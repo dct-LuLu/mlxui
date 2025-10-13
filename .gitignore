@@ -1,0 +1,6 @@
+a.out
+*.o
+*.a
+*.d
+.obj/
+.dep/
