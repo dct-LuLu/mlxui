@@ -4,3 +4,4 @@ a.out
 *.d
 .obj/
 .dep/
+test
