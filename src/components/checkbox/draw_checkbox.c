@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 17:11:46 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/10/29 17:21:01 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/10/29 22:11:05 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	create_checkbox(t_checkbox *checkbox)
 		.checked = false,
 		.box = (t_box)
 		{
-
+			
 		}
 	}
 }
