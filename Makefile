@@ -6,7 +6,7 @@
 #    By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/11 10:16:04 by jaubry--          #+#    #+#              #
-#    Updated: 2025/10/29 12:06:12 by jaubry--         ###   ########.fr        #
+#    Updated: 2025/10/29 19:12:28 by jaubry--         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -70,6 +70,7 @@ LFLAGS		= -L$(FONT_RENDIR) \
 			  -L$(LIBFTDIR) \
 			  -L$(MLXDIR) \
 			  -L$(XCERRCALDIR) \
+			  -L$(NAME) \
 			  -lfont-renderer -lmlx-wrapper -lmlx -lft -lxcerrcal \
 			  -lXext -lX11 -lXrandr -lm
 

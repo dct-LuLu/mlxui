@@ -6,7 +6,7 @@
 /*   By: jaubry-- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 20:12:25 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/10/29 12:05:17 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/10/29 21:48:47 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,136 +15,27 @@
 #include "mlxw_xcerrcal.h"
 #include "mlx_wrapper.h"
 #include "font_renderer.h"
+#include "mlxui.h"
 #include <stdio.h>
 #include <unistd.h>
 
-#define MIN_CHAR "       '    ,-./0123456789 ; =                             [\\]  `abcdefghijklmnopqrstuvwxyz"
-#define MAX_CHAR "       \"    <_>?)!@#$%^&*( : +                             {|}  ~ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-#define NUMPAD_CHAR "7486293150.          *+ - /"
+typedef struct s_env
+{
+	t_mlx	*mlx_data;
+	t_htree	htree;
+}	t_env;
 
 t_vec2i		start_pos = (t_vec2i){{0, 0}};
 t_vec2i		end_pos = (t_vec2i){{0, 0}};
-t_text		text;
-int			cur_pos = 0;
-t_box		box;
-t_box		checkbox;
-t_box		checkedbox;
-bool		checked = false;
-t_ttf_font	*font;
 
-static char	get_char_input(int keycode, bool maj)
+int	loop(t_env *env)
 {
-	char	c;
-
-	c = '\0';
-	if (is_char_key(keycode))
-	{
-		if (is_tkl_char_key(keycode))
-		{
-			if (maj)
-				c = MAX_CHAR[keycode - ' '];
-			else
-				c = MIN_CHAR[keycode - ' '];
-		}
-		else if (is_tab_key(keycode))
-			c = '\t';
-		else if (is_enter_key(keycode))
-			c = '\n';
-		else if (is_numpad_char_key(keycode))
-			c = NUMPAD_CHAR[keycode - 0xff95];
-	}
-	return (c);
-}
-
-static void	action_char_input(void *v, t_mlx *mlx)
-{
-	char	c;
-
-	(void)v;
-	c = get_char_input(mlx->key_input.keycode, mlx->key_input.caps ^ mlx->key_input.shift);
-	if (cur_pos < (MAX_CHARS - 1))
-	{
-		text.content[cur_pos] = c;
-		if (DEBUG)
-			printf("%d: '%c'\n", mlx->key_input.keycode, c);
-		cur_pos++;
-	}
-}
-
-static bool	is_backspace_key(int keycode)
-{
-	return (keycode == XK_BackSpace);
-}
-
-static void	action_char_backspace(void *v, t_mlx *mlx)
-{
-	(void)mlx;
-	(void)v;
-	if (cur_pos > 0)
-	{
-		text.content[cur_pos - 1] = 0;
-		cur_pos--;
-	}
-}
-
-
-static bool	is_f1_key(int keycode)
-{
-	return (XK_F1 == keycode);
-}
-
-int	loop(t_mlx *mlx_data)
-{
-	ft_mlx_batch_put(&mlx_data->img, vec2i(0, 0), vec2i(WIDTH, HEIGHT), drgb_int(0x000000));
-	//ft_mlx_line_put(&mlx_data->img, vec2i(0, 0), vec2i(WIDTH, HEIGHT), drgb_int(0xFF0000));
-	//ft_mlx_line_put(&mlx_data->img, vec2i(WIDTH, 0), vec2i(0, HEIGHT), drgb_int(0xFF0000));
-	draw_box(&mlx_data->img, box);
-	draw_text(&text);
-	if (!checked)
-		draw_box(&mlx_data->img, checkbox);
-	else
-	{
-		draw_box(&mlx_data->img, checkedbox);
-		t_vec2i check[3];
-		check[0] = vec2i(checkedbox._lt.corner.x + 3, checkedbox._lt.corner.y + 9);
-		check[1] = vec2i(checkedbox._lt.corner.x + 7, checkedbox._lt.corner.y + 13);
-		check[2] = vec2i(checkedbox._lt.corner.x + 14, checkedbox._lt.corner.y + 6);
-		ft_mlx_line_put(&mlx_data->img, check[0], check[1], drgb_int(0xFFFFFF));
-		ft_mlx_line_put(&mlx_data->img, check[1], check[2], drgb_int(0xFFFFFF));
-	}
+	ft_mlx_batch_put(&env->mlx_data->img, vec2i(0, 0), vec2i(WIDTH, HEIGHT), drgb_int(0x000000));
+	render_hierarchy(&env->htree);
 	if (start_pos.x != 0 && start_pos.y != 0)
-	{
-		//ft_mlx_line_put(&mlx_data->img, start_pos, end_pos, drgb_int(0xFF00FF));
-		//ft_mlx_quad_curve_put(&mlx_data->img, (t_vec2i[3]){start_pos, vec2i(WIDTH/2, HEIGHT/2), end_pos}, drgb_int(0x00FFFF));
-		ft_mlx_select_put(&mlx_data->img, start_pos, end_pos, drgb_int(0xFFFFFF));
-		//ft_mlx_circle_aput(&mlx_data->img, start_pos, vec2i_dist(start_pos, end_pos), t);
-		//ft_mlx_out_circle_aput(&mlx_data->img, start_pos, vec2i_dist(start_pos, end_pos), t);
-	}
-	mlx_put_image_to_window(mlx_data->mlx, mlx_data->win, mlx_data->img.img, 0, 0);
+		ft_mlx_select_put(&env->mlx_data->img, start_pos, end_pos, drgb_int(0xFFFFFF));
+	mlx_put_image_to_window(env->mlx_data->mlx, env->mlx_data->win, env->mlx_data->img.img, 0, 0);
 	return (0);
-}
-
-void	print_mouse_pos(void *v, t_mlx *mlx_data)
-{
-	(void)v;
-	if (start_pos.x != 0 && start_pos.y != 0)
-		end_pos = vec2i(mlx_data->mouse_input.pos.x, mlx_data->mouse_input.pos.y);
-}
-
-void	add_mouse_hook(t_mlx *mlx_data)
-{
-	const t_mouse_event	mouse_event = (t_mouse_event)
-	{
-		.action = print_mouse_pos,
-		.arg = NULL
-	};
-	vector_add(mlx_data->mouse_input.move_events, (void *)&mouse_event, 1);
-}
-
-void	switch_focus_state(void *v, t_mlx *mlx_data)
-{
-	mlx_data->mouse_input.focus = !mlx_data->mouse_input.focus;
-	update_mouse_focus_state(v, mlx_data);
 }
 
 void	register_errors(void)
@@ -153,17 +44,10 @@ void	register_errors(void)
 	register_mlxw_errors();
 }
 
-
-void	test(t_vec2i pos, t_maction action, void *arg, t_mlx *mlx_data)
+void	select_zone(t_vec2i pos, t_maction action, void *arg, t_mlx *mlx_data)
 {
 	(void)mlx_data;
-	if (pos.x >= checkbox._lt.corner.x && pos.x <= checkbox._rt.corner.x
-			&& pos.y >= checkbox._lt.corner.y && pos.y <= checkbox._lb.corner.y
-			&& action == MPRESS)
-	{
-		checked = !checked;
-		return ;
-	}
+	(void)arg;
 	if (action == MPRESS)
 	{
 		start_pos = pos;
@@ -174,124 +58,64 @@ void	test(t_vec2i pos, t_maction action, void *arg, t_mlx *mlx_data)
 		start_pos = vec2i(0, 0);
 		end_pos = vec2i(0, 0);
 	}
-	(void)arg;
 }
 
-void	create_box(t_mlx *mlx_data)
+void    select_mouse_pos(void *v, t_mlx *mlx_data)
 {
-	(void)mlx_data;
-	box = (t_box)
-	{
-		.pos = vec2i(WIDTH / 2, HEIGHT / 2),
-		.anchor = CENTER,
-		.size = vec2i(160, 40),
-		.color = rgba_int(29, 30, 31, 255),
-		.radius = (t_radius)
-		{
-			.style = FULL_PX,
-			.full = 20
-		},
-		.border = (t_border)
-		{
-			.size = 1,
-			.color = rgba_int(61, 62, 62, 255),
-			.style = SOLID
-		}
-	};
-	precompute_box(&box);
-	text = (t_text)
-	{
-		.size = 2,
-		.pos = vec2i(box._lt.corner.x + 15, box._lt.corner.y + (box.size.y / 3) + (2 * 6)),
-		.fg = (t_rgba_int){.rgba=WHITE},
-		.bg = (t_rgb_int){.rgb=box.color.rgba},
-		.outline = (t_rgba_int){.rgba=WHITE},
-		.outlined = false,
-		.subpixel = true,
-		.font = font,
-		.img = &(mlx_data->img)
-	};
+    (void)v;
+    if (start_pos.x != 0 && start_pos.y != 0)
+            end_pos = vec2i(mlx_data->mouse_input.pos.x, mlx_data->mouse_input.pos.y);
 }
 
-void	create_checkbox(t_mlx *mlx_data)
+int	add_mouse_hook(t_mlx *mlx_data)
 {
-	(void)mlx_data;
-	checkbox = (t_box)
-	{
-		.pos = vec2i(WIDTH / 4, HEIGHT / 2),
-		.anchor = CENTER,
-		.size = vec2i(17, 17),
-		.color = rgba_int(29, 30, 31, 255),
-		.radius = (t_radius)
-		{
-			.style = FULL_PX,
-			.full = 3
-		},
-		.border = (t_border)
-		{
-			.size = 1,
-			.color = rgba_int(61, 62, 62, 255),
-			.style = SOLID
-		}
-	};
-	precompute_box(&checkbox);
+    const t_mouse_event     mouse_event = (t_mouse_event)
+    {
+            .action = select_mouse_pos,
+            .arg = NULL
+    };
+    vector_add(mlx_data->mouse_input.move_events, (void *)&mouse_event, 1);
+	if (add_func_button_hook(mlx_data, MLCLICK, select_zone, NULL) != 0)
+		return (error(pack_err(MLXW_ID, MLXW_E_EVENTH), FL, LN, FC));
+	return (0);
 }
 
-void	create_checkedbox(t_mlx *mlx_data)
+void	add_three(t_hbranch *branch, int depth)
 {
-	(void)mlx_data;
-	checkedbox = (t_box)
-	{
-		.pos = vec2i(WIDTH / 4, HEIGHT / 2),
-		.anchor = CENTER,
-		.size = vec2i(17, 17),
-		.color = rgba_int(56, 93, 209, 255),
-		.radius = (t_radius)
-		{
-			.style = FULL_PX,
-			.full = 3
-		},
-		.border = (t_border)
-		{
-			.size = 0,
-			.color = rgba_int(61, 62, 62, 255),
-			.style = SOLID
-		}
-	};
-	precompute_box(&checkedbox);
+	if (depth == 5)
+		return ;
+	depth += 1;
+	add_three(add_branch(branch, false), depth);
+	add_three(add_branch(branch, false), depth);
+}
+
+void	test_htree(t_htree *htree, t_mlx *mlx_data)
+{
+	*htree = init_htree(mlx_data);
+	htree->body = ft_calloc(1, sizeof(t_hbranch));
+	*htree->body = init_hbranch(htree, NULL, false);
+	add_three(htree->body, 1);
+	precompute_hierarchy(htree);
 }
 
 
-int	main(int argc, char **argv)
+int	main(void)
 {
-	t_mlx	*mlx_data;
+	t_env	env;
 	int		ret;
 
 	ret = 0;
+	ft_bzero(&env, sizeof(t_env));
 	register_errors();
-	if (argc != 2)
-		return (1);
-	init_ttf(argv[1], &font);
-	mlx_data = init_mlx(WIDTH, HEIGHT, "TEST");
-	if (!mlx_data)
+	env.mlx_data = init_mlx(WIDTH, HEIGHT, "TEST");
+	if (!env.mlx_data)
 		ret = error(pack_err(MLXW_ID, MLXW_E_INITF), FL, LN, FC);
-	ft_mlx_center_window(mlx_data);
-	mlx_data->mouse_input.focus = false;
-	update_mouse_focus_state(NULL, mlx_data);
-	add_func_key_hook(mlx_data, is_f1_key, switch_focus_state, NULL);
-	add_mouse_hook(mlx_data);
-	if (add_func_button_hook(mlx_data, MLCLICK, test, NULL) != 0)
-		return (error(pack_err(MLXW_ID, MLXW_E_EVENTH), FL, LN, FC));
-	if (add_func_key_hook(mlx_data, is_char_key, (void (*)(void *, t_mlx *))action_char_input, NULL) != 0)
-		return (error(pack_err(MLXW_ID, MLXW_E_EVENTH), FL, LN, FC));
-	if (add_func_key_hook(mlx_data, is_backspace_key, (void (*)(void *, t_mlx *))action_char_backspace, NULL) != 0)
-		return (error(pack_err(MLXW_ID, MLXW_E_EVENTH), FL, LN, FC));
+	ft_mlx_center_window(env.mlx_data);
+	test_htree(&env.htree, env.mlx_data);
 
-	create_box(mlx_data);
-	create_checkbox(mlx_data);
-	create_checkedbox(mlx_data);
+	add_mouse_hook(env.mlx_data);
 
-	start_mlx_loop(mlx_data, loop, mlx_data);
+	start_mlx_loop(env.mlx_data, loop, &env);
 	print_errs();
 	return (ret);
 }

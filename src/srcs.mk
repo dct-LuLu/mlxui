@@ -6,14 +6,14 @@
 #    By: jaubry-- <jaubry--@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/14 08:18:04 by jaubry--          #+#    #+#              #
-#    Updated: 2025/10/13 21:30:44 by jaubry--         ###   ########.fr        #
+#    Updated: 2025/10/29 19:05:02 by jaubry--         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+#SRCS	= test.c
+#SRCS	:= $(addprefix $(SRCDIR)/, $(SRCS))
+
+include $(SRCDIR)/hierarchy/hierarchy.mk
 include $(SRCDIR)/test/test.mk
-
-ERR_SRCS	= test.c
-
-SRCS		+= $(addprefix $(SRCDIR)/, $(ERR_SRCS))
 
 vpath %.c $(SRCDIR)
