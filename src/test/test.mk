@@ -3,17 +3,20 @@
 #                                                         :::      ::::::::    #
 #    test.mk                                            :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jaubry-- <jaubry--@student.42.fr>          +#+  +:+       +#+         #
+#    By: jaubry-- <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2025/10/13 21:30:56 by jaubry--          #+#    #+#              #
-#    Updated: 2025/10/13 21:33:08 by jaubry--         ###   ########.fr        #
+#    Created: 2025/08/27 22:11:03 by jaubry--          #+#    #+#              #
+#    Updated: 2025/08/27 22:13:15 by jaubry--         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-TESTDIR		= $(SRCDIR)/test
+# Directories
+TEST_DIR	= $(SRCDIR)/test
 
+# Source files
 TEST_SRCS	= main.c
 
-TEST_SRCS	:= $(addprefix $(TESTDIR)/, $(TEST_SRCS))
+TEST_SRCS	:= $(addprefix $(TEST_DIR)/, $(TEST_SRCS))
 
-vpath %.c $(TESTDIR)
+# VPATH
+vpath %.c $(TEST_DIR)

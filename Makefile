@@ -6,7 +6,7 @@
 #    By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/11 10:16:04 by jaubry--          #+#    #+#              #
-#    Updated: 2025/10/13 21:29:22 by jaubry--         ###   ########.fr        #
+#    Updated: 2025/10/29 12:06:12 by jaubry--         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,8 +23,8 @@ ifeq ($(FULLSCREEN), 1)
 WIDTH		= 1920
 HEIGHT		= 1080
 else
-WIDTH		= 1920
-HEIGHT		= 1080
+WIDTH		= 500
+HEIGHT		= 500
 endif
 PERF		= 0
 
@@ -116,7 +116,7 @@ endif
 	$(call ar-finish-msg)
 
 test: $(NAME)
-	@$(CF) $(TEST_SRCS) $(ARCHIVES) $^ $(LFLAGS) -o $@
+	$(CF) $(TEST_SRCS) $(ARCHIVES) $^ $(LFLAGS) -o $@
 
 $(XCERRCAL):
 	@$(MAKE) -s -C $(XCERRCALDIR) $(RULE) $(VARS) ROOTDIR=../..
