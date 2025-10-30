@@ -6,7 +6,7 @@
 #    By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/11 10:16:04 by jaubry--          #+#    #+#              #
-#    Updated: 2025/10/29 19:12:28 by jaubry--         ###   ########.fr        #
+#    Updated: 2025/10/30 09:38:51 by jaubry--         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,8 +20,8 @@ WINDOWLESS	= 0
 FULLSCREEN	= 0
 RESIZEABLE	= 0
 ifeq ($(FULLSCREEN), 1)
-WIDTH		= 1920
-HEIGHT		= 1080
+WIDTH		= $(MAX_WIDTH)
+HEIGHT		= $(MAX_HEIGHT)
 else
 WIDTH		= 500
 HEIGHT		= 500
