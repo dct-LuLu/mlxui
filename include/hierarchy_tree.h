@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 16:09:49 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/10/30 17:35:42 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/11/01 16:51:44 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ typedef struct s_htree t_htree;
 typedef struct s_hbranch
 {
 	bool	hidden;
-	//t_box		box;
 	t_component_type	type;
 	union
 	{
