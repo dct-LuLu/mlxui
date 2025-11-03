@@ -1,33 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mlxui.h                                            :+:      :+:    :+:   */
+/*   precompute_checkbox.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaubry-- <jaubry--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/13 21:51:06 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/11/03 20:11:40 by jaubry--         ###   ########.fr       */
+/*   Created: 2025/11/03 18:37:06 by jaubry--          #+#    #+#             */
+/*   Updated: 2025/11/03 22:34:25 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MLXUI_H
-# define MLXUI_H
+#include "hierarchy_tree.h"
 
-# include "hierarchy_tree.h"
-# include "operations.h"
-
-// frane (div)
-
-// form
-
-// image
-
-// display ? (minirt instance ?)
-
-// button
-
-// textzone
-
-// 
-
-#endif//MLXUI_H
+void	precompute_checkbox(t_hbranch *hbranch)
+{
+	precompute_box(hbranch);
+}

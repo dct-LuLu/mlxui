@@ -6,116 +6,50 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 13:33:28 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/11/03 12:02:44 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/11/03 20:07:23 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef COMPONENTS_H
 # define COMPONENTS_H
 
-typedef enum e_component_type
-{
-	EMPTY,
-	BOX,
-	TEXT,
-	CHECKBOX,
-	BUTTON,
-	FORM
-}	t_component_type;
+typedef struct s_hbranch t_hbranch;
+typedef struct s_htree t_htree;
 
+# include "geometry_fields.h"
+# include "box.h"
+# include "checkbox.h"
+
+void	precompute_geometry(t_hbranch *this, size_t render_i, size_t render_num);
 /*
-typedef enum e_relation_type
-{
-	INHERIT,
-	ADAPT,
-	ABSOLUTE
-}	t_relation_type;
-
-typedef enum e_flex_type//affects child
-{
-	NO_FLEX,
-	SPAN_X,
-	SPAN_Y,
-	SURROUND_X,
-	SURROUND_Y,
-	SPACE_X,
-	SPACE_Y,
-	CONTIGU_X_LEFT,
-	CONTIGU_X_RIGHT,
-	CONTIGU_Y_TOP,
-	CONTIGU_Y_BOTTOM
-}	t_flex_type;
-
-typedef enum e_pos_type
-{
-	PX,
-	PERCENTAGE,
-	OPERATION
-}	t_pos_type;
-*/
-
-typedef struct s_relation
-{
-	void (*)(size_t, t_hbranch *, void *)	*operation;
-	union
-	{
-		void	*arg;
-		uint8_t	percentage;
-	};
-	/*
-	t_relation_type	rtype;
-	t_pos_type		ptype;
-	int				min;
-	int				max;
-	*/
-}	t_relation;
-
-typedef enum e_anchor
-{
-	CENTER,
-	LT,
-	TOP,
-	RT,
-	RIGHT,
-	RB,
-	BOTTOM,
-	LB,
-	LEFT
-}	t_anchor;
-
 #pragma pack(push, 1)
 
-typedef struct
+typedef struct;
 {
 	t_anchor	anchor;	
-	t_vec2i		pos;
-	struct s_rpos
+	struct
 	{
-		t_relation	x;
-		t_relation	y;
-	}	rpos;
-
-	t_vec2i		size;
-	struct rsize
+		t_vec2i	pos; // possible ?
+		void	(*x_pos_operation)(size_t, t_hbranch *, size_t, size_t);
+		void	(*y_pos_operation)(size_t, t_hbranch *, size_t, size_t);
+	};
+	struct
 	{
-		t_relation	x;
-		t_relation	y;
-	}	rsize;
-
-	/*
-	t_flex_type	flex;
-	t_vec2i	margin;
-	t_vec2i	padding;
-	*/
-	t_vec2		_half_size;
-	t_vec2i		_mid;
-	t_vec2i		_lt;
-	t_vec2i		_rt;
-	t_vec2i		_lb;
-	t_vec2i		_rb;
+		t_vec2i	size;
+		void	(*x_size_operation)(size_t, t_hbranch *, size_t, size_t);
+		void	(*y_size_operation)(size_t, t_hbranch *, size_t, size_t);
+	};
+	void	(*precompute)(t_hbranch *);
+	void	(*render)(t_hbranch *, void *);
+	t_vec2	_half_size;
+	t_vec2i	_mid;
+	t_vec2i	_lt;
+	t_vec2i	_rt;
+	t_vec2i	_lb;
+	t_vec2i	_rb;
 }	t_geometry;
 
 #pragma pack(pop)
-
+*/
 
 #endif//COMPONENTS_H

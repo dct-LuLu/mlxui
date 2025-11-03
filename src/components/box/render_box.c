@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   draw_box.c                                         :+:      :+:    :+:   */
+/*   render_box.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 02:53:18 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/10/30 18:46:09 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/11/03 20:19:19 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mlx_wrapper.h"
+#include "hierarchy_tree.h"
 
 static inline void	fill_corner(t_img_data *img, t_box box, t_corner corner)
 {
@@ -41,10 +41,10 @@ static inline void	fill_box(t_img_data *img, t_box box)
 	}
 }
 
-void	draw_box(t_img_data *img, t_box box)
+void	render_box(t_hbranch *hbranch, t_box *box)
 {
-	if ((box.size.x == 0) && (box.size.y == 0))
+	if ((box->size.x == 0) && (box->size.y == 0))
 		return ;
-	fill_box(img, box);
-	draw_border(img, box);
+	fill_box(&hbranch->head->mlx_data->img, *box);
+	render_border(&hbranch->head->mlx_data->img, *box);
 }

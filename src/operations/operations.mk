@@ -1,27 +1,23 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    box.mk                                             :+:      :+:    :+:    #
+#    operations.mk                                      :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+         #
+#    By: jaubry-- <jaubry--@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2025/10/27 10:09:04 by jaubry--          #+#    #+#              #
-#    Updated: 2025/11/03 19:14:13 by jaubry--         ###   ########.fr        #
+#    Created: 2025/11/03 19:05:16 by jaubry--          #+#    #+#              #
+#    Updated: 2025/11/03 19:06:22 by jaubry--         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Directories
-BOX_DIR		= $(COMPONENTS_DIR)/box
+OPERATIONS_DIR	= $(SRCDIR)/operations
 
-# Source files
-BOX_SRCS	= add_box.c \
-			  precompute_box.c \
-			  render_box.c \
-			  precompute_radius.c \
-			  render_border.c
-BOX_SRCS	:= $(addprefix $(BOX_DIR)/, $(BOX_SRCS))
+# Sources
+OPERATIONS_SRCS	= operation_half.c
+OPERATIONS_SRCS	:= $(addprefix $(OPERATIONS_DIR)/, $(OPERATIONS_SRCS))
 
-SRCS		+= $(BOX_SRCS)
+SRCS			+= $(OPERATIONS_SRCS)
 
 # VPATH
-vpath %.c $(BOX_DIR)
+vpath %.c $(OPERATIONS_DIR)

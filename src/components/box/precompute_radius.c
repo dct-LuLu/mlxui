@@ -6,11 +6,11 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 07:15:49 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/10/30 18:49:23 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/11/03 21:17:07 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mlx_wrapper.h"
+#include "hierarchy_tree.h"
 
 #define LT 0
 #define RT 1
@@ -49,10 +49,12 @@ static inline void	precompute_corner_radius(t_box *box)
 		corners_size[LB] = vec2_min(vec2(box->radius.lb, box->radius.lb), box->_half_size);
 		corners_size[RB] = vec2_min(vec2(box->radius.rb, box->radius.rb), box->_half_size);
 	}
-	set_box_corner(&box->_lt, corners_size[LT], LT);
-	set_box_corner(&box->_rt, corners_size[RT], RT);
-	set_box_corner(&box->_lb, corners_size[LB], LB);
-	set_box_corner(&box->_rb, corners_size[RB], RB);
+	else
+		return ;
+	set_box_corner(&box->_ltc, corners_size[LT], LT);
+	set_box_corner(&box->_rtc, corners_size[RT], RT);
+	set_box_corner(&box->_lbc, corners_size[LB], LB);
+	set_box_corner(&box->_rbc, corners_size[RB], RB);
 }
 
 static inline void	precompute_xrec(t_box *box, t_corner *corner)
@@ -93,8 +95,6 @@ static inline void	precompute_in_rec(t_box *box)
 
 void	precompute_box_radius(t_box *box)
 {
-	box->_mid = vec2i(box->_lt.corner.x + roundf(box->_half_size.x),
-			box->_lt.corner.y + roundf(box->_half_size.y));
 	if ((box->radius.style == FULL_PERCENT) || (box->radius.style == FULL_PX))
 	{
 		box->radius.lt = box->radius.full;

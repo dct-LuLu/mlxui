@@ -1,18 +1,30 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    srcs.mk                                            :+:      :+:    :+:    #
+#    components.mk                                      :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: jaubry-- <jaubry--@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2025/09/14 08:18:04 by jaubry--          #+#    #+#              #
-#    Updated: 2025/11/03 19:31:16 by jaubry--         ###   ########.fr        #
+#    Created: 2025/11/03 19:11:39 by jaubry--          #+#    #+#              #
+#    Updated: 2025/11/03 20:14:58 by jaubry--         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-MKS		= components \
-		  hierarchy \
-		  operations \
-		  test
+# Directories
+COMPONENTS_DIR	= $(SRCDIR)/components
 
-include $(foreach n,$(MKS),$(SRCDIR)/$(n)/$(n).mk)
+# Source files
+COMPONENTS_SRCS	= precompute_geometry.c
+COMPONENTS_SRCS	:= $(addprefix $(COMPONENTS_DIR)/, $(COMPONENTS_SRCS))
+
+SRCS			+= $(COMPONENTS_SRCS)
+
+# MKs
+
+MKS		= box \
+		  checkbox
+
+include $(foreach n,$(MKS),$(COMPONENTS_DIR)/$(n)/$(n).mk)
+
+# VPATH
+vpath %.c $(COMPONENTS_DIR)

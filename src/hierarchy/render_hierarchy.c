@@ -6,29 +6,41 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 19:30:31 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/10/30 18:19:16 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/11/03 21:38:38 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "hierarchy_tree.h"
 
-static void	render_hbranch(t_hbranch *hbranch)
+static inline void	render_component(t_hbranch *cur)
 {
-	size_t	i;
+	if (cur->type == BOX)
+		cur->render(cur, &cur->box);
+	else if (cur->type == CHECKBOX)
+		cur->render(cur, &cur->checkbox);
+}
 
-	if (!hbranch || hbranch->hidden)
+static inline void	render_hbranch(t_hbranch *hbranch)
+{
+	size_t		i;
+	t_hbranch	*cur;
+
+	if (!hbranch || !hbranch->render)
 		return ;
+	if (hbranch->visible)
+		render_component(hbranch);
 	i = 0;
-	draw_box(&hbranch->head->mlx_data->img, hbranch->box);
-	while (hbranch->branches && (i < hbranch->branches->num_elements))
+	while (hbranch->childs && (i < hbranch->childs->num_elements))
 	{
-		render_hbranch(get_vector_value(hbranch->branches, i));
+		cur = get_vector_value(hbranch->childs, i);
+		if (cur->render)
+			render_hbranch(cur);
 		i++;
 	}
 }
 
 void	render_hierarchy(t_htree *htree)
 {
-	if (htree->body)
+	if (htree)
 		render_hbranch(htree->body);
 }

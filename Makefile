@@ -6,7 +6,7 @@
 #    By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/11 10:16:04 by jaubry--          #+#    #+#              #
-#    Updated: 2025/10/30 09:38:51 by jaubry--         ###   ########.fr        #
+#    Updated: 2025/11/03 19:32:36 by jaubry--         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,7 +58,7 @@ CFLAGS		= -Wall -Wextra -Werror \
 
 DFLAGS		= -MMD -MP -MF $(DEPDIR)/$*.d
 
-IFLAGS		= -I$(INCDIR) \
+IFLAGS		= -I$(INCDIR) -I$(INCDIR)/components \
 			  -I$(XCERRCALDIR)/include \
 			  -I$(LIBFTDIR)/include \
 			  -I$(MLXDIR) \

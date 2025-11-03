@@ -6,14 +6,20 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 16:09:49 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/11/03 12:44:06 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/11/03 20:32:58 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef HIERARCHY_TREE_H
 # define HIERARCHY_TREE_H
 
+typedef struct s_hbranch t_hbranch;
+typedef struct s_htree t_htree;
+
 # include "mlx_wrapper.h"
+# include "geometry_fields.h"
+# include "components.h"
+
 // store here font, colors, styles etc
 typedef struct s_style
 {
@@ -22,21 +28,22 @@ typedef struct s_style
 	t_rgba_int	accent;
 }	t_style;
 
-typedef struct s_hbranch t_hbranch;
-typedef struct s_htree t_htree;
 
 typedef struct s_hbranch
 {
-	bool	hidden;
+	bool				visible;
+	bool				rendered;
 	t_component_type	type;
 	union
 	{
-		t_geometry;
+		ANON_GEOM_PACKED;
 		t_box		box;
 		t_checkbox	checkbox;
+		/*
 		t_form		form;
 		t_text		text;
 		t_button	button;
+		*/
 	};
 	t_vector	*childs;
 	t_hbranch	*parent;
@@ -50,9 +57,9 @@ typedef struct s_htree
 	t_hbranch	*body;
 }	t_htree;
 
-t_htree		init_htree(t_mlx *mlx_data);
-t_hbranch	init_hbranch(t_htree *head, t_hbranch *parent, bool hidden);
-t_hbranch	*add_branch(t_hbranch *parent_branch, bool hidden);
+t_htree		init_htree(t_mlx *mlx_data, t_style style);
+t_hbranch	init_hbranch(t_htree *head, t_hbranch *parent);
+t_hbranch	*add_branch(t_hbranch *parent_branch);
 //int			add_branch(t_hbranch *branch, bool hidden);
 
 void	render_hierarchy(t_htree *htree);

@@ -1,27 +1,26 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    box.mk                                             :+:      :+:    :+:    #
+#    checkbox.mk                                        :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/27 10:09:04 by jaubry--          #+#    #+#              #
-#    Updated: 2025/11/03 19:14:13 by jaubry--         ###   ########.fr        #
+#    Updated: 2025/11/03 19:14:39 by jaubry--         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Directories
-BOX_DIR		= $(COMPONENTS_DIR)/box
+CHECKBOX_DIR	= $(COMPONENTS_DIR)/checkbox
 
 # Source files
-BOX_SRCS	= add_box.c \
-			  precompute_box.c \
-			  render_box.c \
-			  precompute_radius.c \
-			  render_border.c
-BOX_SRCS	:= $(addprefix $(BOX_DIR)/, $(BOX_SRCS))
+CHECKBOX_SRCS	= add_checkbox.c \
+				  precompute_checkbox.c \
+				  render_checkbox.c \
+				  hooks_checkbox.c
+CHECKBOX_SRCS	:= $(addprefix $(CHECKBOX_DIR)/, $(CHECKBOX_SRCS))
 
-SRCS		+= $(BOX_SRCS)
+SRCS			+= $(CHECKBOX_SRCS)
 
 # VPATH
-vpath %.c $(BOX_DIR)
+vpath %.c $(CHECKBOX_DIR)

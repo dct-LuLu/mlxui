@@ -6,36 +6,65 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 18:18:35 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/10/30 18:19:06 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/11/03 21:32:50 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "hierarchy_tree.h"
 
-static void	precompute_hbranch(t_hbranch *hbranch)
+static inline size_t	get_render_num(t_hbranch *hbranch)
 {
 	size_t		i;
+	size_t		render_num;
 	t_hbranch	*cur;
 
-	if (!hbranch || hbranch->hidden)
-		return ;
 	i = 0;
-	precompute_box(&hbranch->box);
-	while (hbranch->branches && (i < hbranch->branches->num_elements))
+	render_num = 0;
+	while (i < hbranch->childs->num_elements)
 	{
-		cur = get_vector_value(hbranch->branches, i);
-		cur->box.anchor = LEFT;
-		cur->box.pos = vec2i(
-				hbranch->box._lt.corner.x + ((hbranch->box.size.x - (cur->box.size.x * hbranch->branches->num_elements)) / (hbranch->branches->num_elements + 1)) * (i + 1) + (i * cur->box.size.x),
-				hbranch->box._lt.corner.y + hbranch->box.size.y / 2
-				);
-		precompute_hbranch(cur);
+		cur = get_vector_value(hbranch->childs, i);
+		if (cur->rendered)
+			render_num++;
+		i++;
+	}
+	return (render_num);
+}
+
+static inline void	precompute_hbranch(t_hbranch *hbranch)
+{
+	size_t		i;
+	size_t		render_i;
+	size_t		render_num;
+	t_hbranch	*cur;
+
+	if (!hbranch || !hbranch->rendered)
+		return ;
+	if (hbranch->parent == NULL)
+	{
+		precompute_geometry(hbranch, 0, 1);
+		if (hbranch->visible)
+			hbranch->precompute(hbranch);
+	}
+	i = 0;
+	render_i = 0;
+	render_num = get_render_num(hbranch);
+	while (i < hbranch->childs->num_elements)
+	{
+		cur = get_vector_value(hbranch->childs, i);
+		if (cur->rendered)
+		{
+			precompute_geometry(cur, render_i, render_num);
+			if (cur->visible)
+				cur->precompute(cur);
+			render_i++;
+			precompute_hbranch(cur);
+		}
 		i++;
 	}
 }
 
 void	precompute_hierarchy(t_htree *htree)
 {
-	if (htree->body)
+	if (htree)
 		precompute_hbranch(htree->body);
 }

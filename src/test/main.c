@@ -6,7 +6,7 @@
 /*   By: jaubry-- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 20:12:25 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/10/29 21:48:47 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/11/03 22:33:36 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,21 +80,75 @@ int	add_mouse_hook(t_mlx *mlx_data)
 	return (0);
 }
 
-void	add_three(t_hbranch *branch, int depth)
+void	populate_tree(t_hbranch *hbranch, int depth)
 {
-	if (depth == 5)
+	t_hbranch	*new;
+	
+	
+	if (depth == 4)
 		return ;
-	depth += 1;
-	add_three(add_branch(branch, false), depth);
-	add_three(add_branch(branch, false), depth);
+	else if (depth == 3)
+	{
+		new = add_checkbox(hbranch, NULL);
+		new->x_pos_operation = center_screen;
+		new->y_pos_operation = center_screen;
+		new->checkbox.checked = ft_calloc(sizeof(bool), 1);
+	}
+	else
+	{
+		new = add_box(hbranch, (t_radius){.style = FULL_PX, .full = 20},
+				(t_border){.size = 1, .color = hbranch->head->style.outline, .style = SOLID});
+		new->x_pos_operation = center_screen;
+		new->y_pos_operation = center_screen;
+		new->x_size_operation = operation_half;
+		new->y_size_operation = operation_half;
+	}
+	populate_tree(new, depth + 1);
+	populate_tree(new, depth + 1);
 }
 
 void	test_htree(t_htree *htree, t_mlx *mlx_data)
 {
-	*htree = init_htree(mlx_data);
+	t_style	style = (t_style)
+	{
+		.color = rgba_int(30, 30, 30, 80),
+		.outline = rgba_int(62, 62, 62, 230),
+		.accent = rgba_int(56, 93, 209, 255)
+	};
+	*htree = init_htree(mlx_data, style);
 	htree->body = ft_calloc(1, sizeof(t_hbranch));
-	*htree->body = init_hbranch(htree, NULL, false);
-	add_three(htree->body, 1);
+	*(htree->body) = (t_hbranch)
+	{
+		.type = BOX,
+		.visible = true,
+		.rendered = true,
+		.parent = NULL,
+		.head = htree,
+		.childs = ft_calloc(sizeof(t_vector), 1),
+		.box = (t_box)
+		{
+			.precompute = precompute_box,
+			.render = (void (*)(t_hbranch *, void *))render_box,
+			.anchor = LT,
+			.size = vec2i_sub_scalar(htree->mlx_data->size, 50),
+			.pos = vec2i(25, 25),
+			.color = htree->style.color,
+			.radius = (t_radius)
+			{
+				.style = FULL_PX,
+				.full = 20
+			},
+			.border = (t_border)
+			{
+				.size = 1,
+				.color = htree->style.outline,
+				.style = SOLID
+			}
+		},
+	};
+	htree->body->type = BOX;
+	populate_tree(htree->body, 0);
+	populate_tree(htree->body, 0);
 	precompute_hierarchy(htree);
 }
 

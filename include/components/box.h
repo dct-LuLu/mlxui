@@ -6,12 +6,17 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 18:34:58 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/10/30 18:39:01 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/11/03 20:42:42 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef BOX_H
 # define BOX_H
+
+# include "mlx_wrapper.h"
+# include "geometry_fields.h"
+
+struct s_hbranch;
 
 typedef enum e_border_style
 {
@@ -73,7 +78,7 @@ typedef struct s_corner
 
 typedef struct s_box
 {
-	t_geometry;
+	ANON_GEOM_PACKED;
 	t_rgba_int	color;
 	t_radius	radius;
 	t_border	border;
@@ -83,9 +88,10 @@ typedef struct s_box
 	t_corner	_rbc;
 }				t_box;
 
-void	precompute_box_radius(t_box *box);
-int		precompute_box(t_box *box);
-void	draw_border(t_img_data *img, t_box box);
-void	draw_box(t_img_data *img, t_box box);
+struct s_hbranch	*add_box(struct s_hbranch *parent_branch, t_radius radius, t_border border);
+void		precompute_box(struct s_hbranch *hbranch);
+void		render_box(struct s_hbranch *hbranch, t_box *box);
+void		precompute_box_radius(t_box *box);
+void		render_border(t_img_data *img, t_box box);
 
 #endif//BOX_H

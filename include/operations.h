@@ -1,33 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mlxui.h                                            :+:      :+:    :+:   */
+/*   operations.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaubry-- <jaubry--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/13 21:51:06 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/11/03 20:11:40 by jaubry--         ###   ########.fr       */
+/*   Created: 2025/11/03 20:10:48 by jaubry--          #+#    #+#             */
+/*   Updated: 2025/11/03 21:53:14 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MLXUI_H
-# define MLXUI_H
+#ifndef OPERATIONS_H
+# define OPERATIONS_H
 
-# include "hierarchy_tree.h"
-# include "operations.h"
+void	operation_half(size_t field_offset, t_hbranch *this, size_t render_i, size_t render_num);
+void	center_screen(size_t field_offset, t_hbranch *this, size_t render_i, size_t render_num);
 
-// frane (div)
-
-// form
-
-// image
-
-// display ? (minirt instance ?)
-
-// button
-
-// textzone
-
-// 
-
-#endif//MLXUI_H
+#endif//OPERATIONS_H
