@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 13:33:28 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/11/01 17:28:32 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/11/03 12:02:44 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,16 +56,18 @@ typedef enum e_pos_type
 
 typedef struct s_relation
 {
-	void (*)(size_t, t_hbranch *, void *)	operation;
+	void (*)(size_t, t_hbranch *, void *)	*operation;
 	union
 	{
 		void	*arg;
 		uint8_t	percentage;
 	};
-	//t_relation_type	rtype;
-	//t_pos_type		ptype;
-	//int				min;
-	//int				max;
+	/*
+	t_relation_type	rtype;
+	t_pos_type		ptype;
+	int				min;
+	int				max;
+	*/
 }	t_relation;
 
 typedef enum e_anchor
@@ -100,9 +102,11 @@ typedef struct
 		t_relation	y;
 	}	rsize;
 
-	//t_flex_type	flex;
-	//t_vec2i	margin;
-	//t_vec2i	padding;
+	/*
+	t_flex_type	flex;
+	t_vec2i	margin;
+	t_vec2i	padding;
+	*/
 	t_vec2		_half_size;
 	t_vec2i		_mid;
 	t_vec2i		_lt;

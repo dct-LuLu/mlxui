@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 18:50:22 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/10/29 21:49:05 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/11/03 12:20:30 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,13 +69,13 @@ t_hbranch	*add_branch(t_hbranch *parent_branch, bool hidden)
 {
 	t_hbranch	new_branch;
 
-	if (parent_branch->branches == NULL || parent_branch->branches->num_elements == 0)
+	if ((parent_branch->branches == NULL) || (parent_branch->branches->num_elements == 0))
 	{
 		printf("init\n");
 		vector_init(parent_branch->branches, sizeof(t_hbranch));
 	}
 	printf("add\n");
-	new_branch	= init_hbranch(parent_branch->head, parent_branch, hidden);
+	new_branch = init_hbranch(parent_branch->head, parent_branch, hidden);
 	vector_add(parent_branch->branches, &new_branch, 1);
 	return (get_vector_value(parent_branch->branches, parent_branch->branches->num_elements - 1));
 }
