@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 18:34:58 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/11/03 20:42:42 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/11/04 12:13:05 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 
 # include "mlx_wrapper.h"
 # include "geometry_fields.h"
-
-struct s_hbranch;
 
 typedef enum e_border_style
 {
@@ -88,9 +86,9 @@ typedef struct s_box
 	t_corner	_rbc;
 }				t_box;
 
-struct s_hbranch	*add_box(struct s_hbranch *parent_branch, t_radius radius, t_border border);
-void		precompute_box(struct s_hbranch *hbranch);
-void		render_box(struct s_hbranch *hbranch, t_box *box);
+t_hbranch	*add_box(t_hbranch *parent_branch, t_radius radius, t_border border);
+void		precompute_box(t_hbranch *hbranch);
+void		render_box(t_hbranch *hbranch, t_box *box);
 void		precompute_box_radius(t_box *box);
 void		render_border(t_img_data *img, t_box box);
 
