@@ -6,7 +6,7 @@
 /*   By: jaubry-- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 20:12:25 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/11/03 22:33:36 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/11/06 19:46:55 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 #include "mlxui.h"
 #include <stdio.h>
 #include <unistd.h>
+
+#define FONT_PATH "/home/jaubry--/Documents/42/Minirt/asset/fonts/JetBrainsMono-ExtraLight.ttf"
 
 typedef struct s_env
 {
@@ -42,6 +44,7 @@ void	register_errors(void)
 {
 	register_lft_errors();
 	register_mlxw_errors();
+	register_frdr_errors();
 }
 
 void	select_zone(t_vec2i pos, t_maction action, void *arg, t_mlx *mlx_data)
@@ -80,6 +83,7 @@ int	add_mouse_hook(t_mlx *mlx_data)
 	return (0);
 }
 
+
 void	populate_tree(t_hbranch *hbranch, int depth)
 {
 	t_hbranch	*new;
@@ -107,20 +111,40 @@ void	populate_tree(t_hbranch *hbranch, int depth)
 	populate_tree(new, depth + 1);
 }
 
+t_hbranch	*add_text(t_hbranch *hbranch)
+{
+	t_hbranch	*text;
+
+	text = add_textbox(hbranch,
+	(t_text)
+	{
+		.content = "test\ntest\nallo?",
+		.font_size = 3,
+		.fg = (t_rgba_int){.rgba=WHITE},
+	},
+	CENTER_ALIGN,
+	NO_WRAPPING);
+	text->anchor = CENTER;
+	text->x_pos_operation = center_screen;
+	text->y_pos_operation = center_screen;
+	return (text);
+}
+
 void	test_htree(t_htree *htree, t_mlx *mlx_data)
 {
 	t_style	style = (t_style)
 	{
 		.color = rgba_int(30, 30, 30, 80),
 		.outline = rgba_int(62, 62, 62, 230),
-		.accent = rgba_int(56, 93, 209, 255)
+		.accent = rgba_int(56, 93, 209, 255),
+		.text_fg = rgba_int(255, 255, 255, 255)
 	};
 	*htree = init_htree(mlx_data, style);
 	htree->body = ft_calloc(1, sizeof(t_hbranch));
 	*(htree->body) = (t_hbranch)
 	{
 		.type = BOX,
-		.visible = true,
+		.visible = false,
 		.rendered = true,
 		.parent = NULL,
 		.head = htree,
@@ -147,8 +171,16 @@ void	test_htree(t_htree *htree, t_mlx *mlx_data)
 		},
 	};
 	htree->body->type = BOX;
-	populate_tree(htree->body, 0);
-	populate_tree(htree->body, 0);
+	if (init_ttf(FONT_PATH, &htree->style.font) != 0)
+		return ;
+	if (false)
+	{
+		populate_tree(htree->body, 0);
+		populate_tree(htree->body, 0);
+	}
+	printf("1 %p\n", htree->style.font->head);
+	t_hbranch	*text = add_text(htree->body);
+	printf("3 %p\n", text->textbox.font->head);
 	precompute_hierarchy(htree);
 }
 

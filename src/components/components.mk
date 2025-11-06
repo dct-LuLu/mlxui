@@ -6,7 +6,7 @@
 #    By: jaubry-- <jaubry--@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/03 19:11:39 by jaubry--          #+#    #+#              #
-#    Updated: 2025/11/03 20:14:58 by jaubry--         ###   ########.fr        #
+#    Updated: 2025/11/06 14:07:32 by jaubry--         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,8 @@ SRCS			+= $(COMPONENTS_SRCS)
 # MKs
 
 MKS		= box \
-		  checkbox
+		  checkbox \
+		  textbox
 
 include $(foreach n,$(MKS),$(COMPONENTS_DIR)/$(n)/$(n).mk)
 

@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 16:09:49 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/11/03 20:32:58 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/11/06 14:58:03 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ typedef struct s_hbranch t_hbranch;
 typedef struct s_htree t_htree;
 
 # include "mlx_wrapper.h"
+# include "font_renderer.h"
 # include "geometry_fields.h"
 # include "components.h"
 
@@ -26,6 +27,8 @@ typedef struct s_style
 	t_rgba_int	color;
 	t_rgba_int	outline;
 	t_rgba_int	accent;
+	t_ttf_font	*font;
+	t_rgba_int	text_fg;
 }	t_style;
 
 
@@ -39,6 +42,7 @@ typedef struct s_hbranch
 		ANON_GEOM_PACKED;
 		t_box		box;
 		t_checkbox	checkbox;
+		t_textbox	textbox;
 		/*
 		t_form		form;
 		t_text		text;

@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 19:57:51 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/11/04 13:04:19 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/11/06 14:55:10 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ typedef enum e_component_type
 {
 	EMPTY,
 	BOX,
-	TEXT,
 	CHECKBOX,
+	TEXTBOX,
 	BUTTON,
 	FORM
 }	t_component_type;
@@ -60,9 +60,10 @@ typedef enum e_anchor
 	t_vec2i	_rb;
 
 // canonical packed type
-typedef struct __attribute__((__packed__)) s_geometry {
-    GEOMETRY_FIELDS
-} t_geometry;
+typedef struct __attribute__((__packed__)) s_geometry
+{
+	GEOMETRY_FIELDS
+}	t_geometry;
 
 // anonymous packed subobject for embedding
 # define ANON_GEOM_PACKED  struct { GEOMETRY_FIELDS } __attribute__((__packed__))
