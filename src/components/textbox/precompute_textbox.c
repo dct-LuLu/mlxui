@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 12:26:52 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/11/06 16:40:53 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/11/11 15:11:07 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,12 @@ void	precompute_textbox(t_hbranch *hbranch)
 {
 	hbranch->textbox._text_pos = hbranch->textbox._lt;
 	hbranch->textbox._text_pos.y += hbranch->textbox.font_size * 6;
-	hbranch->textbox._lt_limit = hbranch->textbox._lt;
-	hbranch->textbox._rb_limit = hbranch->textbox._rb;
+	if ((hbranch->textbox._lt.x != hbranch->textbox._rb.x)
+			&& (hbranch->textbox._lt.y != hbranch->textbox._rb.y))
+	{
+		hbranch->textbox._lt_limit = hbranch->textbox._lt;
+		hbranch->textbox._rb_limit = hbranch->textbox._rb;
+	}
 	printf("%p\n", hbranch->textbox.font->head);
 	hbranch->textbox._newline_y = scale_y(&hbranch->textbox.text, 0,
 		abs(hbranch->textbox.font->head->y_min) + hbranch->textbox.font->head->y_max);

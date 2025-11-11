@@ -6,7 +6,7 @@
 /*   By: jaubry-- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 20:12:25 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/11/06 19:46:55 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/11/11 18:07:05 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ t_hbranch	*add_text(t_hbranch *hbranch)
 	text = add_textbox(hbranch,
 	(t_text)
 	{
-		.content = "test\ntest\nallo?",
+		.content = "testallo?\nbonjours\no\noui",
 		.font_size = 3,
 		.fg = (t_rgba_int){.rgba=WHITE},
 	},
@@ -127,6 +127,10 @@ t_hbranch	*add_text(t_hbranch *hbranch)
 	text->anchor = CENTER;
 	text->x_pos_operation = center_screen;
 	text->y_pos_operation = center_screen;
+	//text->x_pos_operation = operation_half;
+	//text->y_pos_operation = operation_half;
+	text->x_size_operation = operation_half;
+	text->y_size_operation = operation_half;
 	return (text);
 }
 
@@ -144,7 +148,7 @@ void	test_htree(t_htree *htree, t_mlx *mlx_data)
 	*(htree->body) = (t_hbranch)
 	{
 		.type = BOX,
-		.visible = false,
+		.visible = true,
 		.rendered = true,
 		.parent = NULL,
 		.head = htree,
