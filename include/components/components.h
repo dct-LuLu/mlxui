@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 13:33:28 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/11/06 14:56:40 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/11/25 21:15:34 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ typedef struct s_htree t_htree;
 # include "box.h"
 # include "checkbox.h"
 # include "textbox.h"
+# include "form.h"
 
 void	precompute_geometry(t_hbranch *this, size_t render_i, size_t render_num);
 

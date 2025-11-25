@@ -6,7 +6,7 @@
 /*   By: jaubry-- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 20:12:25 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/11/11 18:07:05 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/11/25 23:38:43 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int	loop(t_env *env)
 	if (start_pos.x != 0 && start_pos.y != 0)
 		ft_mlx_select_put(&env->mlx_data->img, start_pos, end_pos, drgb_int(0xFFFFFF));
 	mlx_put_image_to_window(env->mlx_data->mlx, env->mlx_data->win, env->mlx_data->img.img, 0, 0);
+	//printf("key: %d\n", env->mlx_data->key_input.keycode);
 	return (0);
 }
 
@@ -134,7 +135,24 @@ t_hbranch	*add_text(t_hbranch *hbranch)
 	return (text);
 }
 
-void	test_htree(t_htree *htree, t_mlx *mlx_data)
+t_hbranch	*add_form_test(t_hbranch *hbranch, int *test_val)
+{
+	t_hbranch	*form;
+
+	form = add_form(hbranch, test_val, FORM_INT, "km");
+	form->anchor = CENTER;
+	form->x_pos_operation = center_screen;
+	form->y_pos_operation = center_screen;
+	//form->x_size_operation = operation_half;
+	//form->y_size_operation = operation_half;
+	form->form.is_valid_input = form_is_valid_input;
+	form->form.format_buf = form_format_buf;
+	form->form._btov = form_btov;
+	form->form._vtob = form_vtob;
+	return (form);
+}
+
+void	test_htree(t_htree *htree, t_mlx *mlx_data, int *test_val)
 {
 	t_style	style = (t_style)
 	{
@@ -181,10 +199,9 @@ void	test_htree(t_htree *htree, t_mlx *mlx_data)
 	{
 		populate_tree(htree->body, 0);
 		populate_tree(htree->body, 0);
+		add_text(htree->body);
 	}
-	printf("1 %p\n", htree->style.font->head);
-	t_hbranch	*text = add_text(htree->body);
-	printf("3 %p\n", text->textbox.font->head);
+	add_form_test(htree->body, test_val);
 	precompute_hierarchy(htree);
 }
 
@@ -193,6 +210,9 @@ int	main(void)
 {
 	t_env	env;
 	int		ret;
+	int	test_val;
+
+	test_val = 59;
 
 	ret = 0;
 	ft_bzero(&env, sizeof(t_env));
@@ -201,7 +221,7 @@ int	main(void)
 	if (!env.mlx_data)
 		ret = error(pack_err(MLXW_ID, MLXW_E_INITF), FL, LN, FC);
 	ft_mlx_center_window(env.mlx_data);
-	test_htree(&env.htree, env.mlx_data);
+	test_htree(&env.htree, env.mlx_data, &test_val);
 
 	add_mouse_hook(env.mlx_data);
 

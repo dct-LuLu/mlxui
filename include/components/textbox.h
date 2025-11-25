@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 12:10:07 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/11/06 18:56:03 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/11/25 01:55:49 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,9 @@ typedef struct s_textbox
 	union
 	{
 		t_text	text;
-		struct {
-		TEXT_FIELDS;
+		struct
+		{
+			TEXT_FIELDS;
 		};
 	};
 	t_text_align	align;

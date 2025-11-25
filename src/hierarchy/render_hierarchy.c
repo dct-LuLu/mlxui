@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 19:30:31 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/11/06 18:57:58 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/11/25 05:30:27 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static inline void	render_component(t_hbranch *cur)
 {
-	if (cur->type == BOX)
+	if ((cur->type == BOX) || (cur->type == FORM))
 		cur->render(cur, &cur->box);
 	else if (cur->type == CHECKBOX)
 		cur->render(cur, &cur->checkbox);
