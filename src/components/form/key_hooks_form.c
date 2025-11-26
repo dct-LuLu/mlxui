@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/25 20:59:30 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/11/25 23:14:32 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/11/26 21:46:01 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ void	hook_typing_form(t_hbranch *hbranch, t_mlx *mlx_data)
 		hbranch->form._btov(hbranch->form.value, hbranch->form.edit_form_buf, hbranch->form.form_type);
 		hbranch->form._vtob(hbranch->form.edit_form_buf, hbranch->form.value, hbranch->form.form_type);
 		ft_strlcpy(hbranch->form.last_form_buf, hbranch->form.edit_form_buf, FORM_BUF_SIZE);
+		switch_focus_form(hbranch, false);
 		printf("value now: %d\n", *(int *)hbranch->form.value);
 	}
 	else

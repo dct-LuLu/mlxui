@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/25 02:13:13 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/11/25 21:51:44 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/11/26 21:41:05 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static inline void	add_form_buffer(t_hbranch *new)
 	textbox = add_textbox(new,
 			(t_text)
 			{
-				.font_size = 3,
+				.font_size = 2,
 				.fg = (t_rgba_int){.rgba=WHITE}, // necessary?
 			}, CENTER_ALIGN, NO_WRAPPING);
 	new->form.form_text = &textbox->textbox;
@@ -38,7 +38,7 @@ static inline void	add_form_morpheme(t_hbranch *new, const char *morpheme)
 	textbox = add_textbox(new,
 			(t_text)
 			{
-				.font_size = 3,
+				.font_size = 2,
 				.fg = (t_rgba_int){.rgba=WHITE},
 			}, LEFT_ALIGN, NO_WRAPPING);
 	new->form.morpheme = &textbox->textbox;
@@ -52,9 +52,9 @@ static inline void	add_form_morpheme(t_hbranch *new, const char *morpheme)
 
 static inline void	create_form_box(t_hbranch *new)
 {
-	new->form.box.size = vec2i(160, 40);
+	new->form.box.size = vec2i(160, 35);
 	new->form.box.radius.style = FULL_PX;
-	new->form.box.radius.full = 3;
+	new->form.box.radius.full = 9;
 	new->form.box.border.style = SOLID;
 	new->form.box.border.size = 1;
 	new->form.box.color = new->head->style.color;
