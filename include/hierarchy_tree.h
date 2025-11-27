@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 16:09:49 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/11/27 04:21:53 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/11/27 20:31:52 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,12 @@ typedef struct s_hbranch
 	union
 	{
 		ANON_GEOM_PACKED;
-		t_box		box;
-		t_checkbox	checkbox;
-		t_textbox	textbox;
-		t_form		form;
-		t_button	button;
+		t_box			box;
+		t_checkbox		checkbox;
+		t_textbox		textbox;
+		t_form			form;
+		t_button		button;
+		t_button_group	button_group
 	};
 	t_vector	*childs;
 	t_hbranch	*parent;
