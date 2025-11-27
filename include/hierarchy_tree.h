@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 16:09:49 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/11/25 05:59:41 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/11/27 04:21:53 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,22 @@ typedef struct s_htree t_htree;
 // store here font, colors, styles etc
 typedef struct s_style
 {
-	t_rgba_int	color;
-	t_rgba_int	outline;
-	t_rgba_int	accent;
 	t_ttf_font	*font;
-	t_rgba_int	text_fg;
+	int			radius;
+	t_rgba_int	background;
+	t_rgba_int	foreground;
+	t_rgba_int	card;
+	t_rgba_int	primary;
+	t_rgba_int	primary_fg;
+	t_rgba_int	secondary;
+	t_rgba_int	secondary_fg;
+	t_rgba_int	muted;
+	t_rgba_int	muted_fg;
+	t_rgba_int	accent;
+	t_rgba_int	accent_fg;
+	t_rgba_int	destructive;
+	t_rgba_int	border;
+	t_rgba_int	input;
 }	t_style;
 
 
@@ -44,9 +55,7 @@ typedef struct s_hbranch
 		t_checkbox	checkbox;
 		t_textbox	textbox;
 		t_form		form;
-		/*
 		t_button	button;
-		*/
 	};
 	t_vector	*childs;
 	t_hbranch	*parent;
@@ -67,5 +76,6 @@ t_hbranch	*add_branch(t_hbranch *parent_branch);
 
 void	render_hierarchy(t_htree *htree);
 void	precompute_hierarchy(t_htree *htree);
+
 
 #endif//HIERARCHY_TREE_H

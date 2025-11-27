@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/25 17:27:33 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/11/25 23:24:54 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/11/27 03:29:21 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	switch_focus_form(t_hbranch *hbranch, bool inside)
 	{
 		ft_bzero(hbranch->form.form_text->content, FORM_BUF_SIZE);
 		ft_strlcpy(hbranch->form.form_text->content, hbranch->form.last_form_buf, FORM_BUF_SIZE);
-		hbranch->form.box.border.color = hbranch->head->style.accent;
+		hbranch->form.box.border.color = hbranch->head->style.primary;
 	}
 	else
 	{
@@ -39,7 +39,7 @@ void	switch_focus_form(t_hbranch *hbranch, bool inside)
 		ft_strlcpy(hbranch->form.form_text->content, hbranch->form.last_form_buf, FORM_BUF_SIZE);
 		strf(hbranch->form.form_text->content, FORM_BUF_SIZE, "%d", ft_atoi(hbranch->form.form_text->content));
 		form_format_buf(hbranch->form.form_text->content);
-		hbranch->form.box.border.color = hbranch->head->style.outline;
+		hbranch->form.box.border.color = hbranch->head->style.border;
 	}
 	if (hbranch->form.morpheme)
 		switch_morpheme((t_hbranch *)get_vector_value(hbranch->childs, 1), hbranch->form.focused);

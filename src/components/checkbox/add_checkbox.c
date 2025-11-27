@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 18:25:41 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/11/03 22:24:54 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/11/27 03:11:27 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,12 @@ static inline void	create_checkbox(t_hbranch *new, bool *checked)
 	new->checkbox.box.radius.style = FULL_PX;
 	new->checkbox.box.radius.full = 3;
 	new->checkbox.box.border.style = SOLID;
-	new->checkbox.box.border.color = new->head->style.outline;
+	new->checkbox.box.border.color = new->head->style.border;
 	new->checkbox.checked = checked;
 	if (checked && *checked)
-		new->checkbox.box.color = new->head->style.accent;
+		new->checkbox.box.color = new->head->style.primary;
 	else
-		new->checkbox.box.color = new->head->style.color;
+		new->checkbox.box.color = new->head->style.input;
 	new->checkbox.box.border.size = (int)!(checked && *checked);
 }
 

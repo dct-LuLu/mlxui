@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/13 17:18:05 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/11/25 21:52:26 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/11/27 01:50:16 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,6 @@ typedef struct s_form
 
 t_hbranch	*add_form(t_hbranch *parent_branch, void *value, t_form_type type, const char *morpheme);
 void		precompute_form(t_hbranch *hbranch);
-//void		precompute_form(t_hbranch *hbranch);
-//void		render_form(t_hbranch *hbranch);
 
 void	hook_typing_form(t_hbranch *hbranch, t_mlx *mlx_data);
 bool	is_form_typing_key(const int keycode);

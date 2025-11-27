@@ -1,19 +1,24 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    srcs.mk                                            :+:      :+:    :+:    #
+#    button.mk                                          :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jaubry-- <jaubry--@student.42.fr>          +#+  +:+       +#+         #
+#    By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2025/09/14 08:18:04 by jaubry--          #+#    #+#              #
-#    Updated: 2025/11/27 02:51:33 by jaubry--         ###   ########.fr        #
+#    Created: 2025/11/27 04:22:52 by jaubry--          #+#    #+#              #
+#    Updated: 2025/11/27 04:24:37 by jaubry--         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-MKS		= components \
-		  hierarchy \
-		  operations \
-		  utils \
-		  test
+# Directories
+BUTTON_DIR	= $(COMPONENTS_DIR)/button
 
-include $(foreach n,$(MKS),$(SRCDIR)/$(n)/$(n).mk)
+# Source files
+BUTTON_SRCS	= add_button.c \
+			  mouse_hooks_button.c
+BUTTON_SRCS	:= $(addprefix $(BUTTON_DIR)/, $(BUTTON_SRCS))
+
+SRCS		+= $(BUTTON_SRCS)
+
+# VPATH
+vpath %.c $(BUTTON_DIR)

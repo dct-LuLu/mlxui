@@ -1,19 +1,23 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    srcs.mk                                            :+:      :+:    :+:    #
+#    utils.mk                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jaubry-- <jaubry--@student.42.fr>          +#+  +:+       +#+         #
+#    By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2025/09/14 08:18:04 by jaubry--          #+#    #+#              #
-#    Updated: 2025/11/27 02:51:33 by jaubry--         ###   ########.fr        #
+#    Created: 2025/11/27 02:50:03 by jaubry--          #+#    #+#              #
+#    Updated: 2025/11/27 02:52:05 by jaubry--         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-MKS		= components \
-		  hierarchy \
-		  operations \
-		  utils \
-		  test
+# Directories
+UTILS_DIR	= $(SRCDIR)/utils
 
-include $(foreach n,$(MKS),$(SRCDIR)/$(n)/$(n).mk)
+# Source files
+UTILS_SRCS	= draw_checkmark.c
+UTILS_SRCS	:= $(addprefix $(UTILS_DIR)/, $(UTILS_SRCS))
+
+SRCS		+= $(UTILS_SRCS)
+
+# VPATH
+vpath %.c $(UTILS_DIR)

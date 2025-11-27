@@ -6,7 +6,7 @@
 /*   By: jaubry-- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 20:12:25 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/11/25 23:38:43 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/11/27 04:33:48 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,12 +73,8 @@ void    select_mouse_pos(void *v, t_mlx *mlx_data)
 
 int	add_mouse_hook(t_mlx *mlx_data)
 {
-    const t_mouse_event     mouse_event = (t_mouse_event)
-    {
-            .action = select_mouse_pos,
-            .arg = NULL
-    };
-    vector_add(mlx_data->mouse_input.move_events, (void *)&mouse_event, 1);
+	if (add_func_move_hook(mlx_data, select_mouse_pos, NULL) != 0)
+		return (error(pack_err(MLXW_ID, MLXW_E_EVENTH), FL, LN, FC));
 	if (add_func_button_hook(mlx_data, MLCLICK, select_zone, NULL) != 0)
 		return (error(pack_err(MLXW_ID, MLXW_E_EVENTH), FL, LN, FC));
 	return (0);
@@ -102,13 +98,13 @@ void	populate_tree(t_hbranch *hbranch, int depth)
 	else
 	{
 		new = add_box(hbranch, (t_radius){.style = FULL_PX, .full = 20},
-				(t_border){.size = 1, .color = hbranch->head->style.outline, .style = SOLID});
-		new->x_pos_operation = center_screen;
-		new->y_pos_operation = center_screen;
+				(t_border){.size = 1, .color = hbranch->head->style.border, .style = SOLID});
+		new->x_pos_operation = operation_half;
+		new->y_pos_operation = operation_half;
 		new->x_size_operation = operation_half;
 		new->y_size_operation = operation_half;
+		new->anchor = LT;
 	}
-	populate_tree(new, depth + 1);
 	populate_tree(new, depth + 1);
 }
 
@@ -125,7 +121,7 @@ t_hbranch	*add_text(t_hbranch *hbranch)
 	},
 	CENTER_ALIGN,
 	NO_WRAPPING);
-	text->anchor = CENTER;
+	text->anchor = RIGHT;
 	text->x_pos_operation = center_screen;
 	text->y_pos_operation = center_screen;
 	//text->x_pos_operation = operation_half;
@@ -152,14 +148,70 @@ t_hbranch	*add_form_test(t_hbranch *hbranch, int *test_val)
 	return (form);
 }
 
+static inline void	test_button_action(t_hbranch *hbranch, void *arg)
+{
+	static int	feur = 0;
+
+	(void)hbranch;
+	(void)arg;
+	feur++;
+	printf("button pressed: %d\n", feur);
+}
+
+t_hbranch	*add_button_test(t_hbranch *hbranch)
+{
+	t_hbranch	*button;
+
+	button = add_button(hbranch, (t_radius){.style = FULL_PX, .full = 12},
+				(t_border){.size = 1, .color = hbranch->head->style.border, .style = SOLID});
+	button->button.action = test_button_action;
+	button->anchor = RB;
+	button->pos = vec2i_sub_scalar(hbranch->head->mlx_data->size, 20);
+	button->size = vec2i(80, 30);
+	return (button);
+}
+
+
+#define C_BACKGROUND              0xFF151417
+#define C_FOREGROUND              0xFFFDFDFD
+
+#define C_CARD                    0xFF222027
+
+#define C_PRIMARY                 0xFFF7A83B
+#define C_PRIMARY_FG              0xFFFCF2E8
+
+#define C_SECONDARY               0xFF2F2C37
+#define C_SECONDARY_FG            0xFFFDFDFD
+
+#define C_MUTED                   0xFF2F2C37
+#define C_MUTED_FG                0xFFB2B5D6
+
+#define C_ACCENT                  0xFF2F2C37
+#define C_ACCENT_FG               0xFFFDFDFD
+
+#define C_DESTRUCTIVE             0xFFE25A2B
+#define C_BORDER                  0x1AFFFFFF  // 10% opacity
+#define C_INPUT                   0x26FFFFFF  // 15% opacity
+
 void	test_htree(t_htree *htree, t_mlx *mlx_data, int *test_val)
 {
 	t_style	style = (t_style)
 	{
-		.color = rgba_int(30, 30, 30, 80),
-		.outline = rgba_int(62, 62, 62, 230),
-		.accent = rgba_int(56, 93, 209, 255),
-		.text_fg = rgba_int(255, 255, 255, 255)
+		.radius = 9,
+		.background = drgba_int(C_BACKGROUND),
+		.foreground = drgba_int(C_FOREGROUND),
+		.card = drgba_int(C_CARD),
+		.primary = drgba_int(C_PRIMARY),
+		.primary_fg = drgba_int(C_PRIMARY_FG),
+		.secondary = drgba_int(C_SECONDARY),
+		.secondary_fg = drgba_int(C_SECONDARY_FG),
+		.muted = drgba_int(C_MUTED),
+		.muted_fg = drgba_int(C_MUTED_FG),
+		.accent = drgba_int(C_ACCENT),
+		.accent_fg = drgba_int(C_ACCENT_FG),
+		.destructive = drgba_int(C_DESTRUCTIVE),
+		.border = drgba_int(C_BORDER),
+		.input = drgba_int(C_INPUT),
 	};
 	*htree = init_htree(mlx_data, style);
 	htree->body = ft_calloc(1, sizeof(t_hbranch));
@@ -176,32 +228,22 @@ void	test_htree(t_htree *htree, t_mlx *mlx_data, int *test_val)
 			.precompute = precompute_box,
 			.render = (void (*)(t_hbranch *, void *))render_box,
 			.anchor = LT,
-			.size = vec2i_sub_scalar(htree->mlx_data->size, 50),
-			.pos = vec2i(25, 25),
-			.color = htree->style.color,
-			.radius = (t_radius)
-			{
-				.style = FULL_PX,
-				.full = 20
-			},
-			.border = (t_border)
-			{
-				.size = 1,
-				.color = htree->style.outline,
-				.style = SOLID
-			}
+			.size = htree->mlx_data->size,
+			.pos = vec2i(0, 0),
+			.color = htree->style.background,
 		},
 	};
 	htree->body->type = BOX;
 	if (init_ttf(FONT_PATH, &htree->style.font) != 0)
 		return ;
-	if (false)
+	if (true)
 	{
 		populate_tree(htree->body, 0);
 		populate_tree(htree->body, 0);
 		add_text(htree->body);
 	}
 	add_form_test(htree->body, test_val);
+	add_button_test(htree->body);
 	precompute_hierarchy(htree);
 }
 

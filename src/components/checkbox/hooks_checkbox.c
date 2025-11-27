@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 18:39:16 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/11/03 22:25:15 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/11/27 03:14:06 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ void	switch_checkbox(t_hbranch *hbranch)
 	{
 		*hbranch->checkbox.checked = !*hbranch->checkbox.checked;
 		if (*hbranch->checkbox.checked)
-			hbranch->checkbox.box.color = hbranch->head->style.accent;
+			hbranch->checkbox.box.color = hbranch->head->style.primary;
 		else
-			hbranch->checkbox.box.color = hbranch->head->style.color;
+			hbranch->checkbox.box.color = hbranch->head->style.input;
 		hbranch->checkbox.box.border.size = (int)!(*hbranch->checkbox.checked);
 	}
 }

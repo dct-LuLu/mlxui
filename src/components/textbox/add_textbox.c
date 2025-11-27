@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 12:26:31 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/11/25 02:16:12 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/11/27 03:16:06 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static inline void	create_textbox(t_hbranch *new, t_text text,
 	new->textbox.wrapping = wrapping;
 	new->textbox.font = new->head->style.font;
 	if (new->textbox.fg.rgba == 0)
-		new->textbox.fg = new->head->style.text_fg;
+		new->textbox.fg = new->head->style.foreground;
 	if ((new->textbox.bg.rgb == 0) && new->textbox.subpixel
 			&& (new->parent->type == BOX))
 		new->textbox.bg.rgb = new->parent->box.color.rgba;
