@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 19:30:31 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/11/27 04:29:45 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/12/03 20:06:05 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,39 @@ static inline void	render_hbranch(t_hbranch *hbranch)
 	size_t		i;
 	t_hbranch	*cur;
 
-	if (!hbranch || !hbranch->render)
+	if (!hbranch)
 		return ;
-	if (hbranch->visible)
+	if (hbranch->visible && hbranch->render)
 		render_component(hbranch);
 	i = 0;
 	while (hbranch->childs && (i < hbranch->childs->num_elements))
 	{
 		cur = get_vector_value(hbranch->childs, i);
-		if (cur->render)
-			render_hbranch(cur);
+		render_hbranch(cur);
+		i++;
+	}
+}
+
+static inline void	render_component_special(t_hbranch *cur)
+{
+	if ((cur->type == BUTTON) && cur->button.hover)
+		render_button_hover(cur);
+}
+
+static inline void	render_hbranch_special(t_hbranch *hbranch)
+{
+	size_t		i;
+	t_hbranch	*cur;
+
+	if (!hbranch)
+		return ;
+	if (hbranch->visible && hbranch->render)
+		render_component_special(hbranch);
+	i = 0;
+	while (hbranch->childs && (i < hbranch->childs->num_elements))
+	{
+		cur = get_vector_value(hbranch->childs, i);
+		render_hbranch_special(cur);
 		i++;
 	}
 }
@@ -44,5 +67,8 @@ static inline void	render_hbranch(t_hbranch *hbranch)
 void	render_hierarchy(t_htree *htree)
 {
 	if (htree)
+	{
 		render_hbranch(htree->body);
+		render_special(htree->body);
+	}
 }

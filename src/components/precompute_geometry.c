@@ -6,12 +6,12 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 16:28:03 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/11/03 22:01:24 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/11/28 18:42:44 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "hierarchy_tree.h"
-# include <stddef.h>
+#include <stddef.h>
 
 static inline t_vec2i	get_anchor_pos(t_anchor anchor, t_vec2i pos, t_vec2i size)
 {

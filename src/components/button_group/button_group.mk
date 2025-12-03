@@ -1,25 +1,24 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    button.mk                                          :+:      :+:    :+:    #
+#    button_group.mk                                    :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2025/11/27 04:22:52 by jaubry--          #+#    #+#              #
-#    Updated: 2025/12/03 19:35:55 by jaubry--         ###   ########.fr        #
+#    Created: 2025/11/29 00:30:40 by jaubry--          #+#    #+#              #
+#    Updated: 2025/11/29 00:32:55 by jaubry--         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Directories
-BUTTON_DIR	= $(COMPONENTS_DIR)/button
+BUTTON_GROUP_DIR	= $(COMPONENTS_DIR)/button_group
 
 # Source files
-BUTTON_SRCS	= add_button.c \
-			  render_button.c \
-			  mouse_hooks_button.c
-BUTTON_SRCS	:= $(addprefix $(BUTTON_DIR)/, $(BUTTON_SRCS))
+BUTTON_GROUP_SRCS	= add_button_group.c \
+					  precompute_button_group.c
+BUTTON_GROUP_SRCS	:= $(addprefix $(BUTTON_GROUP_DIR)/, $(BUTTON_GROUP_SRCS))
 
-SRCS		+= $(BUTTON_SRCS)
+SRCS				+= $(BUTTON_GROUP_SRCS)
 
 # VPATH
-vpath %.c $(BUTTON_DIR)
+vpath %.c $(BUTTON_GROUP_DIR)

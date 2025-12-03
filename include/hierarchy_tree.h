@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 16:09:49 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/11/27 20:31:52 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/11/29 00:34:04 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ typedef struct s_hbranch
 		t_textbox		textbox;
 		t_form			form;
 		t_button		button;
-		t_button_group	button_group
+		t_button_group	button_group;
 	};
 	t_vector	*childs;
 	t_hbranch	*parent;

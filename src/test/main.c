@@ -6,7 +6,7 @@
 /*   By: jaubry-- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 20:12:25 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/11/27 04:33:48 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/12/03 19:21:03 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,6 +171,27 @@ t_hbranch	*add_button_test(t_hbranch *hbranch)
 	return (button);
 }
 
+t_hbranch	*add_button_group_test(t_hbranch *hbranch)
+{
+	t_hbranch	*button_group;
+	t_hbranch	*button;
+	size_t		i;
+
+	button_group = add_button_group(hbranch, GROUP_HORZ, GROUP_DEFAULT);
+	button_group->anchor = RB;
+	button_group->pos = vec2i(hbranch->head->mlx_data->size.x - 300, hbranch->head->mlx_data->size.y - 120);
+	i = 0;
+	while (i < 5)
+	{
+		button = add_button(button_group, (t_radius){},
+					(t_border){.size = 1, .color = hbranch->head->style.border, .style = SOLID});
+		button->button.action = test_button_action;
+		button->size = vec2i(50, 50);
+		i++;
+	}
+	return (button_group);
+}
+
 
 #define C_BACKGROUND              0xFF151417
 #define C_FOREGROUND              0xFFFDFDFD
@@ -244,6 +265,7 @@ void	test_htree(t_htree *htree, t_mlx *mlx_data, int *test_val)
 	}
 	add_form_test(htree->body, test_val);
 	add_button_test(htree->body);
+	add_button_group_test(htree->body);
 	precompute_hierarchy(htree);
 }
 

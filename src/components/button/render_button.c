@@ -1,25 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   add_button_group.c                                 :+:      :+:    :+:   */
+/*   render_button.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/27 21:08:20 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/11/29 00:45:10 by jaubry--         ###   ########.fr       */
+/*   Created: 2025/12/03 19:21:55 by jaubry--          #+#    #+#             */
+/*   Updated: 2025/12/03 19:44:46 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "hierarchy_tree.h"
 
-t_hbranch	*add_button_group(t_hbranch *parent_branch, t_group_dir group_dir, t_group_type group_type)
+void	render_button_hover(t_hbranch *hbranch)
 {
-	t_hbranch	*new;
+	t_rgba_int	save_color;
+	uint8_t		save_border_size;
 
-	new = add_branch(parent_branch);
-	new->type = BUTTON_GROUP;
-	new->button_group.group_dir = group_dir;
-	new->button_group.group_type = group_type;
-	new->precompute = precompute_button_group;
-	return (new);
+	save_color = hbranch->box.color;
+	save_border_size = hbranch->box.border.size;
+	hbranch->box.color = hbranch->head->style.input;
+	hbranch->box.border.size = 0;
+	render_box(hbranch, &hbranch->box);
+	hbranch->box.color = save_color;
+	hbranch->box.border.size = save_border_size;
 }

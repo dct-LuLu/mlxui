@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 19:57:51 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/11/27 20:31:16 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/11/29 00:33:53 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ typedef enum e_component_type
 	CHECKBOX,
 	TEXTBOX,
 	BUTTON,
-	BUTTON_GROUP
+	BUTTON_GROUP,
 	FORM
 }	t_component_type;
 

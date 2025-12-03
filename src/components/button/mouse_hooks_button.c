@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/27 03:48:37 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/11/27 04:33:05 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/12/03 19:40:01 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,7 @@ void	hook_hover_button(t_hbranch *hbranch, t_mlx *mlx_data)
 			&& ((pos.y > hbranch->_lt.y) && (pos.y < hbranch->_lb.y)));
 
 	if (hover && !inside)
-	{
-		hbranch->button.box.color = hbranch->head->style.card;
 		hbranch->button.hover = false;
-	}
 	else if (!hover && inside)
-	{
-		hbranch->button.box.color = hbranch->head->style.input;
 		hbranch->button.hover = true;
-	}
 }
