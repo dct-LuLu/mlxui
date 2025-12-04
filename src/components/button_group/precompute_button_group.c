@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/27 21:31:57 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/11/29 01:00:11 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/12/04 21:39:40 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,7 @@ void	precompute_button_group(t_hbranch *hbranch)
 		i++;
 	}
 	precompute_buttons_size(hbranch);
+	precompute_geometry(hbranch, 0, 1);//to edit may cause issues
 	precompute_buttons_pos(hbranch);
 	precompute_buttons_corners(hbranch);
 }

@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/27 19:32:46 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/11/29 00:45:28 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/12/04 19:09:16 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct s_button_group
 }	t_button_group;
 
 t_hbranch	*add_button_group(t_hbranch *parent_branch, t_group_dir group_dir, t_group_type group_type);
+void	render_button_group_switch(t_hbranch *hbranch);
 void	precompute_button_group(t_hbranch *hbranch);
 
 #endif//BUTTON_GROUP_H

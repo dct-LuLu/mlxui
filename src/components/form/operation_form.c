@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/25 05:32:17 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/11/26 20:13:58 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/12/04 21:04:02 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	center_abs_parent(size_t field_offset, t_hbranch *this, size_t render_i, si
 	if (val == &this->pos.x)
 		*val = this->parent->_mid.x;
 	else if (val == &this->pos.y)
-		*val = this->parent->_mid.y + 10;
+		*val = this->parent->_mid.y;
 }
 
 void	copy_parent(size_t field_offset, t_hbranch *this, size_t render_i, size_t render_num)

@@ -6,17 +6,17 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 12:26:31 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/11/27 03:16:06 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/12/04 20:49:53 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "hierarchy_tree.h"
 
 static inline void	create_textbox(t_hbranch *new, t_text text,
-		t_text_align align, t_text_wrapping wrapping)
+		t_text_horz_align horz_align, t_text_wrapping wrapping)
 {
 	new->textbox.text = text;
-	new->textbox.align = align;
+	new->textbox.horz_align = horz_align;
 	new->textbox.wrapping = wrapping;
 	new->textbox.font = new->head->style.font;
 	if (new->textbox.fg.rgba == 0)
@@ -27,12 +27,12 @@ static inline void	create_textbox(t_hbranch *new, t_text text,
 	new->textbox._img = &new->head->mlx_data->img;
 }
 
-t_hbranch	*add_textbox(t_hbranch *parent_branch, t_text text, t_text_align align, t_text_wrapping  wrapping)
+t_hbranch	*add_textbox(t_hbranch *parent_branch, t_text text, t_text_horz_align horz_align, t_text_wrapping  wrapping)
 {
 	t_hbranch	*new;
 
 	new = add_branch(parent_branch);
-	create_textbox(new, text, align, wrapping);
+	create_textbox(new, text, horz_align, wrapping);
 	new->type = TEXTBOX;
 	new->precompute = precompute_textbox;
 	new->render = (void (*)(t_hbranch *, void *))render_textbox;

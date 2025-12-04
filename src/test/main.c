@@ -6,7 +6,7 @@
 /*   By: jaubry-- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 20:12:25 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/12/03 19:21:03 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/12/04 21:46:10 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ typedef struct s_env
 	t_htree	htree;
 }	t_env;
 
+t_hbranch	*button_group;
+
 t_vec2i		start_pos = (t_vec2i){{0, 0}};
 t_vec2i		end_pos = (t_vec2i){{0, 0}};
 
@@ -36,6 +38,7 @@ int	loop(t_env *env)
 	render_hierarchy(&env->htree);
 	if (start_pos.x != 0 && start_pos.y != 0)
 		ft_mlx_select_put(&env->mlx_data->img, start_pos, end_pos, drgb_int(0xFFFFFF));
+
 	mlx_put_image_to_window(env->mlx_data->mlx, env->mlx_data->win, env->mlx_data->img.img, 0, 0);
 	//printf("key: %d\n", env->mlx_data->key_input.keycode);
 	return (0);
@@ -121,11 +124,10 @@ t_hbranch	*add_text(t_hbranch *hbranch)
 	},
 	CENTER_ALIGN,
 	NO_WRAPPING);
+	text->textbox.vert_align = BASELINE_ALIGN;
 	text->anchor = RIGHT;
 	text->x_pos_operation = center_screen;
 	text->y_pos_operation = center_screen;
-	//text->x_pos_operation = operation_half;
-	//text->y_pos_operation = operation_half;
 	text->x_size_operation = operation_half;
 	text->y_size_operation = operation_half;
 	return (text);
@@ -139,8 +141,6 @@ t_hbranch	*add_form_test(t_hbranch *hbranch, int *test_val)
 	form->anchor = CENTER;
 	form->x_pos_operation = center_screen;
 	form->y_pos_operation = center_screen;
-	//form->x_size_operation = operation_half;
-	//form->y_size_operation = operation_half;
 	form->form.is_valid_input = form_is_valid_input;
 	form->form.format_buf = form_format_buf;
 	form->form._btov = form_btov;
@@ -161,6 +161,7 @@ static inline void	test_button_action(t_hbranch *hbranch, void *arg)
 t_hbranch	*add_button_test(t_hbranch *hbranch)
 {
 	t_hbranch	*button;
+	t_hbranch	*text;
 
 	button = add_button(hbranch, (t_radius){.style = FULL_PX, .full = 12},
 				(t_border){.size = 1, .color = hbranch->head->style.border, .style = SOLID});
@@ -168,18 +169,32 @@ t_hbranch	*add_button_test(t_hbranch *hbranch)
 	button->anchor = RB;
 	button->pos = vec2i_sub_scalar(hbranch->head->mlx_data->size, 20);
 	button->size = vec2i(80, 30);
+	text = add_textbox(button,
+	(t_text)
+	{
+		.content = "click me",
+		.font_size = 2,
+		.fg = (t_rgba_int){.rgba=WHITE},
+	},
+	CENTER_ALIGN,
+	NO_WRAPPING);
+	text->anchor = RB;
+	text->x_pos_operation = copy;
+	text->y_pos_operation = copy;
+	text->x_size_operation = copy;
+	text->y_size_operation = copy;
 	return (button);
 }
 
 t_hbranch	*add_button_group_test(t_hbranch *hbranch)
 {
-	t_hbranch	*button_group;
 	t_hbranch	*button;
+	t_hbranch	*text;
 	size_t		i;
 
-	button_group = add_button_group(hbranch, GROUP_HORZ, GROUP_DEFAULT);
+	button_group = add_button_group(hbranch, GROUP_VERT, GROUP_SWITCH);
 	button_group->anchor = RB;
-	button_group->pos = vec2i(hbranch->head->mlx_data->size.x - 300, hbranch->head->mlx_data->size.y - 120);
+	button_group->pos = vec2i(hbranch->head->mlx_data->size.x - 20, hbranch->head->mlx_data->size.y - 80);
 	i = 0;
 	while (i < 5)
 	{
@@ -187,6 +202,21 @@ t_hbranch	*add_button_group_test(t_hbranch *hbranch)
 					(t_border){.size = 1, .color = hbranch->head->style.border, .style = SOLID});
 		button->button.action = test_button_action;
 		button->size = vec2i(50, 50);
+
+		text = add_textbox(button,
+		(t_text)
+		{
+			.font_size = 3,
+			.fg = (t_rgba_int){.rgba=WHITE},
+		},
+		CENTER_ALIGN,
+		NO_WRAPPING);
+		text->textbox.content[0] = '0' + (int)i;
+		text->anchor = LT;
+		text->x_pos_operation = copy;
+		text->y_pos_operation = copy;
+		text->x_size_operation = copy;
+		text->y_size_operation = copy;
 		i++;
 	}
 	return (button_group);

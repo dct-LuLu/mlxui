@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 11:18:21 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/11/13 17:16:53 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/12/04 20:50:20 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,14 @@ static inline t_vec2i	get_new_pen_pos(t_textbox *textbox, t_vec2i pen_pos, char 
 	const int	newline_y = pen_pos.y - (newline * textbox->_newline_y);
 	int			line_width;
 
-	if (textbox->align == LEFT_ALIGN)
+	if (textbox->horz_align == LEFT_ALIGN)
 		return (vec2i(textbox->_lt.x, newline_y));
 	line_width = 0;
 	if (str)
 		line_width = measure_text_line_width(str, &textbox->text);
-	if (textbox->align == RIGHT_ALIGN)
+	if (textbox->horz_align == RIGHT_ALIGN)
 		return (vec2i(textbox->_rb.x - line_width, newline_y));
-	if (textbox->align == CENTER_ALIGN)
+	if (textbox->horz_align == CENTER_ALIGN)
 		return (vec2i(textbox->_lt.x + textbox->_half_size.x - (line_width / 2),
 					newline_y));
 	return (vec2i(0, 0));
