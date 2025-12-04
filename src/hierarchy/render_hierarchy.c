@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 19:30:31 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/12/03 20:06:05 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/12/04 18:25:00 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,6 @@ void	render_hierarchy(t_htree *htree)
 	if (htree)
 	{
 		render_hbranch(htree->body);
-		render_special(htree->body);
+		render_hbranch_special(htree->body);
 	}
 }
