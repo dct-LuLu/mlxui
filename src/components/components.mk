@@ -6,7 +6,7 @@
 #    By: jaubry-- <jaubry--@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/03 19:11:39 by jaubry--          #+#    #+#              #
-#    Updated: 2025/11/29 00:33:09 by jaubry--         ###   ########.fr        #
+#    Updated: 2025/12/06 09:35:16 by jaubry--         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,8 @@ MKS		= box \
 		  textbox \
 		  form \
 		  button \
-		  button_group
+		  button_group \
+		  select
 
 include $(foreach n,$(MKS),$(COMPONENTS_DIR)/$(n)/$(n).mk)
 

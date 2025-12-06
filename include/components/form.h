@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/13 17:18:05 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/11/27 01:50:16 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/12/05 03:34:40 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,18 +67,3 @@ void	copy_parent(size_t field_offset, t_hbranch *this, size_t render_i, size_t r
 void	center_abs_parent(size_t field_offset, t_hbranch *this, size_t render_i, size_t render_num);
 
 #endif//FORM_H
-
-//last_form_buffer (used when exiting form while typing was made)
-//edit_form_buffer (used to store text when writing into form)
-//morphene_str (used to store text prefix)
-
-/*
-	HOOK (TYPING) char textbuffer[FORM_SIZE];
-	FORMATER (STRING CORRECTING, AFTER ENTER or CONTEXT OUT)
-	VALIDATOR (TRANSFORM STRING INTO WANTED VALUE)
-*/
-
-/*
-	const char	suffix_morpheme[5];
-	added after formated string and not used for centering
-*/

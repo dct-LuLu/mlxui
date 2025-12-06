@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 18:18:35 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/11/03 21:32:50 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/12/06 12:36:28 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static inline void	precompute_hbranch(t_hbranch *hbranch)
 	size_t		render_num;
 	t_hbranch	*cur;
 
-	if (!hbranch || !hbranch->rendered)
+	if (!hbranch)
 		return ;
 	if (hbranch->parent == NULL)
 	{
@@ -51,14 +51,11 @@ static inline void	precompute_hbranch(t_hbranch *hbranch)
 	while (i < hbranch->childs->num_elements)
 	{
 		cur = get_vector_value(hbranch->childs, i);
-		if (cur->rendered)
-		{
-			precompute_geometry(cur, render_i, render_num);
-			if (cur->visible)
-				cur->precompute(cur);
-			render_i++;
-			precompute_hbranch(cur);
-		}
+		precompute_geometry(cur, render_i, render_num);
+		if (cur->visible)
+			cur->precompute(cur);
+		render_i++;
+		precompute_hbranch(cur);
 		i++;
 	}
 }

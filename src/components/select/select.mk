@@ -1,24 +1,27 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    utils.mk                                           :+:      :+:    :+:    #
+#    select.mk                                          :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2025/11/27 02:50:03 by jaubry--          #+#    #+#              #
-#    Updated: 2025/12/06 10:06:52 by jaubry--         ###   ########.fr        #
+#    Created: 2025/12/06 09:24:54 by jaubry--          #+#    #+#              #
+#    Updated: 2025/12/06 13:16:04 by jaubry--         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Directories
-UTILS_DIR	= $(SRCDIR)/utils
+SELECT_DIR	= $(COMPONENTS_DIR)/select
 
 # Source files
-UTILS_SRCS	= draw_checkmark.c \
-			  draw_down_arrow.c
-UTILS_SRCS	:= $(addprefix $(UTILS_DIR)/, $(UTILS_SRCS))
+SELECT_SRCS	= add_select.c \
+			  add_select_option.c \
+			  render_select.c \
+			  operation_select.c
 
-SRCS		+= $(UTILS_SRCS)
+SELECT_SRCS	:= $(addprefix $(SELECT_DIR)/, $(SELECT_SRCS))
+
+SRCS		+= $(SELECT_SRCS)
 
 # VPATH
-vpath %.c $(UTILS_DIR)
+vpath %.c $(SELECT_DIR)

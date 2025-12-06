@@ -6,7 +6,7 @@
 /*   By: jaubry-- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 20:12:25 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/12/04 21:46:10 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/12/06 13:15:34 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -222,6 +222,19 @@ t_hbranch	*add_button_group_test(t_hbranch *hbranch)
 	return (button_group);
 }
 
+t_hbranch	*add_select_test(t_hbranch *hbranch)
+{
+	t_hbranch	*select;
+
+	select = add_select(hbranch, "Select engine...");
+	select->anchor = LT;
+	select->pos = vec2i(20, hbranch->head->mlx_data->size.y / 2 + 40);
+	add_select_option(select, "Wireframe", test_button_action);
+	add_select_option(select, "Eevee", test_button_action);
+	add_select_option(select, "Cycles", test_button_action);
+	return (select);
+}
+
 
 #define C_BACKGROUND              0xFF151417
 #define C_FOREGROUND              0xFFFDFDFD
@@ -296,6 +309,7 @@ void	test_htree(t_htree *htree, t_mlx *mlx_data, int *test_val)
 	add_form_test(htree->body, test_val);
 	add_button_test(htree->body);
 	add_button_group_test(htree->body);
+	add_select_test(htree->body);
 	precompute_hierarchy(htree);
 }
 

@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 19:30:31 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/12/04 19:16:01 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/12/06 12:28:44 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ static inline void	render_component(t_hbranch *cur)
 		cur->render(cur, &cur->checkbox);
 	else if (cur->type == TEXTBOX)
 		cur->render(cur, &cur->textbox);
+	else if (cur->type == SELECT)
+		cur->render(cur, &cur->select);
 }
 
 static inline void	render_hbranch(t_hbranch *hbranch)
@@ -29,10 +31,10 @@ static inline void	render_hbranch(t_hbranch *hbranch)
 
 	if (!hbranch)
 		return ;
-	if (hbranch->visible && hbranch->render)
+	if (hbranch->visible && hbranch->rendered)
 		render_component(hbranch);
 	i = 0;
-	while (hbranch->childs && (i < hbranch->childs->num_elements))
+	while (hbranch->rendered && hbranch->childs && (i < hbranch->childs->num_elements))
 	{
 		cur = get_vector_value(hbranch->childs, i);
 		render_hbranch(cur);
@@ -42,7 +44,7 @@ static inline void	render_hbranch(t_hbranch *hbranch)
 
 static inline void	render_component_special(t_hbranch *cur)
 {
-	if ((cur->type == BUTTON) && cur->button.hover)
+	if (((cur->type == BUTTON) || (cur->type == SELECT)) && cur->button.hover)
 		render_button_hover(cur);
 	else if (cur->type == BUTTON_GROUP)
 		render_button_group_switch(cur);
@@ -55,10 +57,10 @@ static inline void	render_hbranch_special(t_hbranch *hbranch)
 
 	if (!hbranch)
 		return ;
-	if (hbranch->visible)
+	if (hbranch->visible && hbranch->rendered)
 		render_component_special(hbranch);
 	i = 0;
-	while (hbranch->childs && (i < hbranch->childs->num_elements))
+	while (hbranch->rendered && hbranch->childs && (i < hbranch->childs->num_elements))
 	{
 		cur = get_vector_value(hbranch->childs, i);
 		render_hbranch_special(cur);
