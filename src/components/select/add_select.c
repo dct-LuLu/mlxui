@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/06 08:27:52 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/12/06 13:14:19 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/12/10 11:38:15 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,12 +58,12 @@ static inline void	create_expand(t_hbranch *new, char label[SELECT_LABEL_LEN])
 	expand_box->x_pos_operation = copy_parent;
 	expand_box->y_pos_operation = entry_offset;
 	expand_box->box.pos = label_box->_lb;
-	expand_box->box.size = vec2i(200, 4);
+	expand_box->box.size = vec2i(200, 8);
 	expand_box->anchor = LT;
 	new->select.expand = &expand_box->box;
 
 	margin = add_box(expand_box, (t_radius){}, (t_border){});
-	margin->box.size = vec2i(196, 0);
+	margin->box.size = vec2i(192, 0);
 	margin->x_pos_operation = margin_offset_parent;
 	margin->y_pos_operation = margin_offset_parent;
 	margin->anchor = LT;
@@ -91,12 +91,8 @@ static inline void	create_select(t_hbranch *new, char label[SELECT_LABEL_LEN])
 	create_expand(new, label);
 }
 
-void	switch_select_expand(t_hbranch *hbranch, void *arg)
-{
-	(void)arg;
-	hbranch->select.expanded = !hbranch->select.expanded;
-	hbranch->select.label_box->rendered = !hbranch->select.label_box->rendered;
-}
+void	switch_select_expand(t_hbranch *hbranch, void *arg);
+void	hook_click_outside_select(t_vec2i pos, t_maction action, t_hbranch *hbranch, t_mlx *mlx_data);
 
 t_hbranch	*add_select(t_hbranch *parent_branch, char label[SELECT_LABEL_LEN])
 {
@@ -108,6 +104,7 @@ t_hbranch	*add_select(t_hbranch *parent_branch, char label[SELECT_LABEL_LEN])
 	new->render = (void (*)(t_hbranch *, void *))render_select;
 	new->select.button.box.size = vec2i(200, 36);
 	new->select.button.action = switch_select_expand;
+	add_func_button_hook(new->head->mlx_data, MLCLICK, (void (*)(t_vec2i, t_maction, void *, t_mlx *))hook_click_outside_select, new);
 	create_select(new, label);
 	return (new);
 }

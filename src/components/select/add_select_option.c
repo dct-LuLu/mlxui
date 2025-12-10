@@ -6,13 +6,30 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/06 12:37:12 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/12/06 13:17:42 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/12/10 14:49:19 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "hierarchy_tree.h"
 
+typedef void (*t_option_action)(t_hbranch *hbranch, void *arg);
+
 void	selected_offset_parent(size_t field_offset, t_hbranch *this, size_t render_i, size_t render_num);
+void	option_offset(size_t field_offset, t_hbranch *this, size_t render_i, size_t render_num);
+void	switch_select_expand(t_hbranch *hbranch, void *arg);
+
+void	select_option_wrapper(t_hbranch *hbranch, void *arg)
+{
+	t_select		*select;
+	t_option_action	*option_action;
+
+	select = &hbranch->parent->parent->parent->parent->select;
+	select->option_index = get_vector_index(hbranch->parent->childs, hbranch) + 1;
+	ft_strlcpy(select->selected->content, ((t_hbranch *)(get_vector_value(hbranch->childs, 0)))->textbox.content, SELECT_LABEL_LEN);
+	switch_select_expand(hbranch->parent->parent->parent->parent, NULL);
+	option_action = get_vector_value(select->actions, select->option_index - 1);
+	(*option_action)(hbranch, arg);
+}
 
 int	add_select_option(t_hbranch *select, char option_name[SELECT_LABEL_LEN],
 		void (*option_action)(t_hbranch *hbranch, void *arg))
@@ -20,13 +37,23 @@ int	add_select_option(t_hbranch *select, char option_name[SELECT_LABEL_LEN],
 	t_hbranch	*option;
 	t_hbranch	*option_label;
 
-	option = add_button(select->select.margin, (t_radius){.style = FULL_PX, .full = 9}, (t_border){});
-	option->size = vec2i(196, 36);
+	if (select->select.options->num_elements >= 5)
+		return (1);
+	option = add_button(select->select.margin, (t_radius){.style = FULL_PX, .full = 11}, (t_border){});
+	select->select.margin->box.size.y += 36;
+	select->select.expand->size.y += 36;
+	option->size = vec2i(192, 36);
 	option->anchor = LT;
 	option->x_pos_operation = copy_parent;
-	if (select->select.options->num_elements == 0)
-		option->y_pos_operation = copy_parent;
-	option->button.action = option_action;
+	option->y_pos_operation = option_offset;
+	if (select->select.actions == NULL)
+	{
+		select->select.actions = ft_calloc(sizeof(t_vector), 1);
+		vector_init(select->select.actions, sizeof(t_option_action));
+	}
+	if (vector_add(select->select.actions, &option_action, 1) != 0)
+		return (1);
+	option->button.action = select_option_wrapper;
 	option_label = add_textbox(option,
 			(t_text)
 			{

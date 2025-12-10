@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/06 09:45:55 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/12/06 12:16:33 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/12/10 11:14:51 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	margin_offset_parent(size_t field_offset, t_hbranch *this, size_t render_i,
 	(void)render_num;
 	val = (int *)((char *)this + field_offset);
 	parent_val = (int *)((char *)this->parent + field_offset);
-	*val = *parent_val + 2;
+	*val = *parent_val + 4;
 }
 
 void	expanded_offset(size_t field_offset, t_hbranch *this, size_t render_i, size_t render_num)
@@ -59,6 +59,20 @@ void	entry_offset(size_t field_offset, t_hbranch *this, size_t render_i, size_t 
 	parent_val = (int *)((char *)this->parent + field_offset);
 	*val = *parent_val + 36;
 }
+
+void	option_offset(size_t field_offset, t_hbranch *this, size_t render_i, size_t render_num)
+{
+	int	*val;
+	int	*parent_val;
+
+	printf("render_i: %zu, render_num %zu\n", render_i, render_num);
+	(void)render_i;
+	(void)render_num;
+	val = (int *)((char *)this + field_offset);
+	parent_val = (int *)((char *)this->parent + field_offset);
+	*val = *parent_val + 36 * render_i;
+}
+
 /*
 void	option_offset_parent(size_t field_offset, t_hbranch *this, size_t render_i, size_t render_num)
 {

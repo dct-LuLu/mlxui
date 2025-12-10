@@ -6,16 +6,25 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/27 03:48:37 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/12/04 19:21:51 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/12/10 11:02:03 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "hierarchy_tree.h"
 
+static inline bool	is_rendered(t_hbranch *el)
+{
+	if (!el->rendered)
+		return (false);
+	if (el->parent)
+		return (is_rendered(el->parent));
+	return (true);
+}
+
 void	hook_click_button(t_vec2i pos, t_maction action, t_hbranch *hbranch, t_mlx *mlx_data)
 {
 	(void)mlx_data;
-	if ((action == MPRESS) && hbranch->rendered && hbranch->visible
+	if ((action == MPRESS) && is_rendered(hbranch) && hbranch->visible
 			&& (((pos.x > hbranch->_lt.x) && (pos.x < hbranch->_rt.x))
 				&& ((pos.y > hbranch->_lt.y) && (pos.y < hbranch->_lb.y))))
 	{

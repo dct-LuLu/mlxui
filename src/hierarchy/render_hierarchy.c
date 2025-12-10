@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 19:30:31 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/12/06 12:28:44 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/12/10 13:31:16 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,12 @@ static inline void	render_hbranch(t_hbranch *hbranch)
 	}
 }
 
+void	render_select_special(t_hbranch *hbranch, t_select *select);
+
 static inline void	render_component_special(t_hbranch *cur)
 {
+	if ((cur->type == SELECT) && cur->select.expanded)
+		render_select_special(cur, &cur->select);
 	if (((cur->type == BUTTON) || (cur->type == SELECT)) && cur->button.hover)
 		render_button_hover(cur);
 	else if (cur->type == BUTTON_GROUP)
