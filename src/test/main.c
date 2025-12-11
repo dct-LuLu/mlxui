@@ -6,7 +6,7 @@
 /*   By: jaubry-- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 20:12:25 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/12/10 11:12:46 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/12/11 07:46:38 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -229,6 +229,7 @@ t_hbranch	*add_select_test(t_hbranch *hbranch)
 	select = add_select(hbranch, "Select engine...");
 	select->anchor = LT;
 	select->pos = vec2i(20, hbranch->head->mlx_data->size.y / 2 + 40);
+	//select->select.nullable = true;
 	add_select_option(select, "Wireframe", test_button_action);
 	add_select_option(select, "Eevee", test_button_action);
 	add_select_option(select, "Cycles", test_button_action);

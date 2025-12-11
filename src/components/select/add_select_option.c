@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/06 12:37:12 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/12/10 14:49:19 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/12/11 07:45:44 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,24 @@ void	select_option_wrapper(t_hbranch *hbranch, void *arg)
 {
 	t_select		*select;
 	t_option_action	*option_action;
+	size_t			clicked_index;
 
 	select = &hbranch->parent->parent->parent->parent->select;
-	select->option_index = get_vector_index(hbranch->parent->childs, hbranch) + 1;
-	ft_strlcpy(select->selected->content, ((t_hbranch *)(get_vector_value(hbranch->childs, 0)))->textbox.content, SELECT_LABEL_LEN);
-	switch_select_expand(hbranch->parent->parent->parent->parent, NULL);
-	option_action = get_vector_value(select->actions, select->option_index - 1);
-	(*option_action)(hbranch, arg);
+	clicked_index = get_vector_index(hbranch->parent->childs, hbranch) + 1;
+	if (clicked_index == select->option_index && select->nullable)
+	{
+		select->option_index = 0;
+		ft_strlcpy(select->selected->content, ((t_hbranch *)(get_vector_value(select->label_box->childs, 0)))->textbox.content, SELECT_LABEL_LEN);
+		switch_select_expand(hbranch->parent->parent->parent->parent, NULL);
+	}
+	else
+	{
+		select->option_index = clicked_index;
+		ft_strlcpy(select->selected->content, ((t_hbranch *)(get_vector_value(hbranch->childs, 0)))->textbox.content, SELECT_LABEL_LEN);
+		switch_select_expand(hbranch->parent->parent->parent->parent, NULL);
+		option_action = get_vector_value(select->actions, select->option_index - 1);
+		(*option_action)(hbranch, arg);
+	}
 }
 
 int	add_select_option(t_hbranch *select, char option_name[SELECT_LABEL_LEN],
@@ -37,8 +48,13 @@ int	add_select_option(t_hbranch *select, char option_name[SELECT_LABEL_LEN],
 	t_hbranch	*option;
 	t_hbranch	*option_label;
 
-	if (select->select.options->num_elements >= 5)
+	if (select->select.options->num_elements >= MAX_OPTIONS)
 		return (1);
+	if ((select->select.options->num_elements == 0) && !select->select.nullable)
+	{
+		ft_strlcpy(select->select.selected->content, option_name, SELECT_LABEL_LEN);
+		select->select.option_index = 1;
+	}
 	option = add_button(select->select.margin, (t_radius){.style = FULL_PX, .full = 11}, (t_border){});
 	select->select.margin->box.size.y += 36;
 	select->select.expand->size.y += 36;
