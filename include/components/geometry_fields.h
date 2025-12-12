@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 19:57:51 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/12/06 13:09:16 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/12/12 15:41:31 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ typedef enum e_component_type
 	BUTTON,
 	BUTTON_GROUP,
 	FORM,
-	SELECT
+	SELECT,
+	IMAGE
 }	t_component_type;
 
 typedef enum e_anchor

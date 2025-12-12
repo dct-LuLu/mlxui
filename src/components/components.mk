@@ -6,7 +6,7 @@
 #    By: jaubry-- <jaubry--@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/03 19:11:39 by jaubry--          #+#    #+#              #
-#    Updated: 2025/12/06 09:35:16 by jaubry--         ###   ########.fr        #
+#    Updated: 2025/12/12 17:52:09 by jaubry--         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,8 @@ MKS		= box \
 		  form \
 		  button \
 		  button_group \
-		  select
+		  select \
+		  image
 
 include $(foreach n,$(MKS),$(COMPONENTS_DIR)/$(n)/$(n).mk)
 

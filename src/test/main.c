@@ -6,7 +6,7 @@
 /*   By: jaubry-- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 20:12:25 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/12/11 07:46:38 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/12/12 17:58:13 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -236,6 +236,16 @@ t_hbranch	*add_select_test(t_hbranch *hbranch)
 	return (select);
 }
 
+t_hbranch	*add_image_test(t_hbranch *hbranch)
+{
+	t_hbranch	*image;
+
+	image = add_image(hbranch, "bug.ppm");
+	image->anchor = RT;
+	image->pos = vec2i(hbranch->head->mlx_data->size.x - 150, 0);
+	return (image);
+}
+
 
 #define C_BACKGROUND              0xFF151417
 #define C_FOREGROUND              0xFFFDFDFD
@@ -311,6 +321,7 @@ void	test_htree(t_htree *htree, t_mlx *mlx_data, int *test_val)
 	add_button_test(htree->body);
 	add_button_group_test(htree->body);
 	add_select_test(htree->body);
+	add_image_test(htree->body);
 	precompute_hierarchy(htree);
 }
 

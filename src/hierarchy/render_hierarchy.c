@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 19:30:31 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/12/10 13:31:16 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/12/12 17:51:53 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ static inline void	render_component(t_hbranch *cur)
 		cur->render(cur, &cur->textbox);
 	else if (cur->type == SELECT)
 		cur->render(cur, &cur->select);
+	else if (cur->type == IMAGE)
+		cur->render(cur, &cur->image);
 }
 
 static inline void	render_hbranch(t_hbranch *hbranch)
