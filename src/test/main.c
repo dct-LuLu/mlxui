@@ -6,7 +6,7 @@
 /*   By: jaubry-- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 20:12:25 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/12/12 17:58:13 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/12/21 02:18:06 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -238,12 +238,40 @@ t_hbranch	*add_select_test(t_hbranch *hbranch)
 
 t_hbranch	*add_image_test(t_hbranch *hbranch)
 {
+	t_hbranch	*meow;
+
+	meow = add_image(hbranch, "meow.pam");
+	meow->anchor = RT;
+	meow->pos = vec2i(hbranch->head->mlx_data->size.x, 0);
+
 	t_hbranch	*image;
 
-	image = add_image(hbranch, "bug.ppm");
+	precompute_geometry(meow, 1, 0);
+	image = add_image(hbranch, "feur.pam");
 	image->anchor = RT;
-	image->pos = vec2i(hbranch->head->mlx_data->size.x - 150, 0);
-	return (image);
+	image->pos = meow->_lt;
+
+	t_hbranch	*image1;
+	image1 = add_image(hbranch, "bug.ppm");
+	image1->anchor = LB;
+	image1->pos = vec2i(0, hbranch->head->mlx_data->size.y);
+	
+	t_hbranch	*text;
+
+	text = add_textbox(hbranch,
+	(t_text)
+	{
+		.content = "are you\nserious?",
+		.font_size = 3,
+		.fg = (t_rgba_int){.rgba=WHITE},
+	},
+	CENTER_ALIGN,
+	NO_WRAPPING);
+	text->textbox.vert_align = BASELINE_ALIGN;
+	text->anchor = RT;
+	text->pos = vec2i(hbranch->head->mlx_data->size.x, meow->size.y - 55);
+	text->size.x = meow->size.x;
+	return (meow);
 }
 
 
