@@ -6,7 +6,7 @@
 /*   By: jaubry-- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 20:12:25 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/12/21 02:18:06 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/12/22 02:17:41 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -274,6 +274,42 @@ t_hbranch	*add_image_test(t_hbranch *hbranch)
 	return (meow);
 }
 
+t_hbranch	*add_scrollbox_test(t_hbranch *hbranch)
+{
+	t_hbranch	*scrollbox;
+	t_hbranch	*meow;
+
+	scrollbox = add_scrollbox(hbranch);
+
+	t_hbranch	*select;
+
+	select = add_select(scrollbox->scrollbox.inside, "Select engine...");
+	select->anchor = LT;
+	select->pos = scrollbox->scrollbox.inside->_lt;
+	printf("p%d %d\n", select->pos.x, select->pos.y);
+	//select->select.nullable = true;
+	add_select_option(select, "Wireframe", test_button_action);
+	add_select_option(select, "Eeveee", test_button_action);
+	add_select_option(select, "Cycles", test_button_action);
+	scrollbox->size = vec2i(select->size.x + 1, 100);
+	scrollbox->scrollbox.inside->size = vec2i(select->size.x + 1, 400);
+	scrollbox->pos = vec2i(hbranch->head->mlx_data->size.x / 2, 0);
+	scrollbox->anchor = TOP;
+	scrollbox->scrollbox._current_pos = 0;
+	if (true)
+	{
+	meow = add_image(scrollbox->scrollbox.inside, "bug.ppm");
+	meow->anchor = LT;
+	meow->pos = vec2i(0, 0);
+
+//	t_hbranch	*img;
+//	precompute_geometry(meow, 1, 0);
+//	img = add_image(scrollbox->scrollbox.inside, "meow.pam");
+//	img->anchor = LT;
+//	img->pos = meow->_lt;
+	}
+	return (scrollbox);
+}
 
 #define C_BACKGROUND              0xFF151417
 #define C_FOREGROUND              0xFFFDFDFD
@@ -328,6 +364,7 @@ void	test_htree(t_htree *htree, t_mlx *mlx_data, int *test_val)
 		.childs = ft_calloc(sizeof(t_vector), 1),
 		.box = (t_box)
 		{
+			.img = &mlx_data->img,
 			.precompute = precompute_box,
 			.render = (void (*)(t_hbranch *, void *))render_box,
 			.anchor = LT,
@@ -344,12 +381,13 @@ void	test_htree(t_htree *htree, t_mlx *mlx_data, int *test_val)
 		populate_tree(htree->body, 0);
 		populate_tree(htree->body, 0);
 		add_text(htree->body);
+		add_form_test(htree->body, test_val);
+		add_button_test(htree->body);
+		add_button_group_test(htree->body);
+		add_select_test(htree->body);
+		add_image_test(htree->body);
 	}
-	add_form_test(htree->body, test_val);
-	add_button_test(htree->body);
-	add_button_group_test(htree->body);
-	add_select_test(htree->body);
-	add_image_test(htree->body);
+	add_scrollbox_test(htree->body);
 	precompute_hierarchy(htree);
 }
 

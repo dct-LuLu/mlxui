@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 02:53:18 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/11/03 20:19:19 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/12/21 22:10:00 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,6 @@ void	render_box(t_hbranch *hbranch, t_box *box)
 {
 	if ((box->size.x == 0) && (box->size.y == 0))
 		return ;
-	fill_box(&hbranch->head->mlx_data->img, *box);
-	render_border(&hbranch->head->mlx_data->img, *box);
+	fill_box(hbranch->img, *box);
+	render_border(hbranch->img, *box);
 }

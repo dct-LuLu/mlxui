@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 18:18:35 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/12/12 17:57:58 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/12/22 00:10:49 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static inline size_t	get_render_num(t_hbranch *hbranch)
 	return (render_num);
 }
 
-static inline void	precompute_hbranch(t_hbranch *hbranch)
+void	precompute_hbranch(t_hbranch *hbranch)
 {
 	size_t		i;
 	size_t		render_i;

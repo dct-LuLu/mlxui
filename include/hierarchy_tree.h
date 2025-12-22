@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 16:09:49 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/12/12 17:56:16 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/12/21 19:40:43 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ typedef struct s_hbranch
 		t_button_group	button_group;
 		t_select		select;
 		t_image			image;
+		t_scrollbox		scrollbox;
 	};
 	t_vector	*childs;
 	t_hbranch	*parent;

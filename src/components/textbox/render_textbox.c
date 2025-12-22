@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 11:18:21 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/12/04 20:50:20 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/12/21 22:15:16 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	render_textbox(t_hbranch *hbranch, t_textbox *textbox)
 
 	i = 0;
 	if (DEBUG)
-		ft_mlx_select_put(&hbranch->head->mlx_data->img, hbranch->textbox._lt, hbranch->textbox._rb, drgb_int(0xFFFFFF));
+		ft_mlx_select_put(hbranch->img, hbranch->textbox._lt, hbranch->textbox._rb, drgb_int(0xFFFFFF));
 	//pen_pos = get_new_pen_pos(&hbranch->textbox, textbox->_text_pos, textbox->content);
 	pen_pos = get_new_pen_pos(&hbranch->textbox, textbox->_text_pos, textbox->content, false);
 	while (textbox->content[i])

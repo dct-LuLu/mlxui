@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 13:33:28 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/12/12 17:56:36 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/12/21 22:12:48 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,10 @@ typedef struct s_htree t_htree;
 # include "button_group.h"
 # include "select.h"
 # include "image.h"
+# include "scrollbox.h"
 
-void	draw_checkmark(t_vec2i pos, t_rgba_int color, t_mlx *mlx_data);
-void	draw_down_arrow(t_vec2i pos, t_rgba_int color, t_mlx *mlx_data);
+void	draw_checkmark(t_vec2i pos, t_rgba_int color, t_img_data *img);
+void	draw_down_arrow(t_vec2i pos, t_rgba_int color, t_img_data *img);
 void	precompute_geometry(t_hbranch *this, size_t render_i, size_t render_num);
 
 #endif//COMPONENTS_H

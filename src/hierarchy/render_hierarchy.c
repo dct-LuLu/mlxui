@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 19:30:31 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/12/12 17:51:53 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/12/21 23:00:19 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ static inline void	render_component(t_hbranch *cur)
 		cur->render(cur, &cur->select);
 	else if (cur->type == IMAGE)
 		cur->render(cur, &cur->image);
+	else if (cur->type == SCROLLBOX)
+		cur->render(cur, &cur->scrollbox);
 }
 
 static inline void	render_hbranch(t_hbranch *hbranch)
@@ -54,6 +56,8 @@ static inline void	render_component_special(t_hbranch *cur)
 		render_button_hover(cur);
 	else if (cur->type == BUTTON_GROUP)
 		render_button_group_switch(cur);
+	else if (cur->type == SCROLLBOX)
+		render_scrollbox(cur, &cur->scrollbox);
 }
 
 static inline void	render_hbranch_special(t_hbranch *hbranch)
