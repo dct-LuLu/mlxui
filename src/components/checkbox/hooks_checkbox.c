@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 18:39:16 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/11/27 03:14:06 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/12/23 00:26:48 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,7 @@ void	switch_checkbox(t_hbranch *hbranch)
 void	hook_checkbox(t_vec2i pos, t_maction action, t_hbranch *hbranch, t_mlx *mlx_data)
 {
 	(void)mlx_data;
-	if ((action == MPRESS)
-			&& ((pos.x > hbranch->_lt.x) && (pos.x < hbranch->_rt.x))
-			&& ((pos.y > hbranch->_lt.y) && (pos.y < hbranch->_lb.y))
+	if ((action == MPRESS) && is_inside_comp(hbranch, pos) 
 			&& hbranch->rendered && hbranch->visible)
 		switch_checkbox(hbranch);
 }

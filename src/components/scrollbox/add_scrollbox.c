@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/21 20:27:28 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/12/22 02:14:24 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/12/23 00:34:59 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ static inline void	create_scrollbox(t_hbranch *new)
 	new->scrollbox.inside->x_pos_operation = copy;
 	new->scrollbox.inside->y_pos_operation = copy;
 	new->scrollbox.inside->x_size_operation = copy;
-	precompute_geometry(new->scrollbox.inside, 1, 0);
+	//new->scrollbox.inside->_in_scrollbox = new;
+	//precompute_geometry(new->scrollbox.inside, 1, 0);
 }
 
 t_hbranch	*add_scrollbox(t_hbranch *parent_branch)

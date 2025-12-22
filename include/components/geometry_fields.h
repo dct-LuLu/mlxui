@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 19:57:51 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/12/21 21:41:59 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/12/23 00:21:14 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,8 @@ typedef enum e_anchor
 	t_vec2i	_rt;															\
 	t_vec2i	_lb;															\
 	t_vec2i	_rb;															\
-	t_img_data	*img;
+	t_img_data	*img;														\
+	t_hbranch	*_in_scrollbox;
 
 // canonical packed type
 typedef struct __attribute__((__packed__)) s_geometry

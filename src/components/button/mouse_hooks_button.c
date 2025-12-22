@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/27 03:48:37 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/12/22 01:55:37 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/12/23 00:17:47 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,8 @@ static inline bool	is_rendered(t_hbranch *el)
 void	hook_click_button(t_vec2i pos, t_maction action, t_hbranch *hbranch, t_mlx *mlx_data)
 {
 	(void)mlx_data;
-	if ((action == MPRESS) && is_rendered(hbranch) && hbranch->visible
-			&& (((pos.x > hbranch->_lt.x) && (pos.x < hbranch->_rt.x))
-				&& ((pos.y > hbranch->_lt.y) && (pos.y < hbranch->_lb.y))))
+	if ((action == MPRESS) && is_rendered(hbranch) && hbranch->visible && is_inside_comp(hbranch, pos))
 	{
-			printf("click: %d %d\n", pos.x, pos.y);
-			printf("lt: %d %d\n", hbranch->_lt.x, hbranch->_lt.y);
 			hbranch->button.action(hbranch, hbranch->button.arg);
 			if (hbranch->parent && (hbranch->parent->type == BUTTON_GROUP))
 				hbranch->parent->button_group.switched_index = get_vector_index(hbranch->parent->childs, hbranch);
@@ -38,10 +34,8 @@ void	hook_click_button(t_vec2i pos, t_maction action, t_hbranch *hbranch, t_mlx 
 
 void	hook_hover_button(t_hbranch *hbranch, t_mlx *mlx_data)
 {
-	const t_vec2i	pos = mlx_data->mouse_input.pos;
 	const bool		hover = hbranch->button.hover;
-	const bool		inside = (((pos.x > hbranch->_lt.x) && (pos.x < hbranch->_rt.x))
-			&& ((pos.y > hbranch->_lt.y) && (pos.y < hbranch->_lb.y)));
+	const bool		inside = is_inside_comp(hbranch, mlx_data->mouse_input.pos);
 
 	if (hover && !inside)
 		hbranch->button.hover = false;

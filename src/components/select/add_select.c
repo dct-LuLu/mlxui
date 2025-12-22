@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/06 08:27:52 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/12/11 07:26:01 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/12/23 00:19:25 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static inline void	create_expand(t_hbranch *new, char label[SELECT_LABEL_LEN])
 	expand_box->box.pos = label_box->_lb;
 	expand_box->box.size = vec2i(200, 8);
 	expand_box->anchor = LT;
-	new->select.expand = &expand_box->box;
+	new->select.expand = expand_box;
 
 	margin = add_box(expand_box, (t_radius){}, (t_border){});
 	margin->box.size = vec2i(192, 0);

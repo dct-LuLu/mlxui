@@ -6,7 +6,7 @@
 /*   By: jaubry-- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 20:12:25 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/12/22 02:17:41 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/12/22 23:37:23 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -281,6 +281,9 @@ t_hbranch	*add_scrollbox_test(t_hbranch *hbranch)
 
 	scrollbox = add_scrollbox(hbranch);
 
+	meow = add_image(scrollbox->scrollbox.inside, "meow.pam");
+	meow->anchor = LT;
+	meow->pos = vec2i(0, 0);
 	t_hbranch	*select;
 
 	select = add_select(scrollbox->scrollbox.inside, "Select engine...");
@@ -296,18 +299,6 @@ t_hbranch	*add_scrollbox_test(t_hbranch *hbranch)
 	scrollbox->pos = vec2i(hbranch->head->mlx_data->size.x / 2, 0);
 	scrollbox->anchor = TOP;
 	scrollbox->scrollbox._current_pos = 0;
-	if (true)
-	{
-	meow = add_image(scrollbox->scrollbox.inside, "bug.ppm");
-	meow->anchor = LT;
-	meow->pos = vec2i(0, 0);
-
-//	t_hbranch	*img;
-//	precompute_geometry(meow, 1, 0);
-//	img = add_image(scrollbox->scrollbox.inside, "meow.pam");
-//	img->anchor = LT;
-//	img->pos = meow->_lt;
-	}
 	return (scrollbox);
 }
 

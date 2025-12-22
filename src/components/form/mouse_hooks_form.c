@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/25 17:27:33 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/11/27 03:29:21 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/12/23 00:27:25 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,7 @@ void	switch_focus_form(t_hbranch *hbranch, bool inside)
 
 void	hook_focus_form(t_vec2i pos, t_maction action, t_hbranch *hbranch, t_mlx *mlx_data)
 {
-	bool	inside;
-
 	(void)mlx_data;
 	if ((action == MPRESS) && hbranch->rendered && hbranch->visible)
-	{
-		inside = (((pos.x > hbranch->_lt.x) && (pos.x < hbranch->_rt.x))
-				&& ((pos.y > hbranch->_lt.y) && (pos.y < hbranch->_lb.y)));
-		switch_focus_form(hbranch, inside);
-	}
+		switch_focus_form(hbranch, is_inside_comp(hbranch, pos));
 }
