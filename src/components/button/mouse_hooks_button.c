@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/27 03:48:37 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/12/23 00:17:47 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/12/23 21:55:48 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,17 @@ static inline bool	is_rendered(t_hbranch *el)
 	return (true);
 }
 
-void	hook_click_button(t_vec2i pos, t_maction action, t_hbranch *hbranch, t_mlx *mlx_data)
+void	hook_click_button(t_vec2i pos, t_maction action,
+			t_hbranch *hbranch, t_mlx *mlx_data)
 {
 	(void)mlx_data;
-	if ((action == MPRESS) && is_rendered(hbranch) && hbranch->visible && is_inside_comp(hbranch, pos))
+	if ((action == MPRESS) && is_rendered(hbranch)
+		&& hbranch->visible && is_inside_comp(hbranch, pos))
 	{
-			hbranch->button.action(hbranch, hbranch->button.arg);
-			if (hbranch->parent && (hbranch->parent->type == BUTTON_GROUP))
-				hbranch->parent->button_group.switched_index = get_vector_index(hbranch->parent->childs, hbranch);
+		hbranch->button.action(hbranch, hbranch->button.arg);
+		if (hbranch->parent && (hbranch->parent->type == BUTTON_GROUP))
+			hbranch->parent->button_group.switched_index
+				= get_vector_index(hbranch->parent->childs, hbranch);
 	}
 }
 
