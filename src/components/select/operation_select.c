@@ -6,13 +6,14 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/06 09:45:55 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/12/22 00:15:12 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/12/23 22:22:35 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "hierarchy_tree.h"
 
-void	selected_offset_parent(size_t field_offset, t_hbranch *this, size_t render_i, size_t render_num)
+void	selected_offset_parent(size_t field_offset, t_hbranch *this,
+			size_t render_i, size_t render_num)
 {
 	int	*val;
 	int	*parent_val;
@@ -24,7 +25,8 @@ void	selected_offset_parent(size_t field_offset, t_hbranch *this, size_t render_
 	*val = *parent_val + 10;
 }
 
-void	margin_offset_parent(size_t field_offset, t_hbranch *this, size_t render_i, size_t render_num)
+void	margin_offset_parent(size_t field_offset, t_hbranch *this,
+			size_t render_i, size_t render_num)
 {
 	int	*val;
 	int	*parent_val;
@@ -36,7 +38,8 @@ void	margin_offset_parent(size_t field_offset, t_hbranch *this, size_t render_i,
 	*val = *parent_val + 4;
 }
 
-void	expanded_offset(size_t field_offset, t_hbranch *this, size_t render_i, size_t render_num)
+void	expanded_offset(size_t field_offset, t_hbranch *this,
+			size_t render_i, size_t render_num)
 {
 	int	*val;
 	int	*parent_val;
@@ -48,7 +51,8 @@ void	expanded_offset(size_t field_offset, t_hbranch *this, size_t render_i, size
 	*val = *parent_val + 42;
 }
 
-void	entry_offset(size_t field_offset, t_hbranch *this, size_t render_i, size_t render_num)
+void	entry_offset(size_t field_offset, t_hbranch *this,
+			size_t render_i, size_t render_num)
 {
 	int	*val;
 	int	*parent_val;
@@ -60,7 +64,8 @@ void	entry_offset(size_t field_offset, t_hbranch *this, size_t render_i, size_t 
 	*val = *parent_val + 36;
 }
 
-void	option_offset(size_t field_offset, t_hbranch *this, size_t render_i, size_t render_num)
+void	option_offset(size_t field_offset, t_hbranch *this,
+			size_t render_i, size_t render_num)
 {
 	int	*val;
 	int	*parent_val;

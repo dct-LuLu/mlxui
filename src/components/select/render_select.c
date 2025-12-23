@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/06 10:03:24 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/12/21 22:14:45 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/12/23 22:42:05 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,16 @@ void	render_select(t_hbranch *hbranch, t_select *select)
 
 void	render_select_overlay(t_hbranch *hbranch, t_select *select)
 {
-	t_vec2i	checkmark_pos;
+	t_vec2i		checkmark_pos;
 	t_hbranch	*selected;
 
 	if (select->expanded && select->option_index)
 	{
-		selected = get_vector_value(select->margin->childs, select->option_index - 1);
-		checkmark_pos = vec2i(selected->_rb.x - 17 - 12, selected->_rb.y - 17 - 9);
-		draw_checkmark(checkmark_pos, hbranch->head->style.input, hbranch->img);
+		selected = get_vector_value(select->margin->childs,
+				select->option_index - 1);
+		checkmark_pos = vec2i(selected->_rb.x - 17 - 12,
+				selected->_rb.y - 17 - 9);
+		draw_checkmark(checkmark_pos, hbranch->head->style.input,
+			hbranch->img);
 	}
 }
