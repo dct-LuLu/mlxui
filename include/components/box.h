@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 18:34:58 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/11/04 12:13:05 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/12/23 21:35:59 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ typedef enum e_border_style
 
 typedef struct s_border
 {
-	uint8_t			size;// px
+	uint8_t			size;
 	t_rgba_int		color;
 	t_border_style	style;
 }					t_border;
@@ -52,9 +52,9 @@ typedef struct s_radius
 			uint8_t	lb;
 			uint8_t	rb;
 		};
-		uint8_t	full;
+		uint8_t		full;
 	};
-}	t_radius;
+}					t_radius;
 
 typedef struct s_corner
 {
@@ -70,13 +70,38 @@ typedef struct s_corner
 		t_vec2i		_mem[4];
 		t_vec2i		_mem3[3];
 	};
-	t_vec2i	xrec[2];
-	t_vec2i	mrec[2];
-}	t_corner;
+	t_vec2i			xrec[2];
+	t_vec2i			mrec[2];
+}					t_corner;
 
 typedef struct s_box
 {
-	ANON_GEOM_PACKED;
+	struct __attribute__((packed))
+	{
+		t_anchor	anchor;
+		struct
+		{
+			t_vec2i	pos;
+			void	(*x_pos_operation)(size_t, t_hbranch *, size_t, size_t);
+			void	(*y_pos_operation)(size_t, t_hbranch *, size_t, size_t);
+		};
+		struct
+		{
+			t_vec2i	size;
+			void	(*x_size_operation)(size_t, t_hbranch *, size_t, size_t);
+			void	(*y_size_operation)(size_t, t_hbranch *, size_t, size_t);
+		};
+		void		(*precompute)(t_hbranch *);
+		void		(*render)(t_hbranch *, void *);
+		t_vec2		_half_size;
+		t_vec2i		_mid;
+		t_vec2i		_lt;
+		t_vec2i		_rt;
+		t_vec2i		_lb;
+		t_vec2i		_rb;
+		t_img_data	*img;
+		t_hbranch	*_in_scrollbox;
+	};
 	t_rgba_int	color;
 	t_radius	radius;
 	t_border	border;
@@ -86,7 +111,8 @@ typedef struct s_box
 	t_corner	_rbc;
 }				t_box;
 
-t_hbranch	*add_box(t_hbranch *parent_branch, t_radius radius, t_border border);
+t_hbranch	*add_box(t_hbranch *parent_branch,
+				t_radius radius, t_border border);
 void		precompute_box(t_hbranch *hbranch);
 void		render_box(t_hbranch *hbranch, t_box *box);
 void		precompute_box_radius(t_box *box);

@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/21 19:12:53 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/12/23 02:47:06 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/12/23 21:36:36 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,26 +15,42 @@
 
 typedef struct s_scrollbox
 {
-	ANON_GEOM_PACKED;
-	t_hbranch	*inside;
-	t_hbranch	*scrollbar;
-	uint8_t		sensitivity;
-	int			_current_pos;// 0 de base
-	t_img_data	_scroll_buffer;
-}	t_scrollbox;
-
-// uniquement y axis
-
-// draw t_img_data.pixels[_current_pos * img_data.line_len] jusqu'a scrollbox.height
-// edit .img of t_branch at creation
-//
-// use special render to render after all was already drawn to it
-//
-// precompute will allocate and determine height of the scroll_buffer
+	struct __attribute__((packed))
+	{
+		t_anchor	anchor;
+		struct
+		{
+			t_vec2i	pos;
+			void	(*x_pos_operation)(size_t, t_hbranch *, size_t, size_t);
+			void	(*y_pos_operation)(size_t, t_hbranch *, size_t, size_t);
+		};
+		struct
+		{
+			t_vec2i	size;
+			void	(*x_size_operation)(size_t, t_hbranch *, size_t, size_t);
+			void	(*y_size_operation)(size_t, t_hbranch *, size_t, size_t);
+		};
+		void		(*precompute)(t_hbranch *);
+		void		(*render)(t_hbranch *, void *);
+		t_vec2		_half_size;
+		t_vec2i		_mid;
+		t_vec2i		_lt;
+		t_vec2i		_rt;
+		t_vec2i		_lb;
+		t_vec2i		_rb;
+		t_img_data	*img;
+		t_hbranch	*_in_scrollbox;
+	};
+	t_hbranch		*inside;
+	t_hbranch		*scrollbar;
+	uint8_t			sensitivity;
+	int				_current_pos;
+	t_img_data		_scroll_buffer;
+}					t_scrollbox;
 
 t_hbranch	*add_scrollbox(t_hbranch *parent_branch);
 void		precompute_scrollbox(t_hbranch *hbranch);
 void		render_scrollbox(t_hbranch *hbranch, t_scrollbox *scrollbox);
-void	render_clear_scrollbox(t_hbranch *hbranch, t_scrollbox *scrollbox);
+void		render_clear_scrollbox(t_hbranch *hbranch, t_scrollbox *scrollbox);
 
 #endif//SCROLLBOX_H

@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/26 21:51:51 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/12/23 00:00:26 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/12/23 21:36:05 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,48 @@ typedef struct s_button
 {
 	union
 	{
-		ANON_GEOM_PACKED;
-		t_box	box;
+		struct __attribute__((packed))
+		{
+			t_anchor	anchor;
+			struct
+			{
+				t_vec2i	pos;
+				void	(*x_pos_operation)(size_t, t_hbranch *,
+						size_t, size_t);
+				void	(*y_pos_operation)(size_t, t_hbranch *,
+						size_t, size_t);
+			};
+			struct
+			{
+				t_vec2i	size;
+				void	(*x_size_operation)(size_t, t_hbranch *,
+						size_t, size_t);
+				void	(*y_size_operation)(size_t, t_hbranch *,
+						size_t, size_t);
+			};
+			void		(*precompute)(t_hbranch *);
+			void		(*render)(t_hbranch *, void *);
+			t_vec2		_half_size;
+			t_vec2i		_mid;
+			t_vec2i		_lt;
+			t_vec2i		_rt;
+			t_vec2i		_lb;
+			t_vec2i		_rb;
+			t_img_data	*img;
+			t_hbranch	*_in_scrollbox;
+		};
+		t_box			box;
 	};
-	bool	hover;
-	void	*arg;
-	void	(*action)(t_hbranch *hbranch, void *arg);
-}	t_button;
+	bool				hover;
+	void				*arg;
+	void				(*action)(t_hbranch *hbranch, void *arg);
+}						t_button;
 
-t_hbranch	*add_button(t_hbranch *parent_branch, t_radius radius, t_border border);
+t_hbranch	*add_button(t_hbranch *parent_branch,
+				t_radius radius, t_border border);
 void		render_button_overlay(t_hbranch *hbranch);
-void		hook_click_button(t_vec2i pos, t_maction action, t_hbranch *hbranch, t_mlx *mlx_data);
+void		hook_click_button(t_vec2i pos, t_maction action,
+				t_hbranch *hbranch, t_mlx *mlx_data);
 void		hook_hover_button(t_hbranch *hbranch, t_mlx *mlx_data);
 
 #endif//BUTTON_H
