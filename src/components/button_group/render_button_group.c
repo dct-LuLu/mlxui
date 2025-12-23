@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 19:04:04 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/12/23 19:31:14 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/12/23 22:02:26 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ void	render_button_group_overlay(t_hbranch *hbranch)
 
 	if (hbranch->button_group.group_type == GROUP_DEFAULT)
 		return ;
-	switched = get_vector_value(hbranch->childs, hbranch->button_group.switched_index);
+	switched = get_vector_value(hbranch->childs,
+			hbranch->button_group.switched_index);
 	save_color = switched->box.color;
 	save_border_size = switched->box.border.size;
 	switched->box.color = switched->head->style.primary;

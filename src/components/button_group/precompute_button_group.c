@@ -6,63 +6,27 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/27 21:31:57 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/12/04 21:39:40 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/12/23 22:00:54 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "hierarchy_tree.h"
-#include <stddef.h>
-
-static inline int	get_hbranch_max(size_t field_offset, t_hbranch *hbranch)
-{
-	t_hbranch	*child;
-	int			max;
-	int			*val;
-	size_t		i;
-
-	i = 0;
-	max = 0;
-	while (i < hbranch->childs->num_elements)
-	{
-		child = get_vector_value(hbranch->childs, i);
-		val = (int *)((char *)child + field_offset);
-		if (*val > max)
-			max = *val;
-		i++;
-	}
-	return (max);
-}
-
-static inline int	get_hbranch_total(size_t field_offset, t_hbranch *hbranch)
-{
-	t_hbranch	*child;
-	int			total;
-	int			*val;
-	size_t		i;
-
-	i = 0;
-	total = 0;
-	while (i < hbranch->childs->num_elements)
-	{
-		child = get_vector_value(hbranch->childs, i);
-		val = (int *)((char *)child + field_offset);
-		total += *val;
-		i++;
-	}
-	return (total);
-}
 
 static inline void	precompute_buttons_size(t_hbranch *hbranch)
 {
 	if (hbranch->button_group.group_dir == GROUP_HORZ)
 	{
-		hbranch->size.x = get_hbranch_total(offsetof(t_hbranch, size.x), hbranch);
-		hbranch->size.y = get_hbranch_max(offsetof(t_hbranch, size.y), hbranch);
+		hbranch->size.x = get_hbranch_total(
+				offsetof(t_hbranch, size.x), hbranch);
+		hbranch->size.y = get_hbranch_max(
+				offsetof(t_hbranch, size.y), hbranch);
 	}
 	else
 	{
-		hbranch->size.x = get_hbranch_max(offsetof(t_hbranch, size.x), hbranch);
-		hbranch->size.y = get_hbranch_total(offsetof(t_hbranch, size.y), hbranch);
+		hbranch->size.x = get_hbranch_max(
+				offsetof(t_hbranch, size.x), hbranch);
+		hbranch->size.y = get_hbranch_total(
+				offsetof(t_hbranch, size.y), hbranch);
 	}
 }
 
@@ -103,7 +67,6 @@ static inline void	precompute_buttons_corners(t_hbranch *hbranch)
 	last = get_last_vector_value(hbranch->childs);
 	first->box.radius = (t_radius){.style = LOCAL_PX, ._mem = 0};
 	last->box.radius = (t_radius){.style = LOCAL_PX, ._mem = 0};
-
 	first->box.radius.lt = 5;
 	if (hbranch->button_group.group_dir == GROUP_HORZ)
 		first->box.radius.lb = 5;
@@ -132,7 +95,7 @@ void	precompute_button_group(t_hbranch *hbranch)
 		i++;
 	}
 	precompute_buttons_size(hbranch);
-	precompute_geometry(hbranch, 0, 1);//to edit may cause issues
+	precompute_geometry(hbranch, 0, 1);
 	precompute_buttons_pos(hbranch);
 	precompute_buttons_corners(hbranch);
 }
