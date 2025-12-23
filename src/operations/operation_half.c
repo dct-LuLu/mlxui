@@ -6,13 +6,14 @@
 /*   By: jaubry-- <jaubry--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 18:04:18 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/12/04 19:28:44 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/12/23 21:40:07 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "hierarchy_tree.h"
 
-void	operation_half(size_t field_offset, t_hbranch *this, size_t render_i, size_t render_num)
+void	operation_half(size_t field_offset, t_hbranch *this,
+		size_t render_i, size_t render_num)
 {
 	int	*val;
 	int	*parent_val;
@@ -24,17 +25,19 @@ void	operation_half(size_t field_offset, t_hbranch *this, size_t render_i, size_
 	*val = (*parent_val) / 2;
 }
 
-void	center_screen(size_t field_offset, t_hbranch *this, size_t render_i, size_t render_num)
+void	center_screen(size_t field_offset, t_hbranch *this,
+		size_t render_i, size_t render_num)
 {
 	int	*val;
 
 	(void)render_i;
 	(void)render_num;
 	val = (int *)((char *)this + field_offset);
-	*val = this->parent->_lt.x + (this->parent->size.x / 2);//* (render_i + 1 + render_i);
+	*val = this->parent->_lt.x + (this->parent->size.x / 2);
 }
 
-void	copy(size_t field_offset, t_hbranch *this, size_t render_i, size_t render_num)
+void	copy(size_t field_offset, t_hbranch *this,
+		size_t render_i, size_t render_num)
 {
 	int	*val;
 	int	*parent_val;
