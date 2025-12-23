@@ -6,14 +6,15 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 16:28:03 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/12/23 00:23:39 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/12/23 21:44:53 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "hierarchy_tree.h"
 #include <stddef.h>
 
-static inline t_vec2i	get_anchor_pos(t_anchor anchor, t_vec2i pos, t_vec2i size)
+static inline t_vec2i	get_anchor_pos(t_anchor anchor,
+							t_vec2i pos, t_vec2i size)
 {
 	t_vec2i	real_pos;
 
@@ -32,16 +33,21 @@ static inline t_vec2i	get_anchor_pos(t_anchor anchor, t_vec2i pos, t_vec2i size)
 	return (real_pos);
 }
 
-void	precompute_geometry(t_hbranch *this, size_t render_i, size_t render_num)
+void	precompute_geometry(t_hbranch *this,
+		size_t render_i, size_t render_num)
 {
 	if (this->x_size_operation)
-		this->x_size_operation(offsetof(t_hbranch, size.x), this, render_i, render_num);
+		this->x_size_operation(offsetof(t_hbranch, size.x),
+			this, render_i, render_num);
 	if (this->y_size_operation)
-		this->y_size_operation(offsetof(t_hbranch, size.y), this, render_i, render_num);
+		this->y_size_operation(offsetof(t_hbranch, size.y),
+			this, render_i, render_num);
 	if (this->x_pos_operation)
-		this->x_pos_operation(offsetof(t_hbranch, pos.x), this, render_i, render_num);
+		this->x_pos_operation(offsetof(t_hbranch, pos.x),
+			this, render_i, render_num);
 	if (this->y_pos_operation)
-		this->y_pos_operation(offsetof(t_hbranch, pos.y), this, render_i, render_num);
+		this->y_pos_operation(offsetof(t_hbranch, pos.y),
+			this, render_i, render_num);
 	this->_lt = get_anchor_pos(this->anchor, this->pos, this->size);
 	this->_rb = vec2i_add(this->_lt, this->size);
 	this->_rt = vec2i(this->_rb.x, this->_lt.y);
