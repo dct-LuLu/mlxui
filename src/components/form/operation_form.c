@@ -6,13 +6,14 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/25 05:32:17 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/12/04 21:04:02 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/12/23 22:15:24 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "hierarchy_tree.h"
 
-void	center_abs_parent(size_t field_offset, t_hbranch *this, size_t render_i, size_t render_num)
+void	center_abs_parent(size_t field_offset, t_hbranch *this,
+		size_t render_i, size_t render_num)
 {
 	int	*val;
 
@@ -25,7 +26,8 @@ void	center_abs_parent(size_t field_offset, t_hbranch *this, size_t render_i, si
 		*val = this->parent->_mid.y;
 }
 
-void	copy_parent(size_t field_offset, t_hbranch *this, size_t render_i, size_t render_num)
+void	copy_parent(size_t field_offset, t_hbranch *this,
+		size_t render_i, size_t render_num)
 {
 	int	*val;
 	int	*parent_val;
@@ -37,7 +39,8 @@ void	copy_parent(size_t field_offset, t_hbranch *this, size_t render_i, size_t r
 	*val = *parent_val;
 }
 
-void	form_suffix_pos_x(size_t field_offset, t_hbranch *this, size_t render_i, size_t render_num)
+void	form_suffix_pos_x(size_t field_offset, t_hbranch *this,
+		size_t render_i, size_t render_num)
 {
 	t_hbranch	*buf;
 
@@ -45,10 +48,13 @@ void	form_suffix_pos_x(size_t field_offset, t_hbranch *this, size_t render_i, si
 	if ((render_i != 1) || (render_num != 2))
 		return ;
 	buf = (t_hbranch *)get_vector_value(this->parent->childs, 0);
-	this->pos.x = buf->_mid.x + (measure_str_width(buf->textbox.text.content, &buf->textbox.text) / 2) + 5;
+	this->pos.x = buf->_mid.x
+		+ (measure_str_width(buf->textbox.text.content,
+				&buf->textbox.text) / 2) + 5;
 }
 
-void	form_suffix_size_x(size_t field_offset, t_hbranch *this, size_t render_i, size_t render_num)
+void	form_suffix_size_x(size_t field_offset, t_hbranch *this,
+		size_t render_i, size_t render_num)
 {
 	t_hbranch	*buf;
 

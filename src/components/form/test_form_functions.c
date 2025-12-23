@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/25 04:13:43 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/11/25 23:38:33 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/12/23 22:14:45 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ bool	form_is_valid_input(char c)
 	return ((c >= '0') && (c <= '9'));
 }
 
-
-void	form_btov(void *value, const char buffer[FORM_BUF_SIZE], t_form_type type)
+void	form_btov(void *value,
+		const char buffer[FORM_BUF_SIZE], t_form_type type)
 {
 	int	*int_value;
 
@@ -29,7 +29,8 @@ void	form_btov(void *value, const char buffer[FORM_BUF_SIZE], t_form_type type)
 	}
 }
 
-void	form_vtob(char buffer[FORM_BUF_SIZE], const void *value, t_form_type type)
+void	form_vtob(char buffer[FORM_BUF_SIZE],
+		const void *value, t_form_type type)
 {
 	if (type == FORM_INT)
 		strf(buffer, FORM_BUF_SIZE, "%d", *(int *)value);
