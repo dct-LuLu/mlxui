@@ -6,7 +6,7 @@
 /*   By: jaubry-- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 20:12:25 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/12/22 23:37:23 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/12/23 00:51:48 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -277,28 +277,27 @@ t_hbranch	*add_image_test(t_hbranch *hbranch)
 t_hbranch	*add_scrollbox_test(t_hbranch *hbranch)
 {
 	t_hbranch	*scrollbox;
-	t_hbranch	*meow;
 
 	scrollbox = add_scrollbox(hbranch);
+	scrollbox->pos = vec2i(hbranch->head->mlx_data->size.x / 2, hbranch->head->mlx_data->size.y - 50);
+	scrollbox->anchor = BOTTOM;
+	scrollbox->scrollbox._current_pos = 0;
 
+	t_hbranch	*meow;
 	meow = add_image(scrollbox->scrollbox.inside, "meow.pam");
 	meow->anchor = LT;
 	meow->pos = vec2i(0, 0);
-	t_hbranch	*select;
 
+	t_hbranch	*select;
 	select = add_select(scrollbox->scrollbox.inside, "Select engine...");
 	select->anchor = LT;
 	select->pos = scrollbox->scrollbox.inside->_lt;
-	printf("p%d %d\n", select->pos.x, select->pos.y);
-	//select->select.nullable = true;
 	add_select_option(select, "Wireframe", test_button_action);
 	add_select_option(select, "Eeveee", test_button_action);
 	add_select_option(select, "Cycles", test_button_action);
+	
 	scrollbox->size = vec2i(select->size.x + 1, 100);
 	scrollbox->scrollbox.inside->size = vec2i(select->size.x + 1, 400);
-	scrollbox->pos = vec2i(hbranch->head->mlx_data->size.x / 2, 0);
-	scrollbox->anchor = TOP;
-	scrollbox->scrollbox._current_pos = 0;
 	return (scrollbox);
 }
 

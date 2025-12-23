@@ -21,7 +21,7 @@ void	render_select(t_hbranch *hbranch, t_select *select)
 	draw_down_arrow(arrow_pos, hbranch->head->style.input, hbranch->img);
 }
 
-void	render_select_special(t_hbranch *hbranch, t_select *select)
+void	render_select_overlay(t_hbranch *hbranch, t_select *select)
 {
 	t_vec2i	checkmark_pos;
 	t_hbranch	*selected;

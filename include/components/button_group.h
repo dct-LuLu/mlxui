@@ -34,7 +34,7 @@ typedef struct s_button_group
 }	t_button_group;
 
 t_hbranch	*add_button_group(t_hbranch *parent_branch, t_group_dir group_dir, t_group_type group_type);
-void	render_button_group_switch(t_hbranch *hbranch);
+void	render_button_overlay(t_hbranch *hbranch);
 void	precompute_button_group(t_hbranch *hbranch);
 
 #endif//BUTTON_GROUP_H

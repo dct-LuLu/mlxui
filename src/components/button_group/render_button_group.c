@@ -12,7 +12,7 @@
 
 #include "hierarchy_tree.h"
 
-void	render_button_group_switch(t_hbranch *hbranch)
+void	render_button_overlay(t_hbranch *hbranch)
 {
 	t_rgba_int	save_color;
 	uint8_t		save_border_size;

@@ -26,7 +26,7 @@ typedef struct s_button
 }	t_button;
 
 t_hbranch	*add_button(t_hbranch *parent_branch, t_radius radius, t_border border);
-void		render_button_hover(t_hbranch *hbranch);
+void		render_button_overlay(t_hbranch *hbranch);
 void		hook_click_button(t_vec2i pos, t_maction action, t_hbranch *hbranch, t_mlx *mlx_data);
 void		hook_hover_button(t_hbranch *hbranch, t_mlx *mlx_data);
 
