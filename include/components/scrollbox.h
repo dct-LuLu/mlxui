@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/21 19:12:53 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/12/21 23:00:55 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/12/23 02:47:06 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@ typedef struct s_scrollbox
 {
 	ANON_GEOM_PACKED;
 	t_hbranch	*inside;
-	uint16_t	_current_pos;// 0 de base
+	t_hbranch	*scrollbar;
+	uint8_t		sensitivity;
+	int			_current_pos;// 0 de base
 	t_img_data	_scroll_buffer;
 }	t_scrollbox;
 

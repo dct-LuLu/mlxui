@@ -6,7 +6,7 @@
 /*   By: jaubry-- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 20:12:25 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/12/23 00:51:48 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/12/23 04:07:27 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -279,25 +279,34 @@ t_hbranch	*add_scrollbox_test(t_hbranch *hbranch)
 	t_hbranch	*scrollbox;
 
 	scrollbox = add_scrollbox(hbranch);
-	scrollbox->pos = vec2i(hbranch->head->mlx_data->size.x / 2, hbranch->head->mlx_data->size.y - 50);
+	scrollbox->pos = vec2i(hbranch->head->mlx_data->size.x / 2, hbranch->head->mlx_data->size.y - 10);
 	scrollbox->anchor = BOTTOM;
 	scrollbox->scrollbox._current_pos = 0;
 
-	t_hbranch	*meow;
-	meow = add_image(scrollbox->scrollbox.inside, "meow.pam");
-	meow->anchor = LT;
-	meow->pos = vec2i(0, 0);
+	size_t	i;
 
-	t_hbranch	*select;
-	select = add_select(scrollbox->scrollbox.inside, "Select engine...");
-	select->anchor = LT;
-	select->pos = scrollbox->scrollbox.inside->_lt;
-	add_select_option(select, "Wireframe", test_button_action);
-	add_select_option(select, "Eeveee", test_button_action);
-	add_select_option(select, "Cycles", test_button_action);
-	
-	scrollbox->size = vec2i(select->size.x + 1, 100);
-	scrollbox->scrollbox.inside->size = vec2i(select->size.x + 1, 400);
+	i = 0;
+	t_hbranch	*meow;
+	while (i < 6)
+	{
+		meow = add_image(scrollbox->scrollbox.inside, "meow.pam");
+		meow->anchor = LT;
+		meow->pos = vec2i(0, meow->size.y * i);
+		i++;
+	}
+
+	if (false)
+	{
+		t_hbranch	*select;
+		select = add_select(scrollbox->scrollbox.inside, "Select engine...");
+		select->anchor = LT;
+		select->pos = scrollbox->scrollbox.inside->_lt;
+		add_select_option(select, "Wireframe", test_button_action);
+		add_select_option(select, "Eeveee", test_button_action);
+		add_select_option(select, "Cycles", test_button_action);
+	}
+	scrollbox->size = vec2i(meow->size.x, meow->size.y * 1.75);
+	scrollbox->scrollbox.inside->size = vec2i(meow->size.x, meow->size.y * i);
 	return (scrollbox);
 }
 

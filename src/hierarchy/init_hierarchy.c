@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 18:50:22 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/12/23 00:34:19 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/12/23 02:31:19 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_hbranch init_hbranch(t_htree *head, t_hbranch *parent)
 
 	_in_scrollbox = parent->_in_scrollbox;
 	img = parent->img;
-	if (parent->type == SCROLLBOX)
+	if ((parent->type == SCROLLBOX) && (parent->childs->num_elements == 0))
 	{
 		_in_scrollbox = parent;
 		img = &parent->scrollbox._scroll_buffer;

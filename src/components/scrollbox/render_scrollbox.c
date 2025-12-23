@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/21 21:45:37 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/12/22 01:10:13 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/12/23 03:58:45 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,9 @@ void	render_scrollbox(t_hbranch *hbranch, t_scrollbox *scrollbox)
 	scrollbox->_scroll_buffer.pixels = &scrollbox->_scroll_buffer.pixels[scrollbox->_current_pos * scrollbox->_scroll_buffer.line_len];
 	save_height = scrollbox->_scroll_buffer.height;
 	scrollbox->_scroll_buffer.height = hbranch->size.y;
-	//ft_mlx_select_put(hbranch->img, hbranch->_lt, hbranch->_rb, drgb_int(0xFFFFFF));
 	ft_mlx_img_aput(hbranch->img, hbranch->_lt, &scrollbox->_scroll_buffer);
 	scrollbox->_scroll_buffer.height = save_height;
 	scrollbox->_scroll_buffer.pixels = save_ptr;
+
+	render_box(scrollbox->scrollbar, &scrollbox->scrollbar->box);
 }
