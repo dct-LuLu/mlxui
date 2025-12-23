@@ -6,13 +6,13 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 19:04:04 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/12/04 21:45:47 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/12/23 19:31:14 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "hierarchy_tree.h"
 
-void	render_button_overlay(t_hbranch *hbranch)
+void	render_button_group_overlay(t_hbranch *hbranch)
 {
 	t_rgba_int	save_color;
 	uint8_t		save_border_size;

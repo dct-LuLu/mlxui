@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 19:30:31 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/12/23 02:05:36 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/12/23 19:31:09 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static inline void	render_component_overlay(t_hbranch *cur)
 	if (((cur->type == BUTTON) || (cur->type == SELECT)) && cur->button.hover)
 		render_button_overlay(cur);
 	else if (cur->type == BUTTON_GROUP)
-		render_button_overlay(cur);
+		render_button_group_overlay(cur);
 }
 
 static inline void	render_hbranch_overlay(t_hbranch *hbranch)
