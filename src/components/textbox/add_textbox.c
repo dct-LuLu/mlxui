@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 12:26:31 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/12/21 22:15:44 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/12/23 22:42:40 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,13 @@ static inline void	create_textbox(t_hbranch *new, t_text text,
 	if (new->textbox.fg.rgba == 0)
 		new->textbox.fg = new->head->style.foreground;
 	if ((new->textbox.bg.rgb == 0) && new->textbox.subpixel
-			&& (new->parent->type == BOX))
+		&& (new->parent->type == BOX))
 		new->textbox.bg.rgb = new->parent->box.color.rgba;
 	new->textbox._img = new->img;
 }
 
-t_hbranch	*add_textbox(t_hbranch *parent_branch, t_text text, t_text_horz_align horz_align, t_text_wrapping  wrapping)
+t_hbranch	*add_textbox(t_hbranch *parent_branch, t_text text,
+				t_text_horz_align horz_align, t_text_wrapping wrapping)
 {
 	t_hbranch	*new;
 
