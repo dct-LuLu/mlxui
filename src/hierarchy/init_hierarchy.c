@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 18:50:22 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/12/23 02:31:19 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/12/23 21:40:56 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 
 t_htree	init_htree(t_mlx *mlx_data, t_style style)
 {
-	t_htree	htree = (t_htree)
+	t_htree	htree;
+
+	htree = (t_htree)
 	{
 		.mlx_data = mlx_data,
 		.style = style
@@ -22,7 +24,7 @@ t_htree	init_htree(t_mlx *mlx_data, t_style style)
 	return (htree);
 }
 
-t_hbranch init_hbranch(t_htree *head, t_hbranch *parent)
+t_hbranch	init_hbranch(t_htree *head, t_hbranch *parent)
 {
 	t_img_data	*img;
 	t_hbranch	hbranch;
@@ -52,9 +54,11 @@ t_hbranch	*add_branch(t_hbranch *parent_branch)
 {
 	t_hbranch	new_branch;
 
-	if ((parent_branch->childs == NULL) || (parent_branch->childs->num_elements == 0))
+	if ((parent_branch->childs == NULL)
+		|| (parent_branch->childs->num_elements == 0))
 		vector_init(parent_branch->childs, sizeof(t_hbranch));
 	new_branch = init_hbranch(parent_branch->head, parent_branch);
 	vector_add(parent_branch->childs, &new_branch, 1);
-	return (get_vector_value(parent_branch->childs, parent_branch->childs->num_elements - 1));
+	return (get_vector_value(parent_branch->childs,
+			parent_branch->childs->num_elements - 1));
 }

@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 19:30:31 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/12/23 19:31:09 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/12/23 21:58:32 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,24 +38,13 @@ static inline void	render_hbranch(t_hbranch *hbranch)
 	if (hbranch->visible && hbranch->rendered)
 		render_component(hbranch);
 	i = 0;
-	while (hbranch->rendered && hbranch->childs && (i < hbranch->childs->num_elements))
+	while (hbranch->rendered && hbranch->childs
+		&& (i < hbranch->childs->num_elements))
 	{
 		cur = get_vector_value(hbranch->childs, i);
 		render_hbranch(cur);
 		i++;
 	}
-}
-
-void	render_select_overlay(t_hbranch *hbranch, t_select *select);
-
-static inline void	render_component_overlay(t_hbranch *cur)
-{
-	if ((cur->type == SELECT) && cur->select.expanded)
-		render_select_overlay(cur, &cur->select);
-	if (((cur->type == BUTTON) || (cur->type == SELECT)) && cur->button.hover)
-		render_button_overlay(cur);
-	else if (cur->type == BUTTON_GROUP)
-		render_button_group_overlay(cur);
 }
 
 static inline void	render_hbranch_overlay(t_hbranch *hbranch)
@@ -66,9 +55,18 @@ static inline void	render_hbranch_overlay(t_hbranch *hbranch)
 	if (!hbranch)
 		return ;
 	if (hbranch->visible && hbranch->rendered)
-		render_component_overlay(hbranch);
+	{
+		if ((hbranch->type == SELECT) && hbranch->select.expanded)
+			render_select_overlay(hbranch, &hbranch->select);
+		if (((hbranch->type == BUTTON) || (hbranch->type == SELECT))
+			&& hbranch->button.hover)
+			render_button_overlay(hbranch);
+		else if (hbranch->type == BUTTON_GROUP)
+			render_button_group_overlay(hbranch);
+	}
 	i = 0;
-	while (hbranch->rendered && hbranch->childs && (i < hbranch->childs->num_elements))
+	while (hbranch->rendered && hbranch->childs
+		&& (i < hbranch->childs->num_elements))
 	{
 		cur = get_vector_value(hbranch->childs, i);
 		render_hbranch_overlay(cur);
@@ -86,7 +84,8 @@ static inline void	render_hbranch_scrollbox(t_hbranch *hbranch)
 	if (hbranch->visible && hbranch->rendered && (hbranch->type == SCROLLBOX))
 		render_scrollbox(hbranch, &hbranch->scrollbox);
 	i = 0;
-	while (hbranch->rendered && hbranch->childs && (i < hbranch->childs->num_elements))
+	while (hbranch->rendered && hbranch->childs
+		&& (i < hbranch->childs->num_elements))
 	{
 		cur = get_vector_value(hbranch->childs, i);
 		render_hbranch_scrollbox(cur);
