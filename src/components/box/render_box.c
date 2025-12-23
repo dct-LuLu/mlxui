@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 02:53:18 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/12/23 04:01:06 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/12/23 21:45:43 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,12 @@ static inline void	fill_corner(t_img_data *img, t_box box, t_corner corner)
 {
 	if (DEBUG)
 	{
-		ft_mlx_quarter_curve_aput(img, corner._mem, rgba_int(125, 255, 255, 128));
-		ft_mlx_aarec_aput(img, corner.xrec[0], corner.xrec[1], rgba_int(0, 255, 255, 128));
-		ft_mlx_aarec_aput(img, corner.mrec[0], corner.mrec[1], rgba_int(255, 255, 255, 128));
+		ft_mlx_quarter_curve_aput(img, corner._mem,
+			rgba_int(125, 255, 255, 128));
+		ft_mlx_aarec_aput(img, corner.xrec[0], corner.xrec[1],
+			rgba_int(0, 255, 255, 128));
+		ft_mlx_aarec_aput(img, corner.mrec[0], corner.mrec[1],
+			rgba_int(255, 255, 255, 128));
 	}
 	else
 	{

@@ -6,7 +6,7 @@
 /*   By: jaubry-- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 20:12:25 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/12/23 04:07:27 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/12/23 22:51:11 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,7 @@ int	loop(t_env *env)
 	render_hierarchy(&env->htree);
 	if (start_pos.x != 0 && start_pos.y != 0)
 		ft_mlx_select_put(&env->mlx_data->img, start_pos, end_pos, drgb_int(0xFFFFFF));
-
 	mlx_put_image_to_window(env->mlx_data->mlx, env->mlx_data->win, env->mlx_data->img.img, 0, 0);
-	//printf("key: %d\n", env->mlx_data->key_input.keycode);
 	return (0);
 }
 
@@ -71,7 +69,7 @@ void    select_mouse_pos(void *v, t_mlx *mlx_data)
 {
     (void)v;
     if (start_pos.x != 0 && start_pos.y != 0)
-            end_pos = vec2i(mlx_data->mouse_input.pos.x, mlx_data->mouse_input.pos.y);
+    	end_pos = vec2i(mlx_data->mouse_input.pos.x, mlx_data->mouse_input.pos.y);
 }
 
 int	add_mouse_hook(t_mlx *mlx_data)
@@ -88,7 +86,6 @@ void	populate_tree(t_hbranch *hbranch, int depth)
 {
 	t_hbranch	*new;
 	
-	
 	if (depth == 4)
 		return ;
 	else if (depth == 3)
@@ -101,7 +98,7 @@ void	populate_tree(t_hbranch *hbranch, int depth)
 	else
 	{
 		new = add_box(hbranch, (t_radius){.style = FULL_PX, .full = 20},
-				(t_border){.size = 1, .color = hbranch->head->style.border, .style = SOLID});
+			(t_border){.size = 1, .color = hbranch->head->style.border, .style = SOLID});
 		new->x_pos_operation = operation_half;
 		new->y_pos_operation = operation_half;
 		new->x_size_operation = operation_half;
@@ -164,7 +161,7 @@ t_hbranch	*add_button_test(t_hbranch *hbranch)
 	t_hbranch	*text;
 
 	button = add_button(hbranch, (t_radius){.style = FULL_PX, .full = 12},
-				(t_border){.size = 1, .color = hbranch->head->style.border, .style = SOLID});
+		(t_border){.size = 1, .color = hbranch->head->style.border, .style = SOLID});
 	button->button.action = test_button_action;
 	button->anchor = RB;
 	button->pos = vec2i_sub_scalar(hbranch->head->mlx_data->size, 20);
@@ -229,7 +226,6 @@ t_hbranch	*add_select_test(t_hbranch *hbranch)
 	select = add_select(hbranch, "Select engine...");
 	select->anchor = LT;
 	select->pos = vec2i(20, hbranch->head->mlx_data->size.y / 2 + 40);
-	//select->select.nullable = true;
 	add_select_option(select, "Wireframe", test_button_action);
 	add_select_option(select, "Eevee", test_button_action);
 	add_select_option(select, "Cycles", test_button_action);
@@ -239,13 +235,11 @@ t_hbranch	*add_select_test(t_hbranch *hbranch)
 t_hbranch	*add_image_test(t_hbranch *hbranch)
 {
 	t_hbranch	*meow;
-
 	meow = add_image(hbranch, "meow.pam");
 	meow->anchor = RT;
 	meow->pos = vec2i(hbranch->head->mlx_data->size.x, 0);
 
 	t_hbranch	*image;
-
 	precompute_geometry(meow, 1, 0);
 	image = add_image(hbranch, "feur.pam");
 	image->anchor = RT;
@@ -257,7 +251,6 @@ t_hbranch	*add_image_test(t_hbranch *hbranch)
 	image1->pos = vec2i(0, hbranch->head->mlx_data->size.y);
 	
 	t_hbranch	*text;
-
 	text = add_textbox(hbranch,
 	(t_text)
 	{
@@ -283,10 +276,8 @@ t_hbranch	*add_scrollbox_test(t_hbranch *hbranch)
 	scrollbox->anchor = BOTTOM;
 	scrollbox->scrollbox._current_pos = 0;
 
-	size_t	i;
-
-	i = 0;
 	t_hbranch	*meow;
+	size_t		i = 0;
 	while (i < 6)
 	{
 		meow = add_image(scrollbox->scrollbox.inside, "meow.pam");
@@ -398,7 +389,6 @@ int	main(void)
 	int	test_val;
 
 	test_val = 59;
-
 	ret = 0;
 	ft_bzero(&env, sizeof(t_env));
 	register_errors();
@@ -407,9 +397,7 @@ int	main(void)
 		ret = error(pack_err(MLXW_ID, MLXW_E_INITF), FL, LN, FC);
 	ft_mlx_center_window(env.mlx_data);
 	test_htree(&env.htree, env.mlx_data, &test_val);
-
 	add_mouse_hook(env.mlx_data);
-
 	start_mlx_loop(env.mlx_data, loop, &env);
 	print_errs();
 	return (ret);
