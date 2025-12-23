@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 16:09:49 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/12/23 21:35:51 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/12/23 22:01:40 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,9 @@ typedef struct s_htree
 t_htree		init_htree(t_mlx *mlx_data, t_style style);
 t_hbranch	init_hbranch(t_htree *head, t_hbranch *parent);
 t_hbranch	*add_branch(t_hbranch *parent_branch);
+
+int			get_hbranch_max(size_t field_offset, t_hbranch *hbranch);
+int			get_hbranch_total(size_t field_offset, t_hbranch *hbranch);
 
 void		render_hierarchy(t_htree *htree);
 void		precompute_hierarchy(t_htree *htree);
