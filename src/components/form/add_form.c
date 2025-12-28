@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/25 02:13:13 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/12/23 22:06:32 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/12/28 19:42:09 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,10 @@ static inline void	create_form(t_hbranch *new, void *value,
 		add_form_morpheme(new, morpheme);
 }
 
+void	hook_form_typing(t_hbranch *hbranch, t_mlx *mlx_data);
+void	hook_form_enter(t_hbranch *hbranch, t_mlx *mlx_data);
+void	hook_form_backspace(t_hbranch *hbranch, t_mlx *mlx_data);
+
 t_hbranch	*add_form(t_hbranch *parent_branch, void *value,
 				t_form_type type, const char *morpheme)
 {
@@ -81,9 +85,11 @@ t_hbranch	*add_form(t_hbranch *parent_branch, void *value,
 	new->render = (void (*)(t_hbranch *, void *))render_box;
 	add_func_button_hook(new->head->mlx_data, MLCLICK,
 		(void (*)(t_vec2i, t_maction, void *, t_mlx *))hook_focus_form, new);
+	add_func_key_hook(new->head->mlx_data, is_enter_key,
+		(void (*)(void *, t_mlx *))hook_form_enter, new);
+	add_func_skey_hook(new->head->mlx_data, XK_BackSpace,
+		(void (*)(void *, t_mlx *))hook_form_backspace, new);
 	add_func_key_hook(new->head->mlx_data, is_form_typing_key,
-		(void (*)(void *, t_mlx *))hook_typing_form, new);
-	// should instead use multiple hooks for special
-	// actions like enter and real typing
+		(void (*)(void *, t_mlx *))hook_form_typing, new);
 	return (new);
 }

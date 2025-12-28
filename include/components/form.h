@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/13 17:18:05 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/12/23 21:36:23 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/12/28 19:40:07 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,6 @@ t_hbranch	*add_form(t_hbranch *parent_branch, void *value,
 				t_form_type type, const char *morpheme);
 void		precompute_form(t_hbranch *hbranch);
 
-void		hook_typing_form(t_hbranch *hbranch, t_mlx *mlx_data);
 bool		is_form_typing_key(const int keycode);
 void		switch_focus_form(t_hbranch *hbranch, bool inside);
 void		hook_focus_form(t_vec2i pos, t_maction action,

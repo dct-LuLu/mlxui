@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 03:07:04 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/12/23 22:25:18 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/12/28 19:42:42 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ typedef struct s_select
 	bool				nullable;
 }						t_select;
 
-typedef void (*t_option_action)(t_hbranch *hbranch, void *arg);
+typedef void	(*t_option_action)(t_hbranch *hbranch, void *arg);
 
 t_hbranch	*add_select(t_hbranch *parent_branch, char label[SELECT_LABEL_LEN]);
 void		render_select(t_hbranch *hbranch, t_select *select);
