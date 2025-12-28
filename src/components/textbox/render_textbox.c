@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 11:18:21 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/12/23 22:49:18 by jaubry--         ###   ########.fr       */
+/*   Updated: 2025/12/28 19:48:10 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,7 @@ static inline bool	need_wrapping(t_textbox *textbox,
 	if ((textbox->wrapping == CHAR_WRAPPING)
 		&& ((pen_pos.x + char_width) >= textbox->_rt.x))
 		return (true);
-	//else if (WORD_WRAPPING)
-	//	return (true);
+	//else if (textbox->wrapping == WORD_WRAPPING)
 	return (false);
 }
 
