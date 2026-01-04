@@ -6,30 +6,17 @@
 #    By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/11 10:16:04 by jaubry--          #+#    #+#              #
-#    Updated: 2025/11/03 19:32:36 by jaubry--         ###   ########.fr        #
+#    Updated: 2026/01/04 21:56:52 by jaubry--         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 ROOTDIR		?= .
 include $(ROOTDIR)/mkidir/make_utils.mk
 
-LIBNAME		= mlxui
-
-# Variables
-WINDOWLESS	= 0
-FULLSCREEN	= 0
-RESIZEABLE	= 0
-ifeq ($(FULLSCREEN), 1)
-WIDTH		= $(MAX_WIDTH)
-HEIGHT		= $(MAX_HEIGHT)
-else
-WIDTH		= 500
-HEIGHT		= 500
-endif
-PERF		= 0
+LIBNAME		= libmlxui
 
 # Directories
-CDIR		= $(LIBNAME)
+CDIR		= mlxui
 SRCDIR		= src
 INCDIR		= include
 OBJDIR		= .obj
@@ -41,14 +28,49 @@ MLXDIR		= $(LIBDIR)/minilibx-linux
 MLXWDIR		= $(LIBDIR)/mlx_wrapper
 FONT_RENDIR	= $(LIBDIR)/font_renderer
 
+# Includes
+include $(LIBFTDIR)/includes.mk $(XCERRCALDIR)/includes.mk \
+	$(MLXWDIR)/includes.mk $(FONT_RENDIR)includes.mk includes.mk
+
+INCLUDES	= $(INCDIRS_MLXUI) \
+			  $(addprefix $(XCERRCALDIR)/, $(INCDIRS_XCERRCAL)) \
+			  $(addprefix $(LIBFTDIR)/, $(INCDIRS_LIBFT)) \
+			  $(MLXDIR) \
+			  $(addprefix $(MLXWDIR)/, $(INCDIRS_MLXW)) \
+			  $(addprefix $(FONT_RENDIR)/, $(INCDIRS_FONT_RENDER))
+
 # Output
-NAME		= lib$(LIBNAME).a
+NAME		= $(LIBNAME).a
 XCERRCAL	= $(XCERRCALDIR)/libxcerrcal.a
 LIBFT		= $(LIBFTDIR)/libft.a
 MLX			= $(MLXDIR)/libmlx.a
 MLXW		= $(MLXWDIR)/libmlx-wrapper.a
 FONT_RENDER	= $(FONT_RENDIR)/libfont-renderer.a
 ARCHIVES	= $(XCERRCAL) $(LIBFT) $(MLX) $(MLXW) $(FONT_RENDER)
+
+# Variables
+DEBUG_MLXUI	= 5
+WINDOWLESS	= 0
+FULLSCREEN	= 0
+RESIZEABLE	= 0
+
+ifeq ($(FULLSCREEN), 1)
+WIDTH		= $(MAX_WIDTH)
+HEIGHT		= $(MAX_HEIGHT)
+else
+WIDTH		= 500
+HEIGHT		= 500
+endif
+
+PERF		= 0
+
+VARS		= DEBUG=$(DEBUG) \
+			  WIDTH=$(WIDTH) \
+			  HEIGHT=$(HEIGHT) \
+			  PERF=$(PERF) \
+			  FULLSCREEN=$(FULLSCREEN) \
+			  RESIZEABLE=$(RESIZEABLE) \
+			  WINDOWLESS=$(WINDOWLESS)
 
 # Compiler and flags
 CC			= cc
@@ -58,13 +80,9 @@ CFLAGS		= -Wall -Wextra -Werror \
 
 DFLAGS		= -MMD -MP -MF $(DEPDIR)/$*.d
 
-IFLAGS		= -I$(INCDIR) -I$(INCDIR)/components \
-			  -I$(XCERRCALDIR)/include \
-			  -I$(LIBFTDIR)/include \
-			  -I$(MLXDIR) \
-			  -I$(MLXWDIR)/include \
-			  -I$(FONT_RENDIR)/include
+IFLAGS		= $(addprefix -I,$(INCLUDES))
 
+# Binary compilation flag // to remove in library-stripped
 LFLAGS		= -L$(FONT_RENDIR) \
 			  -L$(MLXWDIR) \
 			  -L$(LIBFTDIR) \
@@ -74,13 +92,6 @@ LFLAGS		= -L$(FONT_RENDIR) \
 			  -lfont-renderer -lmlx-wrapper -lmlx -lft -lxcerrcal \
 			  -lXext -lX11 -lXrandr -lm
 
-VARS		= DEBUG=$(DEBUG) \
-			  WIDTH=$(WIDTH) \
-			  HEIGHT=$(HEIGHT) \
-			  PERF=$(PERF) \
-			  FULLSCREEN=$(FULLSCREEN) \
-			  RESIZEABLE=$(RESIZEABLE) \
-			  WINDOWLESS=$(WINDOWLESS)
 VFLAGS		= $(addprefix -D ,$(VARS))
 
 CFLAGS		+= $(DEBUG_FLAGS) $(FFLAGS) $(VFLAGS)
@@ -96,11 +107,9 @@ include $(SRCDIR)/srcs.mk
 
 OBJS		= $(addprefix $(OBJDIR)/, $(notdir $(SRCS:.c=.o)))
 DEPS		= $(addprefix $(DEPDIR)/, $(notdir $(SRCS:.c=.d)))
-INCLUDES	= mlxui.h
-INCLUDES	:= $(addprefix $(INCDIR)/, $(INCLUDES))
 
 # VPATH
-vpath %.h $(INCDIR) $(LIBFTDIR)/$(INCDIR) $(XCERRCALDIR)/$(INCDIR) $(MLXWDIR)/$(INCDIR) $(MLXDIR) $(FONT_RENDIR)/$(INCDIR)
+vpath %.h $(INCDLUDES)
 vpath %.o $(OBJDIR) $(LIBFTDIR)/$(OBJDIR) $(XCERRCALDIR)/$(OBJDIR) $(MLXWDIR)/$(OBJDIR) $(FONT_RENDIR)/$(OBJDIR)
 vpath %.d $(DEPDIR) $(LIBFTDIR)/$(DEPDIR) $(XCERRCALDIR)/$(DEPDIR) $(MLXWDIR)/$(DEPDIR) $(FONT_RENDIR)/$(DEPDIR)
 
