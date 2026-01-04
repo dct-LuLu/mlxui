@@ -6,7 +6,7 @@
 /*   By: jaubry-- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 20:12:25 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/12/23 22:51:11 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/01/04 12:28:11 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@
 #include <stdio.h>
 #include <unistd.h>
 
-#define FONT_PATH "/home/jaubry--/Documents/42/Minirt/asset/fonts/JetBrainsMono-ExtraLight.ttf"
+#define FONT_PATH "assets/JetBrainsMono-ExtraLight.ttf"
+#define MEOW_PATH "assets/meow.pam"
+#define BUG_PATH "assets/bug.ppm"
 
 typedef struct s_env
 {
@@ -235,18 +237,12 @@ t_hbranch	*add_select_test(t_hbranch *hbranch)
 t_hbranch	*add_image_test(t_hbranch *hbranch)
 {
 	t_hbranch	*meow;
-	meow = add_image(hbranch, "meow.pam");
+	meow = add_image(hbranch, MEOW_PATH);
 	meow->anchor = RT;
 	meow->pos = vec2i(hbranch->head->mlx_data->size.x, 0);
 
-	t_hbranch	*image;
-	precompute_geometry(meow, 1, 0);
-	image = add_image(hbranch, "feur.pam");
-	image->anchor = RT;
-	image->pos = meow->_lt;
-
 	t_hbranch	*image1;
-	image1 = add_image(hbranch, "bug.ppm");
+	image1 = add_image(hbranch, BUG_PATH);
 	image1->anchor = LB;
 	image1->pos = vec2i(0, hbranch->head->mlx_data->size.y);
 	
@@ -272,15 +268,15 @@ t_hbranch	*add_scrollbox_test(t_hbranch *hbranch)
 	t_hbranch	*scrollbox;
 
 	scrollbox = add_scrollbox(hbranch);
-	scrollbox->pos = vec2i(hbranch->head->mlx_data->size.x / 2, hbranch->head->mlx_data->size.y - 10);
-	scrollbox->anchor = BOTTOM;
+	scrollbox->pos = vec2i((float)hbranch->head->mlx_data->size.x / 1.6f, 10);
+	scrollbox->anchor = TOP;
 	scrollbox->scrollbox._current_pos = 0;
 
 	t_hbranch	*meow;
 	size_t		i = 0;
 	while (i < 6)
 	{
-		meow = add_image(scrollbox->scrollbox.inside, "meow.pam");
+		meow = add_image(scrollbox->scrollbox.inside, MEOW_PATH);
 		meow->anchor = LT;
 		meow->pos = vec2i(0, meow->size.y * i);
 		i++;
