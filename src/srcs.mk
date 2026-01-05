@@ -6,14 +6,13 @@
 #    By: jaubry-- <jaubry--@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/14 08:18:04 by jaubry--          #+#    #+#              #
-#    Updated: 2025/11/27 02:51:33 by jaubry--         ###   ########.fr        #
+#    Updated: 2026/01/05 13:16:20 by jaubry--         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 MKS		= components \
 		  hierarchy \
 		  operations \
-		  utils \
-		  test
+		  utils
 
 include $(foreach n,$(MKS),$(SRCDIR)/$(n)/$(n).mk)

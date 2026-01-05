@@ -6,7 +6,7 @@
 #    By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/11 10:16:04 by jaubry--          #+#    #+#              #
-#    Updated: 2026/01/05 09:40:04 by jaubry--         ###   ########.fr        #
+#    Updated: 2026/01/05 13:18:56 by jaubry--         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,6 @@ LIBFT		= $(LIBFTDIR)/libft.a
 MLX			= $(MLXDIR)/libmlx.a
 MLXW		= $(MLXWDIR)/libmlx-wrapper.a
 FONT_RENDER	= $(FONT_RENDIR)/libfont-renderer.a
-ARCHIVES	= $(XCERRCAL) $(LIBFT) $(MLX) $(MLXW) $(FONT_RENDER)
 
 # Variables
 DEBUG_MLXUI	= 4
@@ -89,16 +88,6 @@ DFLAGS		= -MMD -MP -MF $(DEPDIR)/$*.d
 
 IFLAGS		= $(addprefix -I,$(INCLUDES))
 
-# Binary compilation flag // to remove in library-stripped
-LFLAGS		= -L$(FONT_RENDIR) \
-			  -L$(MLXWDIR) \
-			  -L$(LIBFTDIR) \
-			  -L$(MLXDIR) \
-			  -L$(XCERRCALDIR) \
-			  -L$(NAME) \
-			  -lfont-renderer -lmlx-wrapper -lmlx -lft -lxcerrcal \
-			  -lXext -lX11 -lXrandr -lm
-
 VFLAGS		= $(addprefix -D ,$(VARS) DEBUG=$(DEBUG))
 
 CFLAGS		+= $(INSPECT_FLAGS) $(PROFILE_FLAGS) $(FFLAGS) $(VFLAGS)
@@ -136,9 +125,6 @@ ifeq ($(FAST),1)
 	@$(RANLIB) $@
 endif
 	$(call ar-finish-msg)
-
-test: $(NAME)
-	$(CF) $(TEST_SRCS) $(ARCHIVES) $^ $(LFLAGS) -o $@
 
 $(XCERRCAL):
 	@$(MAKE) -s -C $(XCERRCALDIR) $(RULE) $(VARS) ROOTDIR=../..
@@ -201,4 +187,4 @@ redebug:fclean debug
 
 -include $(DEPS)
 
-.PHONY: all test re debug redebug fast refast clean fclean help buildmsg print-%
+.PHONY: all re debug redebug fast refast clean fclean help buildmsg print-%
