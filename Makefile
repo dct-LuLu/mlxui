@@ -6,7 +6,7 @@
 #    By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/11 10:16:04 by jaubry--          #+#    #+#              #
-#    Updated: 2026/01/04 21:56:52 by jaubry--         ###   ########.fr        #
+#    Updated: 2026/01/05 07:44:48 by jaubry--         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,6 @@ LIBNAME		= libmlxui
 # Directories
 CDIR		= mlxui
 SRCDIR		= src
-INCDIR		= include
 OBJDIR		= .obj
 DEPDIR		= .dep
 
@@ -30,14 +29,14 @@ FONT_RENDIR	= $(LIBDIR)/font_renderer
 
 # Includes
 include $(LIBFTDIR)/includes.mk $(XCERRCALDIR)/includes.mk \
-	$(MLXWDIR)/includes.mk $(FONT_RENDIR)includes.mk includes.mk
+	$(MLXWDIR)/includes.mk $(FONT_RENDIR)/includes.mk includes.mk
 
 INCLUDES	= $(INCDIRS_MLXUI) \
 			  $(addprefix $(XCERRCALDIR)/, $(INCDIRS_XCERRCAL)) \
 			  $(addprefix $(LIBFTDIR)/, $(INCDIRS_LIBFT)) \
 			  $(MLXDIR) \
 			  $(addprefix $(MLXWDIR)/, $(INCDIRS_MLXW)) \
-			  $(addprefix $(FONT_RENDIR)/, $(INCDIRS_FONT_RENDER))
+			  $(addprefix $(FONT_RENDIR)/, $(INCDIRS_FTRDR))
 
 # Output
 NAME		= $(LIBNAME).a
@@ -49,7 +48,13 @@ FONT_RENDER	= $(FONT_RENDIR)/libfont-renderer.a
 ARCHIVES	= $(XCERRCAL) $(LIBFT) $(MLX) $(MLXW) $(FONT_RENDER)
 
 # Variables
-DEBUG_MLXUI	= 5
+DEBUG_MLXUI	= 4
+
+ifeq ($(filter $(DEBUG_LVL),1 $(DEBUG_MLXUI)),)
+DEBUG		= 0
+else
+DEBUG		= 1
+endif
 WINDOWLESS	= 0
 FULLSCREEN	= 0
 RESIZEABLE	= 0
@@ -65,6 +70,7 @@ endif
 PERF		= 0
 
 VARS		= DEBUG=$(DEBUG) \
+			  DEBUG_LVL=$(DEBUG_LVL) \
 			  WIDTH=$(WIDTH) \
 			  HEIGHT=$(HEIGHT) \
 			  PERF=$(PERF) \
@@ -73,7 +79,7 @@ VARS		= DEBUG=$(DEBUG) \
 			  WINDOWLESS=$(WINDOWLESS)
 
 # Compiler and flags
-CC			= cc
+CC			?= cc
 
 CFLAGS		= -Wall -Wextra -Werror \
 			  -std=gnu11
@@ -94,7 +100,7 @@ LFLAGS		= -L$(FONT_RENDIR) \
 
 VFLAGS		= $(addprefix -D ,$(VARS))
 
-CFLAGS		+= $(DEBUG_FLAGS) $(FFLAGS) $(VFLAGS)
+CFLAGS		+= $(INSPECT_FLAGS) $(PROFILE_FLAGS) $(FFLAGS) $(VFLAGS)
 
 CF			= $(CC) $(CFLAGS) $(IFLAGS)
 
@@ -102,20 +108,25 @@ AR			= $(if $(findstring -flto,$(FFLAGS)),$(FAST_AR),$(STD_AR))
 ARFLAGS		= rcs
 RANLIB		= $(if $(findstring -flto,$(FFLAGS)),$(FAST_RANLIB),$(STD_RANLIB))
 
+# VPATH
+vpath %.h $(INCDLUDES)
+vpath %.o $(OBJDIR) $(LIBFTDIR)/$(OBJDIR) $(XCERRCALDIR)/$(OBJDIR) \
+	$(MLXWDIR)/$(OBJDIR) $(FONT_RENDIR)/$(OBJDIR)
+vpath %.d $(DEPDIR) $(LIBFTDIR)/$(DEPDIR) $(XCERRCALDIR)/$(DEPDIR) \
+	$(MLXWDIR)/$(DEPDIR) $(FONT_RENDIR)/$(DEPDIR)
+
 # Sources
 include $(SRCDIR)/srcs.mk
 
 OBJS		= $(addprefix $(OBJDIR)/, $(notdir $(SRCS:.c=.o)))
 DEPS		= $(addprefix $(DEPDIR)/, $(notdir $(SRCS:.c=.d)))
 
-# VPATH
-vpath %.h $(INCDLUDES)
-vpath %.o $(OBJDIR) $(LIBFTDIR)/$(OBJDIR) $(XCERRCALDIR)/$(OBJDIR) $(MLXWDIR)/$(OBJDIR) $(FONT_RENDIR)/$(OBJDIR)
-vpath %.d $(DEPDIR) $(LIBFTDIR)/$(DEPDIR) $(XCERRCALDIR)/$(DEPDIR) $(MLXWDIR)/$(DEPDIR) $(FONT_RENDIR)/$(DEPDIR)
+
 
 all:	$(NAME)
 fast:	$(NAME)
-debug:	$(NAME)
+inspect:$(NAME)
+profile:$(NAME)
 
 $(NAME): $(XCERRCAL) $(FONT_RENDER) $(MLXW) $(MLX) $(LIBFT) $(OBJS) $(INCLUDES)
 	$(call ar-msg)
