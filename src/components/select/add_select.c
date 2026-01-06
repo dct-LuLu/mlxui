@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/06 08:27:52 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/12/23 22:41:39 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/01/06 12:55:22 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ static inline t_hbranch	*create_expand_label(t_hbranch *new,
 	label_box = add_box(new, (t_radius){.style = LOCAL_PX, .lt = 9, .rt = 9},
 			(t_border){.size = 1, .color = new->head->style.border,
 			.style = SOLID});
+	if (!label_box)
+		return (NULL);
 	label_box->box.size = vec2i(200, 36);
 	label_box->x_pos_operation = copy_parent;
 	label_box->y_pos_operation = expanded_offset;
@@ -38,6 +40,8 @@ static inline t_hbranch	*create_expand_label(t_hbranch *new,
 	new->select.label_box = label_box;
 	label_text = add_textbox(label_box, (t_text){.font_size = 2,
 			.fg = new->head->style.input}, LEFT_ALIGN, NO_WRAPPING);
+	if (!label_text)
+		return (NULL);
 	label_text->textbox.text.fg.a = 5;
 	label_text->anchor = LT;
 	label_text->size = vec2i(180, 36);
@@ -48,16 +52,20 @@ static inline t_hbranch	*create_expand_label(t_hbranch *new,
 	return (label_box);
 }
 
-static inline void	create_expand(t_hbranch *new, char label[SELECT_LABEL_LEN])
+static inline t_hbranch	*create_expand(t_hbranch *new, char label[SELECT_LABEL_LEN])
 {
 	t_hbranch	*expand_box;
 	t_hbranch	*margin;
 	t_hbranch	*label_box;
 
 	label_box = create_expand_label(new, label);
+	if (!label_box)
+		return (NULL);
 	expand_box = add_box(label_box, (t_radius){.style = LOCAL_PX,
 			.lb = 9, .rb = 9}, (t_border){.size = 1, .color
 			= new->head->style.border, .style = SOLID});
+	if (!expand_box)
+		return (NULL);
 	expand_box->x_pos_operation = copy_parent;
 	expand_box->y_pos_operation = entry_offset;
 	expand_box->box.pos = label_box->_lb;
@@ -65,6 +73,8 @@ static inline void	create_expand(t_hbranch *new, char label[SELECT_LABEL_LEN])
 	expand_box->anchor = LT;
 	new->select.expand = expand_box;
 	margin = add_box(expand_box, (t_radius){}, (t_border){});
+	if (!margin)
+		return (NULL);
 	margin->box.size = vec2i(192, 0);
 	margin->x_pos_operation = margin_offset_parent;
 	margin->y_pos_operation = margin_offset_parent;
@@ -73,7 +83,7 @@ static inline void	create_expand(t_hbranch *new, char label[SELECT_LABEL_LEN])
 	new->select.options = margin->childs;
 }
 
-static inline void	create_select(t_hbranch *new, char label[SELECT_LABEL_LEN])
+static inline t_hbranch	*create_select(t_hbranch *new, char label[SELECT_LABEL_LEN])
 {
 	t_hbranch	*selected;
 
@@ -81,6 +91,8 @@ static inline void	create_select(t_hbranch *new, char label[SELECT_LABEL_LEN])
 			.font_size = 2,
 			.fg = new->head->style.input,
 		}, LEFT_ALIGN, NO_WRAPPING);
+	if (!selected)
+		return (NULL);
 	new->select.selected = &selected->textbox;
 	selected->anchor = LT;
 	selected->size = vec2i(150, 36);
@@ -88,7 +100,9 @@ static inline void	create_select(t_hbranch *new, char label[SELECT_LABEL_LEN])
 	selected->y_pos_operation = copy_parent;
 	selected->textbox.vert_align = MIDDLE_ALIGN;
 	ft_strlcpy(selected->textbox.content, label, SELECT_LABEL_LEN);
-	create_expand(new, label);
+	if (!create_expand(new, label))
+		return (NULL);
+	return (selected);
 }
 
 void	switch_select_expand(t_hbranch *hbranch, void *arg);
@@ -102,13 +116,17 @@ t_hbranch	*add_select(t_hbranch *parent_branch, char label[SELECT_LABEL_LEN])
 	new = add_button(parent_branch, (t_radius){.style = FULL_PX, .full = 9},
 			(t_border){.size = 1, .color
 			= parent_branch->head->style.border, .style = SOLID});
+	if (!new)
+		return (NULL);
 	new->type = SELECT;
 	new->render = (void (*)(t_hbranch *, void *))render_select;
 	new->select.button.box.size = vec2i(200, 36);
 	new->select.button.action = switch_select_expand;
-	add_func_button_hook(new->head->mlx_data, MLCLICK,
+	if (add_func_button_hook(new->head->mlx_data, MLCLICK,
 		(void (*)(t_vec2i, t_maction, void *, t_mlx *))
-		hook_click_outside_select, new);
-	create_select(new, label);
+		hook_click_outside_select, new) != 0)
+		return (NULL);
+	if (!create_select(new, label))
+		return (NULL);
 	return (new);
 }

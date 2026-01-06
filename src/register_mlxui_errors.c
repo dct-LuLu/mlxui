@@ -1,28 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   add_button_group.c                                 :+:      :+:    :+:   */
+/*   register_mlxui_errors.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/27 21:08:20 by jaubry--          #+#    #+#             */
-/*   Updated: 2026/01/06 12:48:54 by jaubry--         ###   ########.fr       */
+/*   Created: 2026/01/06 09:24:55 by jaubry--          #+#    #+#             */
+/*   Updated: 2026/01/06 09:26:01 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "hierarchy_tree.h"
+#include "xcerrcal.h"
+#include "mlxui_xcerrcal.h"
 
-t_hbranch	*add_button_group(t_hbranch *parent_branch,
-				t_group_dir group_dir, t_group_type group_type)
+void	register_mlxui_errors(void)
 {
-	t_hbranch	*new;
+	const char	*err_msgs[] = {
+		MLXUI_E_MSG_TEST
+	};
 
-	new = add_branch(parent_branch);
-	if (!new)
-		return (NULL);
-	new->type = BUTTON_GROUP;
-	new->button_group.group_dir = group_dir;
-	new->button_group.group_type = group_type;
-	new->precompute = precompute_button_group;
-	return (new);
+	bulk_register_errors(MLXUI_ERRS_NUM - 1, MLXUI_ID, (const char **)err_msgs);
 }

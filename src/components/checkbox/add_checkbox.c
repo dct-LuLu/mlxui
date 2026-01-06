@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 18:25:41 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/12/23 22:04:29 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/01/06 12:49:36 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,17 @@ t_hbranch	*add_checkbox(t_hbranch *parent_branch, bool *checked)
 	t_hbranch	*new;
 
 	new = add_branch(parent_branch);
+	if (!new)
+		return (NULL);
 	new->type = CHECKBOX;
 	new->precompute = precompute_checkbox;
 	new->render = (void (*)(t_hbranch *, void *))render_checkbox;
 	create_checkbox(new, checked);
-	add_func_button_hook(new->head->mlx_data, MLCLICK,
-		(void (*)(t_vec2i, t_maction, void *, t_mlx *))hook_checkbox, new);
+	if (add_func_button_hook(new->head->mlx_data, MLCLICK,
+		(void (*)(t_vec2i, t_maction, void *, t_mlx *))hook_checkbox, new) != 0)
+	{
+		free(new);//better clean
+		return (NULL);
+	}
 	return (new);
 }

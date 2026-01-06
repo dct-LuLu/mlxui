@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/25 02:13:13 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/12/28 19:42:09 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/01/06 12:50:39 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,17 +79,23 @@ t_hbranch	*add_form(t_hbranch *parent_branch, void *value,
 	t_hbranch	*new;
 
 	new = add_branch(parent_branch);
+	if (!new)
+		return (NULL);
 	create_form(new, value, type, morpheme);
 	new->type = FORM;
 	new->precompute = precompute_form;
 	new->render = (void (*)(t_hbranch *, void *))render_box;
-	add_func_button_hook(new->head->mlx_data, MLCLICK,
-		(void (*)(t_vec2i, t_maction, void *, t_mlx *))hook_focus_form, new);
-	add_func_key_hook(new->head->mlx_data, is_enter_key,
-		(void (*)(void *, t_mlx *))hook_form_enter, new);
-	add_func_skey_hook(new->head->mlx_data, XK_BackSpace,
-		(void (*)(void *, t_mlx *))hook_form_backspace, new);
-	add_func_key_hook(new->head->mlx_data, is_form_typing_key,
-		(void (*)(void *, t_mlx *))hook_form_typing, new);
+	if (add_func_button_hook(new->head->mlx_data, MLCLICK,
+		(void (*)(t_vec2i, t_maction, void *, t_mlx *))hook_focus_form, new) != 0)
+		return (NULL);
+	if (add_func_key_hook(new->head->mlx_data, is_enter_key,
+		(void (*)(void *, t_mlx *))hook_form_enter, new) != 0)
+		return (NULL);
+	if (add_func_skey_hook(new->head->mlx_data, XK_BackSpace,
+		(void (*)(void *, t_mlx *))hook_form_backspace, new) != 0)
+		return (NULL);
+	if (add_func_key_hook(new->head->mlx_data, is_form_typing_key,
+		(void (*)(void *, t_mlx *))hook_form_typing, new) != 0)
+		return (NULL);
 	return (new);
 }
