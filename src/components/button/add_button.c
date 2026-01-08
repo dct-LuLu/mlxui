@@ -26,13 +26,18 @@ t_hbranch	*add_button(t_hbranch *parent_branch,
 	t_hbranch	*new;
 
 	new = add_branch(parent_branch);
+	if (!new)
+		return (nul_error(pack_err(MLXUI_ID, MLXUI_E_ABR), FL, LN, FC));
 	new->type = BUTTON;
 	new->precompute = precompute_box;
 	new->render = (void (*)(t_hbranch *, void *))render_box;
 	create_button(new, radius, border);
-	add_func_button_hook(new->head->mlx_data, MLCLICK,
-		(void (*)(t_vec2i, t_maction, void *, t_mlx *))hook_click_button, new);
-	add_func_move_hook(new->head->mlx_data,
-		(void (*)(void *, t_mlx *))hook_hover_button, new);
+	if (add_func_button_hook(new->head->mlx_data, MLCLICK,
+		(void (*)(t_vec2i, t_maction, void *, t_mlx *))hook_click_button,
+		new) != 0)
+		return (nul_error(pack_err(MLXW_ID, MLXW_E_EVENTH), FL, LN, FC));
+	if (add_func_move_hook(new->head->mlx_data,
+		(void (*)(void *, t_mlx *))hook_hover_button, new) != 0)
+		return (nul_error(pack_err(MLXW_ID, MLXW_E_EVENTH), FL, LN, FC));
 	return (new);
 }

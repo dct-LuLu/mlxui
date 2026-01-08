@@ -14,18 +14,20 @@
 
 t_texture	*ppm_parser(const int fd, t_texture *tex);
 
-static inline void	create_image(t_hbranch *new, const char *path)
+static inline int	create_image(t_hbranch *new, const char *path)
 {
 	int	fd;
 
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
-		printf("error reading file\n");
+		return (1);
 	if (pnm_parser(fd, &new->image.img_data) == NULL)
-		printf("error parsing pnm\n");
-	close(fd);
+		return (error(pack_err(MLXW_ID, MLXW_E_PNM), FL, LN, FC));
+	if (close(fd) != 0)
+		return (1);
 	new->size.x = new->image.img_data.width;
 	new->size.y = new->image.img_data.height;
+	return (0);
 }
 
 t_hbranch	*add_image(t_hbranch *parent_branch, const char *path)
@@ -33,8 +35,11 @@ t_hbranch	*add_image(t_hbranch *parent_branch, const char *path)
 	t_hbranch	*new;
 
 	new = add_branch(parent_branch);
+	if (!new)
+		return (nul_error(pack_err(MLXUI_ID, MLXUI_E_ABR), FL, LN, FC));
 	new->type = IMAGE;
 	new->render = (void (*)(t_hbranch *, void *))render_image;
-	create_image(new, path);
+	if (create_image(new, path) != 0)
+		return (nul_error(pack_err(MLXUI_ID, MLXUI_E_FIMG), FL, LN, FC));
 	return (new);
 }

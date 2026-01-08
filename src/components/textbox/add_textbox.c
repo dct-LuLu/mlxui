@@ -33,6 +33,8 @@ t_hbranch	*add_textbox(t_hbranch *parent_branch, t_text text,
 	t_hbranch	*new;
 
 	new = add_branch(parent_branch);
+	if (!new)
+		return (nul_error(pack_err(MLXUI_ID, MLXUI_E_ABR), FL, LN, FC));
 	create_textbox(new, text, horz_align, wrapping);
 	new->type = TEXTBOX;
 	new->precompute = precompute_textbox;

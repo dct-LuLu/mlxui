@@ -29,6 +29,9 @@ void	render_scrollbox(t_hbranch *hbranch, t_scrollbox *scrollbox)
 	scrollbox->_scroll_buffer.pixels = &scrollbox->_scroll_buffer.pixels
 	[scrollbox->_current_pos * scrollbox->_scroll_buffer.line_len];
 	save_height = scrollbox->_scroll_buffer.height;
+	if (hbranch->size.y >= scrollbox->inside->size.y)
+		scrollbox->_scroll_buffer.height = scrollbox->inside->size.y;
+	else
 	scrollbox->_scroll_buffer.height = hbranch->size.y;
 	ft_mlx_img_aput(hbranch->img, hbranch->_lt, &scrollbox->_scroll_buffer);
 	scrollbox->_scroll_buffer.height = save_height;

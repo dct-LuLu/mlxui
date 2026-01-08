@@ -13,6 +13,7 @@
 #ifndef HIERARCHY_TREE_H
 # define HIERARCHY_TREE_H
 
+# include "mlxui_xcerrcal.h"
 # include "mlx_wrapper.h"
 # include "font_renderer.h"
 # include "geometry_fields.h"
@@ -102,7 +103,6 @@ typedef struct s_htree
 }				t_htree;
 
 t_htree		init_htree(t_mlx *mlx_data, t_style style);
-t_hbranch	init_hbranch(t_htree *head, t_hbranch *parent);
 t_hbranch	*add_branch(t_hbranch *parent_branch);
 
 int			get_hbranch_max(size_t field_offset, t_hbranch *hbranch);

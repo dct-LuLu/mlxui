@@ -5,3 +5,4 @@ a.out
 .obj/
 .dep/
 test
+.vscode

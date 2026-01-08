@@ -24,10 +24,9 @@ t_htree	init_htree(t_mlx *mlx_data, t_style style)
 	return (htree);
 }
 
-t_hbranch	init_hbranch(t_htree *head, t_hbranch *parent)
+t_hbranch	*init_hbranch(t_htree *head, t_hbranch *parent, t_hbranch *hbranch)
 {
 	t_img_data	*img;
-	t_hbranch	hbranch;
 	t_hbranch	*_in_scrollbox;
 
 	_in_scrollbox = parent->_in_scrollbox;
@@ -37,7 +36,7 @@ t_hbranch	init_hbranch(t_htree *head, t_hbranch *parent)
 		_in_scrollbox = parent;
 		img = &parent->scrollbox._scroll_buffer;
 	}
-	hbranch = (t_hbranch)
+	*hbranch = (t_hbranch)
 	{
 		.visible = true,
 		.rendered = true,
@@ -47,6 +46,8 @@ t_hbranch	init_hbranch(t_htree *head, t_hbranch *parent)
 		.img = img,
 		._in_scrollbox = _in_scrollbox
 	};
+	if (!hbranch->childs)
+		return (NULL);
 	return (hbranch);
 }
 
@@ -57,8 +58,10 @@ t_hbranch	*add_branch(t_hbranch *parent_branch)
 	if ((parent_branch->childs == NULL)
 		|| (parent_branch->childs->num_elements == 0))
 		vector_init(parent_branch->childs, sizeof(t_hbranch));
-	new_branch = init_hbranch(parent_branch->head, parent_branch);
-	vector_add(parent_branch->childs, &new_branch, 1);
+	if (!init_hbranch(parent_branch->head, parent_branch, &new_branch))
+		return (nul_error(pack_err(MLXUI_ID, MLXUI_E_IBR), FL, LN, FC));
+	if (vector_add(parent_branch->childs, &new_branch, 1) != 0)
+		return (nul_error(pack_err(LFT_ID, LFT_E_VEC_ADD), FL, LN, FC));
 	return (get_vector_value(parent_branch->childs,
 			parent_branch->childs->num_elements - 1));
 }

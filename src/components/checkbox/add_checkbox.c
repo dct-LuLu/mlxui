@@ -32,11 +32,14 @@ t_hbranch	*add_checkbox(t_hbranch *parent_branch, bool *checked)
 	t_hbranch	*new;
 
 	new = add_branch(parent_branch);
+	if (!new)
+		return (nul_error(pack_err(MLXUI_ID, MLXUI_E_ABR), FL, LN, FC));
 	new->type = CHECKBOX;
 	new->precompute = precompute_checkbox;
 	new->render = (void (*)(t_hbranch *, void *))render_checkbox;
 	create_checkbox(new, checked);
-	add_func_button_hook(new->head->mlx_data, MLCLICK,
-		(void (*)(t_vec2i, t_maction, void *, t_mlx *))hook_checkbox, new);
+	if (add_func_button_hook(new->head->mlx_data, MLCLICK,
+		(void (*)(t_vec2i, t_maction, void *, t_mlx *))hook_checkbox, new) != 0)
+		return (nul_error(pack_err(MLXW_ID, MLXW_E_EVENTH), FL, LN, FC));
 	return (new);
 }

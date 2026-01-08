@@ -16,3 +16,7 @@ MKS		= components \
 		  utils
 
 include $(foreach n,$(MKS),$(SRCDIR)/$(n)/$(n).mk)
+
+SRCS += $(SRCDIR)/register_mlxui_errors.c
+
+vpath %.c $(SRCDIR)

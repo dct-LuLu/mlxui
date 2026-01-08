@@ -18,6 +18,8 @@ t_hbranch	*add_button_group(t_hbranch *parent_branch,
 	t_hbranch	*new;
 
 	new = add_branch(parent_branch);
+	if (!new)
+		return (nul_error(pack_err(MLXUI_ID, MLXUI_E_ABR), FL, LN, FC));
 	new->type = BUTTON_GROUP;
 	new->button_group.group_dir = group_dir;
 	new->button_group.group_type = group_type;

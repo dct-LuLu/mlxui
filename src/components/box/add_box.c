@@ -24,6 +24,8 @@ t_hbranch	*add_box(t_hbranch *parent_branch, t_radius radius, t_border border)
 	t_hbranch	*new;
 
 	new = add_branch(parent_branch);
+	if (!new)
+		return (nul_error(pack_err(MLXUI_ID, MLXUI_E_ABR), FL, LN, FC));
 	create_box(new, radius, border);
 	new->type = BOX;
 	new->precompute = precompute_box;
