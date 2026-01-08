@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/21 20:27:28 by jaubry--          #+#    #+#             */
-/*   Updated: 2026/01/06 12:52:59 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/01/08 15:48:59 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static inline t_hbranch	*create_scrollbar(t_hbranch *new)
 			(t_radius){.style = FULL_PX, .full = 5},
 			(t_border){0});
 	if (!scrollbar)
-		return (NULL);
+		return (nul_error(pack_err(MLXUI_ID, MLXUI_E_COMP), FL, LN, FC));
 	scrollbar->anchor = RT;
 	scrollbar->size.x = SCROLLBAR_WIDTH;
 	scrollbar->box.color = new->head->style.card;
@@ -45,7 +45,7 @@ static inline t_hbranch	*create_scrollbox(t_hbranch *new)
 	new->scrollbox.sensitivity = DEFAULT_SENSITIVITY;
 	new->scrollbox.inside = add_branch(new);
 	if (!new->scrollbox.inside)
-		return (NULL);
+		return (nul_error(pack_err(MLXUI_ID, MLXUI_E_ABR), FL, LN, FC));
 	new->scrollbox.inside->anchor = LT;
 	new->scrollbox.inside->x_pos_operation = copy;
 	new->scrollbox.inside->y_pos_operation = copy;
@@ -59,21 +59,27 @@ t_hbranch	*add_scrollbox(t_hbranch *parent_branch)
 
 	new = add_branch(parent_branch);
 	if (!new)
-		return (NULL);
+		return (nul_error(pack_err(MLXUI_ID, MLXUI_E_ABR), FL, LN, FC));
 	new->type = SCROLLBOX;
 	new->precompute = precompute_scrollbox;
 	new->render = (void (*)(t_hbranch *, void *))render_clear_scrollbox;
 	if (!create_scrollbox(new))
-		return (NULL);
+	{
+		register_complex_err_msg(MLXUI_E_MSG_FSCOMP, "inner box", "scrollbox");
+		return (nul_error(pack_err(MLXUI_ID, MLXUI_E_FSCOMP), FL, LN, FC));
+	}
 	if (!create_scrollbar(new))
-		return (NULL);
+	{
+		register_complex_err_msg(MLXUI_E_MSG_FSCOMP, "scrollbar", "scrollbox");
+		return (nul_error(pack_err(MLXUI_ID, MLXUI_E_FSCOMP), FL, LN, FC));
+	}
 	if (add_func_button_hook(new->head->mlx_data, MWHEELUP,
 		(void (*)(t_vec2i, t_maction, void *, t_mlx *))
 		hook_scrollup_scrollbox, new) != 0)
-		return (NULL);
+		return (nul_error(pack_err(MLXW_ID, MLXW_E_EVENTH), FL, LN, FC));
 	if (add_func_button_hook(new->head->mlx_data, MWHEELDOWN,
 		(void (*)(t_vec2i, t_maction, void *, t_mlx *))
 		hook_scrolldown_scrollbox, new) != 0)
-		return (NULL);
+		return (nul_error(pack_err(MLXW_ID, MLXW_E_EVENTH), FL, LN, FC));
 	return (new);
 }

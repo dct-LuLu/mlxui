@@ -6,7 +6,7 @@
 /*   By: jaubry-- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 20:12:25 by jaubry--          #+#    #+#             */
-/*   Updated: 2026/01/04 12:28:11 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/01/08 16:34:54 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void	register_errors(void)
 	register_lft_errors();
 	register_mlxw_errors();
 	register_frdr_errors();
+	register_mlxui_errors();
 }
 
 void	select_zone(t_vec2i pos, t_maction action, void *arg, t_mlx *mlx_data)
@@ -237,7 +238,9 @@ t_hbranch	*add_select_test(t_hbranch *hbranch)
 t_hbranch	*add_image_test(t_hbranch *hbranch)
 {
 	t_hbranch	*meow;
-	meow = add_image(hbranch, MEOW_PATH);
+	meow = add_image(hbranch, "feur");
+	if (!meow)
+		return (NULL);
 	meow->anchor = RT;
 	meow->pos = vec2i(hbranch->head->mlx_data->size.x, 0);
 
@@ -318,7 +321,7 @@ t_hbranch	*add_scrollbox_test(t_hbranch *hbranch)
 #define C_BORDER                  0x1AFFFFFF  // 10% opacity
 #define C_INPUT                   0x26FFFFFF  // 15% opacity
 
-void	test_htree(t_htree *htree, t_mlx *mlx_data, int *test_val)
+int	test_htree(t_htree *htree, t_mlx *mlx_data, int *test_val)
 {
 	t_style	style = (t_style)
 	{
@@ -361,7 +364,7 @@ void	test_htree(t_htree *htree, t_mlx *mlx_data, int *test_val)
 	};
 	htree->body->type = BOX;
 	if (init_ttf(FONT_PATH, &htree->style.font) != 0)
-		return ;
+		return (1);
 	if (true)
 	{
 		populate_tree(htree->body, 0);
@@ -371,10 +374,12 @@ void	test_htree(t_htree *htree, t_mlx *mlx_data, int *test_val)
 		add_button_test(htree->body);
 		add_button_group_test(htree->body);
 		add_select_test(htree->body);
-		add_image_test(htree->body);
+		if (!add_image_test(htree->body))
+			return (error(pack_err(MLXUI_ID, MLXUI_E_COMP), FL, LN, FC));
 	}
 	add_scrollbox_test(htree->body);
 	precompute_hierarchy(htree);
+	return (0);
 }
 
 
@@ -392,9 +397,11 @@ int	main(void)
 	if (!env.mlx_data)
 		ret = error(pack_err(MLXW_ID, MLXW_E_INITF), FL, LN, FC);
 	ft_mlx_center_window(env.mlx_data);
-	test_htree(&env.htree, env.mlx_data, &test_val);
-	add_mouse_hook(env.mlx_data);
-	start_mlx_loop(env.mlx_data, loop, &env);
+	if (test_htree(&env.htree, env.mlx_data, &test_val) == 0)
+	{
+		add_mouse_hook(env.mlx_data);
+		start_mlx_loop(env.mlx_data, loop, &env);
+	}
 	print_errs();
 	return (ret);
 }

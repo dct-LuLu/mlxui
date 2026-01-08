@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/27 21:08:20 by jaubry--          #+#    #+#             */
-/*   Updated: 2026/01/06 12:48:54 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/01/08 15:31:26 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_hbranch	*add_button_group(t_hbranch *parent_branch,
 
 	new = add_branch(parent_branch);
 	if (!new)
-		return (NULL);
+		return (nul_error(pack_err(MLXUI_ID, MLXUI_E_ABR), FL, LN, FC));
 	new->type = BUTTON_GROUP;
 	new->button_group.group_dir = group_dir;
 	new->button_group.group_type = group_type;

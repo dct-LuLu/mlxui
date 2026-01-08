@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/26 21:54:23 by jaubry--          #+#    #+#             */
-/*   Updated: 2026/01/06 12:48:37 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/01/08 15:43:51 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_hbranch	*add_button(t_hbranch *parent_branch,
 
 	new = add_branch(parent_branch);
 	if (!new)
-		return (NULL);
+		return (nul_error(pack_err(MLXUI_ID, MLXUI_E_ABR), FL, LN, FC));
 	new->type = BUTTON;
 	new->precompute = precompute_box;
 	new->render = (void (*)(t_hbranch *, void *))render_box;
@@ -35,9 +35,9 @@ t_hbranch	*add_button(t_hbranch *parent_branch,
 	if (add_func_button_hook(new->head->mlx_data, MLCLICK,
 		(void (*)(t_vec2i, t_maction, void *, t_mlx *))hook_click_button,
 		new) != 0)
-		return (NULL);
+		return (nul_error(pack_err(MLXW_ID, MLXW_E_EVENTH), FL, LN, FC));
 	if (add_func_move_hook(new->head->mlx_data,
-		(void (*)(void *, t_mlx *))hook_hover_button, new))
-		return (NULL);
+		(void (*)(void *, t_mlx *))hook_hover_button, new) != 0)
+		return (nul_error(pack_err(MLXW_ID, MLXW_E_EVENTH), FL, LN, FC));
 	return (new);
 }

@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 18:17:12 by jaubry--          #+#    #+#             */
-/*   Updated: 2026/01/06 12:56:37 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/01/08 15:26:03 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_hbranch	*add_box(t_hbranch *parent_branch, t_radius radius, t_border border)
 
 	new = add_branch(parent_branch);
 	if (!new)
-		return (NULL);
+		return (nul_error(pack_err(MLXUI_ID, MLXUI_E_ABR), FL, LN, FC));
 	create_box(new, radius, border);
 	new->type = BOX;
 	new->precompute = precompute_box;

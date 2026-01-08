@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 12:26:31 by jaubry--          #+#    #+#             */
-/*   Updated: 2026/01/06 12:56:04 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/01/08 16:00:47 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_hbranch	*add_textbox(t_hbranch *parent_branch, t_text text,
 
 	new = add_branch(parent_branch);
 	if (!new)
-		return (NULL);
+		return (nul_error(pack_err(MLXUI_ID, MLXUI_E_ABR), FL, LN, FC));
 	create_textbox(new, text, horz_align, wrapping);
 	new->type = TEXTBOX;
 	new->precompute = precompute_textbox;

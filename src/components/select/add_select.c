@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/06 08:27:52 by jaubry--          #+#    #+#             */
-/*   Updated: 2026/01/06 12:55:22 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/01/08 16:04:26 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,10 @@ static inline t_hbranch	*create_expand_label(t_hbranch *new,
 			(t_border){.size = 1, .color = new->head->style.border,
 			.style = SOLID});
 	if (!label_box)
-		return (NULL);
+	{
+		register_complex_err_msg(MLXUI_E_MSG_FSCOMP, "expand label box", "select");
+		return (nul_error(pack_err(MLXUI_ID, MLXUI_E_FSCOMP), FL, LN, FC));
+	}
 	label_box->box.size = vec2i(200, 36);
 	label_box->x_pos_operation = copy_parent;
 	label_box->y_pos_operation = expanded_offset;
@@ -41,7 +44,10 @@ static inline t_hbranch	*create_expand_label(t_hbranch *new,
 	label_text = add_textbox(label_box, (t_text){.font_size = 2,
 			.fg = new->head->style.input}, LEFT_ALIGN, NO_WRAPPING);
 	if (!label_text)
-		return (NULL);
+	{
+		register_complex_err_msg(MLXUI_E_MSG_FSCOMP, "expand label", "select");
+		return (nul_error(pack_err(MLXUI_ID, MLXUI_E_FSCOMP), FL, LN, FC));
+	}
 	label_text->textbox.text.fg.a = 5;
 	label_text->anchor = LT;
 	label_text->size = vec2i(180, 36);
@@ -65,7 +71,10 @@ static inline t_hbranch	*create_expand(t_hbranch *new, char label[SELECT_LABEL_L
 			.lb = 9, .rb = 9}, (t_border){.size = 1, .color
 			= new->head->style.border, .style = SOLID});
 	if (!expand_box)
-		return (NULL);
+	{
+		register_complex_err_msg(MLXUI_E_MSG_FSCOMP, "expand box", "select");
+		return (nul_error(pack_err(MLXUI_ID, MLXUI_E_FSCOMP), FL, LN, FC));
+	}
 	expand_box->x_pos_operation = copy_parent;
 	expand_box->y_pos_operation = entry_offset;
 	expand_box->box.pos = label_box->_lb;
@@ -74,13 +83,17 @@ static inline t_hbranch	*create_expand(t_hbranch *new, char label[SELECT_LABEL_L
 	new->select.expand = expand_box;
 	margin = add_box(expand_box, (t_radius){}, (t_border){});
 	if (!margin)
-		return (NULL);
+	{
+		register_complex_err_msg(MLXUI_E_MSG_FSCOMP, "expand margin box", "select");
+		return (nul_error(pack_err(MLXUI_ID, MLXUI_E_FSCOMP), FL, LN, FC));
+	}
 	margin->box.size = vec2i(192, 0);
 	margin->x_pos_operation = margin_offset_parent;
 	margin->y_pos_operation = margin_offset_parent;
 	margin->anchor = LT;
 	new->select.margin = margin;
 	new->select.options = margin->childs;
+	return (new);
 }
 
 static inline t_hbranch	*create_select(t_hbranch *new, char label[SELECT_LABEL_LEN])
@@ -92,7 +105,10 @@ static inline t_hbranch	*create_select(t_hbranch *new, char label[SELECT_LABEL_L
 			.fg = new->head->style.input,
 		}, LEFT_ALIGN, NO_WRAPPING);
 	if (!selected)
-		return (NULL);
+	{
+		register_complex_err_msg(MLXUI_E_MSG_FSCOMP, "selected textbox", "select");
+		return (nul_error(pack_err(MLXUI_ID, MLXUI_E_FSCOMP), FL, LN, FC));
+	}
 	new->select.selected = &selected->textbox;
 	selected->anchor = LT;
 	selected->size = vec2i(150, 36);
@@ -117,7 +133,10 @@ t_hbranch	*add_select(t_hbranch *parent_branch, char label[SELECT_LABEL_LEN])
 			(t_border){.size = 1, .color
 			= parent_branch->head->style.border, .style = SOLID});
 	if (!new)
-		return (NULL);
+	{
+		register_complex_err_msg(MLXUI_E_MSG_FSCOMP, "display button", "select");
+		return (nul_error(pack_err(MLXUI_ID, MLXUI_E_FSCOMP), FL, LN, FC));
+	}
 	new->type = SELECT;
 	new->render = (void (*)(t_hbranch *, void *))render_select;
 	new->select.button.box.size = vec2i(200, 36);
@@ -125,7 +144,7 @@ t_hbranch	*add_select(t_hbranch *parent_branch, char label[SELECT_LABEL_LEN])
 	if (add_func_button_hook(new->head->mlx_data, MLCLICK,
 		(void (*)(t_vec2i, t_maction, void *, t_mlx *))
 		hook_click_outside_select, new) != 0)
-		return (NULL);
+		return (nul_error(pack_err(MLXW_ID, MLXW_E_EVENTH), FL, LN, FC));
 	if (!create_select(new, label))
 		return (NULL);
 	return (new);
