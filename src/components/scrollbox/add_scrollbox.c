@@ -13,6 +13,10 @@
 #include "hierarchy_tree.h"
 #include "operations.h"
 
+#define SCROLLBAR_WIDTH 8
+#define SCROLLBAR_OPACITY 225
+#define DEFAULT_SENSITIVITY 5
+
 void	hook_scrollup_scrollbox(t_vec2i pos, t_maction action,
 			t_hbranch *hbranch, t_mlx *mlx_data);
 void	hook_scrolldown_scrollbox(t_vec2i pos, t_maction action,
@@ -28,9 +32,9 @@ static inline t_hbranch	*create_scrollbar(t_hbranch *new)
 	if (!scrollbar)
 		return (NULL);
 	scrollbar->anchor = RT;
-	scrollbar->size.x = 8;
+	scrollbar->size.x = SCROLLBAR_WIDTH;
 	scrollbar->box.color = new->head->style.card;
-	scrollbar->box.color.a = 255;
+	scrollbar->box.color.a = SCROLLBAR_OPACITY;
 	new->scrollbox.scrollbar = scrollbar;
 	return (scrollbar);
 }
@@ -38,10 +42,11 @@ static inline t_hbranch	*create_scrollbar(t_hbranch *new)
 static inline t_hbranch	*create_scrollbox(t_hbranch *new)
 {
 	new->scrollbox._current_pos = 0;
-	new->scrollbox.sensitivity = 5;
+	new->scrollbox.sensitivity = DEFAULT_SENSITIVITY;
 	new->scrollbox.inside = add_branch(new);
 	if (!new->scrollbox.inside)
 		return (NULL);
+	new->scrollbox.inside->anchor = LT;
 	new->scrollbox.inside->x_pos_operation = copy;
 	new->scrollbox.inside->y_pos_operation = copy;
 	new->scrollbox.inside->x_size_operation = copy;

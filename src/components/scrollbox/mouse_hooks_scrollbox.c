@@ -32,6 +32,8 @@ void	hook_scrollup_scrollbox(t_vec2i pos, t_maction action,
 	if ((action == MPRESS) && hbranch->visible
 		&& is_inside_comp(hbranch, pos))
 	{
+		if (hbranch->size.y >= hbranch->scrollbox.inside->size.y)
+			return ;
 		hbranch->scrollbox._current_pos -= hbranch->scrollbox.sensitivity;
 		if (hbranch->scrollbox._current_pos < 0)
 			hbranch->scrollbox._current_pos = 0;
@@ -45,6 +47,8 @@ void	hook_scrolldown_scrollbox(t_vec2i pos, t_maction action,
 	(void)mlx_data;
 	if ((action == MPRESS) && hbranch->visible && is_inside_comp(hbranch, pos))
 	{
+		if (hbranch->size.y >= hbranch->scrollbox.inside->size.y)
+			return ;
 		hbranch->scrollbox._current_pos += hbranch->scrollbox.sensitivity;
 		if (hbranch->scrollbox._current_pos
 			> (hbranch->scrollbox._scroll_buffer.height - hbranch->size.y))

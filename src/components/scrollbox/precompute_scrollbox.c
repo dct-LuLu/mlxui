@@ -35,9 +35,14 @@ void	precompute_scrollbar(t_hbranch *hbranch)
 	t_hbranch	*scrollbar;
 
 	scrollbar = hbranch->scrollbox.scrollbar;
-	scrollbar->size.y = ((float)hbranch->size.y
-			/ (float)hbranch->scrollbox.inside->size.y)
-		* (float)hbranch->size.y;
+	if (hbranch->size.y >= hbranch->scrollbox.inside->size.y)
+		scrollbar->size.y = hbranch->size.y;
+	else
+	{
+		scrollbar->size.y = ((float)hbranch->size.y
+				/ (float)hbranch->scrollbox.inside->size.y)
+			* (float)hbranch->size.y;
+	}
 	scrollbar->pos.x = hbranch->_rt.x;
 	scrollbar->pos.y = hbranch->_rt.y
 		+ ((float)hbranch->scrollbox._current_pos
