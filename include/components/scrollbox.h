@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/21 19:12:53 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/12/23 21:36:36 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/01/09 17:11:43 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ typedef struct s_scrollbox
 			void	(*x_size_operation)(size_t, t_hbranch *, size_t, size_t);
 			void	(*y_size_operation)(size_t, t_hbranch *, size_t, size_t);
 		};
-		void		(*precompute)(t_hbranch *);
+		int			(*precompute)(t_hbranch *);
 		void		(*render)(t_hbranch *, void *);
 		t_vec2		_half_size;
 		t_vec2i		_mid;
@@ -49,7 +49,7 @@ typedef struct s_scrollbox
 }					t_scrollbox;
 
 t_hbranch	*add_scrollbox(t_hbranch *parent_branch);
-void		precompute_scrollbox(t_hbranch *hbranch);
+int			precompute_scrollbox(t_hbranch *hbranch);
 void		render_scrollbox(t_hbranch *hbranch, t_scrollbox *scrollbox);
 void		render_clear_scrollbox(t_hbranch *hbranch, t_scrollbox *scrollbox);
 

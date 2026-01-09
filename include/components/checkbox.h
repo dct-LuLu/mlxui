@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 12:11:25 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/12/23 21:36:16 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/01/09 16:59:12 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ typedef struct s_checkbox
 				void	(*y_size_operation)(size_t, t_hbranch *,
 						size_t, size_t);
 			};
-			void		(*precompute)(t_hbranch *);
+			int			(*precompute)(t_hbranch *);
 			void		(*render)(t_hbranch *, void *);
 			t_vec2		_half_size;
 			t_vec2i		_mid;
@@ -55,7 +55,7 @@ typedef struct s_checkbox
 }						t_checkbox;
 
 t_hbranch	*add_checkbox(t_hbranch *parent_branch, bool *checked);
-void		precompute_checkbox(t_hbranch *hbranch);
+int			precompute_checkbox(t_hbranch *hbranch);
 void		render_checkbox(t_hbranch *hbranch, t_checkbox *checkbox);
 void		switch_checkbox(t_hbranch *checkbox);
 void		hook_checkbox(t_vec2i pos, t_maction action,

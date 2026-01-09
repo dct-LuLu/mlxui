@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/26 21:51:51 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/12/23 21:36:05 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/01/09 16:57:41 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ typedef struct s_button
 				void	(*y_size_operation)(size_t, t_hbranch *,
 						size_t, size_t);
 			};
-			void		(*precompute)(t_hbranch *);
+			int			(*precompute)(t_hbranch *);
 			void		(*render)(t_hbranch *, void *);
 			t_vec2		_half_size;
 			t_vec2i		_mid;

@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 03:07:04 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/12/28 19:42:42 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/01/09 17:14:01 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ typedef struct s_select
 				void	(*y_size_operation)(size_t, t_hbranch *,
 						size_t, size_t);
 			};
-			void		(*precompute)(t_hbranch *);
+			int			(*precompute)(t_hbranch *);
 			void		(*render)(t_hbranch *, void *);
 			t_vec2		_half_size;
 			t_vec2i		_mid;

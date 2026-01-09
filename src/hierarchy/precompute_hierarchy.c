@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 18:18:35 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/12/22 00:10:49 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/01/09 17:17:44 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static inline size_t	get_render_num(t_hbranch *hbranch)
 	return (render_num);
 }
 
-void	precompute_hbranch(t_hbranch *hbranch)
+int	precompute_hbranch(t_hbranch *hbranch)
 {
 	size_t		i;
 	size_t		render_i;
@@ -44,24 +44,32 @@ void	precompute_hbranch(t_hbranch *hbranch)
 	{
 		cur = get_vector_value(hbranch->childs, i);
 		precompute_geometry(cur, render_i, render_num);
-		if (cur->visible && cur->precompute)
-			cur->precompute(cur);
+		if (cur->visible && cur->precompute && (cur->precompute(cur) != 0))
+			return (1);
 		render_i++;
-		precompute_hbranch(cur);
+		if (precompute_hbranch(cur) != 0)
+			return (1);
 		i++;
 	}
+	return (0);
 }
 
-static inline void	precompute_htree(t_hbranch *htree)
+static inline int	precompute_htree(t_hbranch *htree)
 {
+	int	ret;
+
+	ret = 0;
 	precompute_geometry(htree, 0, 1);
 	if (htree->visible && htree->precompute)
-		htree->precompute(htree);
-	precompute_hbranch(htree);
+		ret = htree->precompute(htree);
+	if (ret == 0)
+		ret = precompute_hbranch(htree);
+	return (ret);
 }
 
-void	precompute_hierarchy(t_htree *htree)
+int	precompute_hierarchy(t_htree *htree)
 {
 	if (htree)
-		precompute_htree(htree->body);
+		return (precompute_htree(htree->body));
+	return (1);
 }

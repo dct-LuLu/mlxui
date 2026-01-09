@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 12:10:07 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/12/23 21:36:48 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/01/09 17:12:55 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ typedef struct s_textbox
 			void			(*y_size_operation)(size_t, t_hbranch *,
 					size_t, size_t);
 		};
-		void				(*precompute)(t_hbranch *);
+		int					(*precompute)(t_hbranch *);
 		void				(*render)(t_hbranch *, void *);
 		t_vec2				_half_size;
 		t_vec2i				_mid;
@@ -92,7 +92,7 @@ typedef struct s_textbox
 
 t_hbranch	*add_textbox(t_hbranch *parent_branch, t_text text,
 				t_text_horz_align horz_align, t_text_wrapping wrapping);
-void		precompute_textbox(t_hbranch *hbranch);
+int			precompute_textbox(t_hbranch *hbranch);
 void		render_textbox(t_hbranch *hbranch, t_textbox *textbox);
 
 #endif//TEXTBOX_H

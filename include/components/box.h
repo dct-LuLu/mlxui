@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 18:34:58 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/12/23 21:35:59 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/01/09 16:56:20 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ typedef struct s_box
 			void	(*x_size_operation)(size_t, t_hbranch *, size_t, size_t);
 			void	(*y_size_operation)(size_t, t_hbranch *, size_t, size_t);
 		};
-		void		(*precompute)(t_hbranch *);
+		int			(*precompute)(t_hbranch *);
 		void		(*render)(t_hbranch *, void *);
 		t_vec2		_half_size;
 		t_vec2i		_mid;
@@ -113,7 +113,7 @@ typedef struct s_box
 
 t_hbranch	*add_box(t_hbranch *parent_branch,
 				t_radius radius, t_border border);
-void		precompute_box(t_hbranch *hbranch);
+int			precompute_box(t_hbranch *hbranch);
 void		render_box(t_hbranch *hbranch, t_box *box);
 void		precompute_box_radius(t_box *box);
 void		render_border(t_img_data *img, t_box box);

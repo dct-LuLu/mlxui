@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/27 21:31:57 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/12/23 22:00:54 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/01/09 17:17:15 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,23 +79,24 @@ static inline void	precompute_buttons_corners(t_hbranch *hbranch)
 		last->box.radius.lb = 5;
 }
 
-void	precompute_button_group(t_hbranch *hbranch)
+int	precompute_button_group(t_hbranch *hbranch)
 {
 	size_t		i;
 	t_hbranch	*child;
 
 	if (hbranch->childs->num_elements == 0)
-		return ;
+		return (0);
 	i = 0;
 	while (i < hbranch->childs->num_elements)
 	{
 		child = get_vector_value(hbranch->childs, i);
 		if (child->type != BUTTON)
-			return ;
+			return (1);
 		i++;
 	}
 	precompute_buttons_size(hbranch);
 	precompute_geometry(hbranch, 0, 1);
 	precompute_buttons_pos(hbranch);
 	precompute_buttons_corners(hbranch);
+	return (0);
 }

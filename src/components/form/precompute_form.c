@@ -6,13 +6,13 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/25 21:47:15 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/12/23 22:14:57 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/01/09 17:02:01 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "hierarchy_tree.h"
 
-void	precompute_form(t_hbranch *hbranch)
+int	precompute_form(t_hbranch *hbranch)
 {
 	precompute_box(hbranch);
 	hbranch->form._vtob(hbranch->form.last_form_buf,
@@ -22,4 +22,5 @@ void	precompute_form(t_hbranch *hbranch)
 	ft_strlcpy(hbranch->form.form_text->content,
 		hbranch->form.last_form_buf, FORM_BUF_SIZE);
 	hbranch->form.format_buf(hbranch->form.form_text->content);
+	return (0);
 }
