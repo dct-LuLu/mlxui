@@ -6,7 +6,7 @@
 #    By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/11 10:16:04 by jaubry--          #+#    #+#              #
-#    Updated: 2026/02/06 06:14:31 by jaubry--         ###   ########.fr        #
+#    Updated: 2026/02/06 06:27:04 by jaubry--         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,6 +45,7 @@ LIBFT		= $(LIBFTDIR)/libft.a
 MLX			= $(MLXDIR)/libmlx.a
 MLXW		= $(MLXWDIR)/libmlx-wrapper.a
 FONT_RENDER	= $(FONT_RENDIR)/libfont-renderer.a
+ARCHIVES	= $(XCERRCAL) $(LIBFT) $(MLX) $(MLXW) $(FONT_RENDER)
 
 # Variables
 DEBUG_MLXUI	= 4
@@ -87,6 +88,15 @@ CFLAGS		= -Wall -Wextra -Werror \
 DFLAGS		= -MMD -MP -MF $(DEPDIR)/$*.d
 
 IFLAGS		= $(addprefix -I,$(INCLUDES))
+
+LFLAGS		= -L$(FONT_RENDIR) \
+			  -L$(MLXWDIR) \
+			  -L$(LIBFTDIR) \
+			  -L$(MLXDIR) \
+			  -L$(XCERRCALDIR) \
+			  -L$(NAME) \
+			  -lfont-renderer -lmlx-wrapper -lmlx -lft -lxcerrcal \
+			  -lXtst -lXext -lX11 -lXrandr -lm
 
 VFLAGS		= $(addprefix -D ,$(VARS) DEBUG=$(DEBUG))
 
