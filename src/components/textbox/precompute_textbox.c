@@ -6,13 +6,13 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 12:26:52 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/12/23 22:43:05 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/01/09 17:12:29 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "hierarchy_tree.h"
 
-void	precompute_textbox(t_hbranch *hbranch)
+int	precompute_textbox(t_hbranch *hbranch)
 {
 	hbranch->textbox._text_pos = hbranch->textbox._lt;
 	if (hbranch->textbox.vert_align == MIDDLE_ALIGN)
@@ -32,4 +32,5 @@ void	precompute_textbox(t_hbranch *hbranch)
 	hbranch->textbox._newline_y = scale_y(&hbranch->textbox.text, 0,
 			abs(hbranch->textbox.font->head->y_min)
 			+ hbranch->textbox.font->head->y_max);
+	return (0);
 }

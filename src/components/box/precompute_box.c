@@ -6,13 +6,13 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 07:13:07 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/12/23 04:00:27 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/01/09 16:57:08 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "hierarchy_tree.h"
 
-void	precompute_box(t_hbranch *hbranch)
+int	precompute_box(t_hbranch *hbranch)
 {
 	hbranch->box._ltc.corner = hbranch->_lt;
 	hbranch->box._rbc.corner = hbranch->_rb;
@@ -20,4 +20,5 @@ void	precompute_box(t_hbranch *hbranch)
 	hbranch->box._lbc.corner = hbranch->_lb;
 	if (hbranch->box.radius.style != NO_RADIUS)
 		precompute_box_radius(&(hbranch->box));
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 18:25:41 by jaubry--          #+#    #+#             */
-/*   Updated: 2026/01/08 15:32:02 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/02/06 06:16:13 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_hbranch	*add_checkbox(t_hbranch *parent_branch, bool *checked)
 	if (!new)
 		return (nul_error(pack_err(MLXUI_ID, MLXUI_E_ABR), FL, LN, FC));
 	new->type = CHECKBOX;
-	new->precompute = precompute_checkbox;
+	new->precompute = precompute_box;
 	new->render = (void (*)(t_hbranch *, void *))render_checkbox;
 	create_checkbox(new, checked);
 	if (add_func_button_hook(new->head->mlx_data, MLCLICK,

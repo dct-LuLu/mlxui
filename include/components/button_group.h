@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/27 19:32:46 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/12/23 21:36:10 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/01/09 16:58:13 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ typedef struct s_button_group
 			void	(*x_size_operation)(size_t, t_hbranch *, size_t, size_t);
 			void	(*y_size_operation)(size_t, t_hbranch *, size_t, size_t);
 		};
-		void		(*precompute)(t_hbranch *);
+		int			(*precompute)(t_hbranch *);
 		void		(*render)(t_hbranch *, void *);
 		t_vec2		_half_size;
 		t_vec2i		_mid;
@@ -61,6 +61,6 @@ typedef struct s_button_group
 t_hbranch	*add_button_group(t_hbranch *parent_branch,
 				t_group_dir group_dir, t_group_type group_type);
 void		render_button_group_overlay(t_hbranch *hbranch);
-void		precompute_button_group(t_hbranch *hbranch);
+int			precompute_button_group(t_hbranch *hbranch);
 
 #endif//BUTTON_GROUP_H

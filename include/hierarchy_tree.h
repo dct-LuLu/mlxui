@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 16:09:49 by jaubry--          #+#    #+#             */
-/*   Updated: 2026/01/08 16:03:17 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/02/06 06:13:16 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ typedef struct s_hbranch
 				void	(*y_size_operation)(size_t, t_hbranch *,
 						size_t, size_t);
 			};
-			void		(*precompute)(t_hbranch *);
+			int			(*precompute)(t_hbranch *);
 			void		(*render)(t_hbranch *, void *);
 			t_vec2		_half_size;
 			t_vec2i		_mid;
@@ -109,6 +109,6 @@ int			get_hbranch_max(size_t field_offset, t_hbranch *hbranch);
 int			get_hbranch_total(size_t field_offset, t_hbranch *hbranch);
 
 void		render_hierarchy(t_htree *htree);
-void		precompute_hierarchy(t_htree *htree);
+int			precompute_hierarchy(t_htree *htree);
 
 #endif//HIERARCHY_TREE_H

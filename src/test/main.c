@@ -6,7 +6,7 @@
 /*   By: jaubry-- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 20:12:25 by jaubry--          #+#    #+#             */
-/*   Updated: 2026/01/08 16:34:54 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/02/06 06:10:04 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -238,7 +238,7 @@ t_hbranch	*add_select_test(t_hbranch *hbranch)
 t_hbranch	*add_image_test(t_hbranch *hbranch)
 {
 	t_hbranch	*meow;
-	meow = add_image(hbranch, "feur");
+	meow = add_image(hbranch, MEOW_PATH);
 	if (!meow)
 		return (NULL);
 	meow->anchor = RT;
