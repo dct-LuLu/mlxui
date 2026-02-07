@@ -51,7 +51,7 @@ void	switch_focus_form(t_hbranch *hbranch, bool inside)
 	else
 		form_out_focus_changes(hbranch);
 	if (hbranch->form.morpheme)
-		switch_morpheme((t_hbranch *)get_vector_value(hbranch->childs, 1),
+		switch_morpheme(*(t_hbranch **)get_vector_value(hbranch->childs, 1),
 			hbranch->form.focused);
 }
 

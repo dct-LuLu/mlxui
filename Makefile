@@ -6,7 +6,7 @@
 #    By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/11 10:16:04 by jaubry--          #+#    #+#              #
-#    Updated: 2026/01/05 13:18:56 by jaubry--         ###   ########.fr        #
+#    Updated: 2026/02/06 22:24:36 by jaubry--         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -83,7 +83,7 @@ CC			?= cc
 
 CFLAGS		= -Wall -Wextra -Werror \
 			  -std=gnu11
-
+#-fsanitize=address,undefined,integer 
 DFLAGS		= -MMD -MP -MF $(DEPDIR)/$*.d
 
 IFLAGS		= $(addprefix -I,$(INCLUDES))

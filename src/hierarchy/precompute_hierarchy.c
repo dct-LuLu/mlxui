@@ -22,7 +22,7 @@ static inline size_t	get_render_num(t_hbranch *hbranch)
 	render_num = 0;
 	while (i < hbranch->childs->num_elements)
 	{
-		cur = get_vector_value(hbranch->childs, i);
+		cur = *(t_hbranch **)get_vector_value(hbranch->childs, i);
 		if (cur->rendered)
 			render_num++;
 		i++;
@@ -42,7 +42,7 @@ int	precompute_hbranch(t_hbranch *hbranch)
 	render_num = get_render_num(hbranch);
 	while (i < hbranch->childs->num_elements)
 	{
-		cur = get_vector_value(hbranch->childs, i);
+		cur = *(t_hbranch **)get_vector_value(hbranch->childs, i);
 		precompute_geometry(cur, render_i, render_num);
 		if (cur->visible && cur->precompute && (cur->precompute(cur) != 0))
 			return (1);

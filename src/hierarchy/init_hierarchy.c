@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 18:50:22 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/12/23 21:40:56 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/02/07 00:22:53 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,15 +53,15 @@ t_hbranch	*init_hbranch(t_htree *head, t_hbranch *parent, t_hbranch *hbranch)
 
 t_hbranch	*add_branch(t_hbranch *parent_branch)
 {
-	t_hbranch	new_branch;
+	t_hbranch	*new_branch;
 
 	if ((parent_branch->childs == NULL)
 		|| (parent_branch->childs->num_elements == 0))
-		vector_init(parent_branch->childs, sizeof(t_hbranch));
-	if (!init_hbranch(parent_branch->head, parent_branch, &new_branch))
+		vector_init(parent_branch->childs, sizeof(t_hbranch *));
+	new_branch = ft_calloc(1, sizeof(t_hbranch));
+	if (!new_branch || !init_hbranch(parent_branch->head, parent_branch, new_branch))
 		return (nul_error(pack_err(MLXUI_ID, MLXUI_E_IBR), FL, LN, FC));
 	if (vector_add(parent_branch->childs, &new_branch, 1) != 0)
 		return (nul_error(pack_err(LFT_ID, LFT_E_VEC_ADD), FL, LN, FC));
-	return (get_vector_value(parent_branch->childs,
-			parent_branch->childs->num_elements - 1));
+	return (new_branch);
 }

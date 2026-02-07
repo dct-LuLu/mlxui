@@ -22,7 +22,7 @@ static inline int	get_childs_height(t_hbranch *hbranch)
 	i = 0;
 	while (i < hbranch->childs->num_elements)
 	{
-		cur = get_vector_value(hbranch->childs, i);
+		cur = *(t_hbranch **)get_vector_value(hbranch->childs, i);
 		if (cur->visible && (cur->_lb.y > total))
 			total = cur->_lb.y;
 		i++;

@@ -28,7 +28,7 @@ void	render_select_overlay(t_hbranch *hbranch, t_select *select)
 
 	if (select->expanded && select->option_index)
 	{
-		selected = get_vector_value(select->margin->childs,
+		selected = *(t_hbranch **)get_vector_value(select->margin->childs,
 				select->option_index - 1);
 		checkmark_pos = vec2i(selected->_rb.x - 17 - 12,
 				selected->_rb.y - 17 - 9);

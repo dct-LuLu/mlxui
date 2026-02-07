@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 12:26:52 by jaubry--          #+#    #+#             */
-/*   Updated: 2026/01/09 17:12:29 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/02/06 20:58:53 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ int	precompute_textbox(t_hbranch *hbranch)
 		hbranch->textbox._lt_limit = hbranch->textbox._lt;
 		hbranch->textbox._rb_limit = hbranch->textbox._rb;
 	}
-	hbranch->textbox._newline_y = scale_y(&hbranch->textbox.text, 0,
+	hbranch->textbox._newline_y = fabsf(scale_y(&hbranch->textbox.text, 0,
 			abs(hbranch->textbox.font->head->y_min)
-			+ hbranch->textbox.font->head->y_max);
+			+ hbranch->textbox.font->head->y_max));
 	return (0);
 }
