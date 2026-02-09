@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 16:09:49 by jaubry--          #+#    #+#             */
-/*   Updated: 2026/01/09 16:55:35 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/02/09 10:29:53 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,11 +100,15 @@ typedef struct s_htree
 	t_mlx		*mlx_data;
 	t_style		style;
 	t_hbranch	*body;
+	t_vector	refs;//t_hbranch
 }				t_htree;
 
 t_htree		init_htree(t_mlx *mlx_data, t_style style);
 t_hbranch	*add_branch(t_hbranch *parent_branch);
 
+t_hbranch   *get_hbranch_ref_idx(t_htree *htree, size_t idx);
+t_hbranch   *get_hbranch_child_idx(t_hbranch *parent, size_t idx);
+ssize_t		get_hbranch_index(t_vector *v, t_hbranch *hbranch);
 int			get_hbranch_max(size_t field_offset, t_hbranch *hbranch);
 int			get_hbranch_total(size_t field_offset, t_hbranch *hbranch);
 

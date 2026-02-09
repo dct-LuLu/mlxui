@@ -17,7 +17,8 @@ HIERARCHY_DIR	= $(SRCDIR)/hierarchy
 HIERARCHY_SRCS	= init_hierarchy.c \
 				  precompute_hierarchy.c \
 				  render_hierarchy.c \
-				  hbranch_iterators.c
+				  hbranch_iterators.c \
+				  get_hbranch_from_idx.c
 HIERARCHY_SRCS	:= $(addprefix $(HIERARCHY_DIR)/, $(HIERARCHY_SRCS))
 
 SRCS			+= $(HIERARCHY_SRCS)

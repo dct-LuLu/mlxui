@@ -47,7 +47,7 @@ void	form_suffix_pos_x(size_t field_offset, t_hbranch *this,
 	(void)field_offset;
 	if ((render_i != 1) || (render_num != 2))
 		return ;
-	buf = *(t_hbranch **)get_vector_value(this->parent->childs, 0);
+	buf = get_hbranch_child_idx(this->parent, 0);
 	this->pos.x = buf->_mid.x
 		+ (measure_str_width(buf->textbox.text.content,
 				&buf->textbox.text) / 2) + 5;
@@ -61,6 +61,6 @@ void	form_suffix_size_x(size_t field_offset, t_hbranch *this,
 	(void)field_offset;
 	if ((render_i != 1) || (render_num != 2))
 		return ;
-	buf = *(t_hbranch **)get_vector_value(this->parent->childs, 0);
+	buf = get_hbranch_child_idx(this->parent, 0);
 	this->size.x = this->parent->_rt.x - buf->_rt.x;
 }

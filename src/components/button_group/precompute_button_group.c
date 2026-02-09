@@ -40,7 +40,7 @@ static inline void	precompute_buttons_pos(t_hbranch *hbranch)
 	pos_offset = 0;
 	while (i < hbranch->childs->num_elements)
 	{
-		child = *(t_hbranch **)get_vector_value(hbranch->childs, i);
+		child = get_hbranch_child_idx(hbranch, i);
 		child->anchor = LT;
 		child->pos.x = hbranch->_lt.x;
 		child->pos.y = hbranch->_lt.y;
@@ -63,8 +63,8 @@ static inline void	precompute_buttons_corners(t_hbranch *hbranch)
 	t_hbranch	*first;
 	t_hbranch	*last;
 
-	first = *(t_hbranch **)get_vector_value(hbranch->childs, 0);
-	last = *(t_hbranch **)get_last_vector_value(hbranch->childs);
+	first = get_hbranch_child_idx(hbranch, 0);
+	last = get_hbranch_child_idx(hbranch, hbranch->childs->num_elements - 1);
 	first->box.radius = (t_radius){.style = LOCAL_PX, ._mem = 0};
 	last->box.radius = (t_radius){.style = LOCAL_PX, ._mem = 0};
 	first->box.radius.lt = 5;
@@ -89,7 +89,7 @@ int	precompute_button_group(t_hbranch *hbranch)
 	i = 0;
 	while (i < hbranch->childs->num_elements)
 	{
-		child = *(t_hbranch **)get_vector_value(hbranch->childs, i);
+		child = get_hbranch_child_idx(hbranch, i);
 		if (child->type != BUTTON)
 			return (1);
 		i++;

@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/27 03:48:37 by jaubry--          #+#    #+#             */
-/*   Updated: 2026/02/06 21:03:05 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/02/09 10:17:06 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,11 @@ void	hook_click_button(t_vec2i pos, t_maction action,
 	if ((action == MPRESS) && is_rendered(hbranch)
 		&& hbranch->visible && is_inside_comp(hbranch, pos))
 	{
-		hbranch->button.action(hbranch, hbranch->button.arg);
+		if (hbranch->button.action)
+			hbranch->button.action(hbranch, hbranch->button.arg);
 		if (hbranch->parent && (hbranch->parent->type == BUTTON_GROUP))
 			hbranch->parent->button_group.switched_index
-				= get_vector_index(hbranch->parent->childs, &hbranch);
+				= get_hbranch_index(hbranch->parent->childs, hbranch);
 	}
 }
 

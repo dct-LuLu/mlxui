@@ -25,20 +25,20 @@ void	select_option_wrapper(t_hbranch *hbranch, void *arg)
 	size_t			clicked_index;
 
 	select = &hbranch->parent->parent->parent->parent->select;
-	clicked_index = get_vector_index(hbranch->parent->childs, &hbranch) + 1;
+	clicked_index = get_hbranch_index(hbranch->parent->childs, hbranch) + 1;
 	if (clicked_index == select->option_index && select->nullable)
 	{
 		select->option_index = 0;
-		ft_strlcpy(select->selected->content, (*(t_hbranch **)
-				(get_vector_value(select->label_box->childs, 0)))->textbox
+		ft_strlcpy(select->selected->content,
+			get_hbranch_child_idx(select->label_box, 0)->textbox
 			.content, SELECT_LABEL_LEN);
 		switch_select_expand(hbranch->parent->parent->parent->parent, NULL);
 	}
 	else
 	{
 		select->option_index = clicked_index;
-		ft_strlcpy(select->selected->content, (*(t_hbranch **)
-				(get_vector_value(hbranch->childs, 0)))->textbox
+		ft_strlcpy(select->selected->content, 
+			get_hbranch_child_idx(hbranch, 0)->textbox
 			.content, SELECT_LABEL_LEN);
 		switch_select_expand(hbranch->parent->parent->parent->parent, NULL);
 		option_action = get_vector_value(select->actions,

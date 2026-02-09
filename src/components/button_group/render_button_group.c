@@ -20,7 +20,7 @@ void	render_button_group_overlay(t_hbranch *hbranch)
 
 	if (hbranch->button_group.group_type == GROUP_DEFAULT)
 		return ;
-	switched = *(t_hbranch **)get_vector_value(hbranch->childs,
+	switched = get_hbranch_child_idx(hbranch,
 			hbranch->button_group.switched_index);
 	save_color = switched->box.color;
 	save_border_size = switched->box.border.size;

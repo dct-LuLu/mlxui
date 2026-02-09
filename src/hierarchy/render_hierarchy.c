@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 19:30:31 by jaubry--          #+#    #+#             */
-/*   Updated: 2026/02/07 01:16:38 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/02/09 11:31:47 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static inline void	render_hbranch(t_hbranch *hbranch)
 	while (hbranch->rendered && hbranch->childs
 		&& (i < hbranch->childs->num_elements))
 	{
-		cur = *(t_hbranch **)get_vector_value(hbranch->childs, i);
+		cur = get_hbranch_child_idx(hbranch, i);
 		render_hbranch(cur);
 		i++;
 	}
@@ -68,7 +68,7 @@ static inline void	render_hbranch_overlay(t_hbranch *hbranch)
 	while (hbranch->rendered && hbranch->childs
 		&& (i < hbranch->childs->num_elements))
 	{
-		cur = *(t_hbranch **)get_vector_value(hbranch->childs, i);
+		cur = get_hbranch_child_idx(hbranch, i);
 		render_hbranch_overlay(cur);
 		i++;
 	}
@@ -87,7 +87,7 @@ static inline void	render_hbranch_scrollbox(t_hbranch *hbranch)
 	while (hbranch->rendered && hbranch->childs
 		&& (i < hbranch->childs->num_elements))
 	{
-		cur = *(t_hbranch **)get_vector_value(hbranch->childs, i);
+		cur = get_hbranch_child_idx(hbranch, i);
 		render_hbranch_scrollbox(cur);
 		i++;
 	}

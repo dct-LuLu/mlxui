@@ -23,7 +23,7 @@ int	get_hbranch_max(size_t field_offset, t_hbranch *hbranch)
 	max = 0;
 	while (i < hbranch->childs->num_elements)
 	{
-		child = *(t_hbranch **)get_vector_value(hbranch->childs, i);
+		child = get_hbranch_child_idx(hbranch, i);
 		val = (int *)((char *)child + field_offset);
 		if (*val > max)
 			max = *val;
@@ -43,7 +43,7 @@ int	get_hbranch_total(size_t field_offset, t_hbranch *hbranch)
 	total = 0;
 	while (i < hbranch->childs->num_elements)
 	{
-		child = *(t_hbranch **)get_vector_value(hbranch->childs, i);
+		child = get_hbranch_child_idx(hbranch, i);
 		val = (int *)((char *)child + field_offset);
 		total += *val;
 		i++;
