@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/21 20:46:16 by jaubry--          #+#    #+#             */
-/*   Updated: 2026/01/09 17:11:20 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/02/09 15:24:59 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,16 @@ void	precompute_scrollbar(t_hbranch *hbranch)
 {
 	t_hbranch	*scrollbar;
 
+	if (hbranch->scrollbox.inside->size.y == 0)
+		hbranch->scrollbox.inside->size.y = 1;
 	scrollbar = hbranch->scrollbox.scrollbar;
 	if (hbranch->size.y >= hbranch->scrollbox.inside->size.y)
 		scrollbar->size.y = hbranch->size.y;
 	else
 	{
-	scrollbar->size.y = ((float)hbranch->size.y
-			/ (float)hbranch->scrollbox.inside->size.y)
-		* (float)hbranch->size.y;
+		scrollbar->size.y = ((float)hbranch->size.y
+				/ (float)hbranch->scrollbox.inside->size.y)
+			* (float)hbranch->size.y;
 	}
 	scrollbar->pos.x = hbranch->_rt.x;
 	scrollbar->pos.y = hbranch->_rt.y

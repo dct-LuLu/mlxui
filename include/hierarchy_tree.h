@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 16:09:49 by jaubry--          #+#    #+#             */
-/*   Updated: 2026/02/09 10:29:53 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/02/09 14:29:59 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,13 @@ t_hbranch   *get_hbranch_child_idx(t_hbranch *parent, size_t idx);
 ssize_t		get_hbranch_index(t_vector *v, t_hbranch *hbranch);
 int			get_hbranch_max(size_t field_offset, t_hbranch *hbranch);
 int			get_hbranch_total(size_t field_offset, t_hbranch *hbranch);
+
+
+void	destroy_comp(t_hbranch *hbranch);
+void	destroy_hbranch(t_hbranch *hbranch);
+void	remove_from_parent(t_hbranch *parent, t_hbranch *hbranch);
+void	destroy_hierarchy(t_hbranch *hbranch);
+void	destroy_node(t_hbranch *hbranch);
 
 void		render_hierarchy(t_htree *htree);
 int			precompute_hierarchy(t_htree *htree);
