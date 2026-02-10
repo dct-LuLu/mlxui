@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 12:11:25 by jaubry--          #+#    #+#             */
-/*   Updated: 2026/01/09 16:59:12 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/02/10 09:47:22 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,13 @@ typedef struct s_checkbox
 			t_hbranch	*_in_scrollbox;
 		};
 		t_box			box;
+		void			(*_hook_click)(t_vec2i, t_maction, void*, t_mlx*);
 	};
 	bool				*checked;
 }						t_checkbox;
 
 t_hbranch	*add_checkbox(t_hbranch *parent_branch, bool *checked);
+void		destroy_checkbox(t_hbranch *checkbox);
 int			precompute_checkbox(t_hbranch *hbranch);
 void		render_checkbox(t_hbranch *hbranch, t_checkbox *checkbox);
 void		switch_checkbox(t_hbranch *checkbox);

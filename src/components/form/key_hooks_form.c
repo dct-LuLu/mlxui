@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/25 20:59:30 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/12/28 19:41:26 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/02/10 12:58:28 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ void	hook_form_typing(t_hbranch *hbranch, t_mlx *mlx_data)
 	const char		c = get_form_char_input(mlx_data->key_input.keycode,
 			mlx_data->key_input.caps ^ mlx_data->key_input.shift);
 
+	if (!hbranch->form.focused)
+		return ;
 	if (hbranch->form.is_valid_input(c) && (edit_pos < (FORM_BUF_SIZE - 1)))
 		hbranch->form.edit_form_buf[edit_pos] = c;
 	ft_strlcpy(hbranch->form.form_text->content,
@@ -60,10 +62,8 @@ void	hook_form_enter(t_hbranch *hbranch, t_mlx *mlx_data)
 	(void)mlx_data;
 	if (!hbranch->form.focused)
 		return ;
-	hbranch->form._btov(hbranch->form.value,
-		hbranch->form.edit_form_buf, hbranch->form.form_type);
-	hbranch->form._vtob(hbranch->form.edit_form_buf,
-		hbranch->form.value, hbranch->form.form_type);
+	hbranch->form._btov(hbranch->form.value, hbranch->form.edit_form_buf);
+	hbranch->form._vtob(hbranch->form.edit_form_buf, hbranch->form.value);
 	ft_strlcpy(hbranch->form.last_form_buf,
 		hbranch->form.edit_form_buf, FORM_BUF_SIZE);
 	switch_focus_form(hbranch, false);

@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/12 15:33:04 by jaubry--          #+#    #+#             */
-/*   Updated: 2026/01/09 17:14:21 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/02/10 10:23:31 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ typedef struct s_image
 }					t_image;
 
 t_hbranch	*add_image(t_hbranch *parent_hbranch, const char *path);
+void		destroy_image(t_hbranch *image);
 void		render_image(t_hbranch *hbranch, t_image *image);
 
 #endif//IMAGE_H

@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/21 19:12:53 by jaubry--          #+#    #+#             */
-/*   Updated: 2026/01/09 17:11:43 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/02/10 10:23:48 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,12 @@ typedef struct s_scrollbox
 	uint8_t			sensitivity;
 	int				_current_pos;
 	t_img_data		_scroll_buffer;
+	void			(*_hook_mwheeldown)(t_vec2i, t_maction, void *, t_mlx *);
+	void			(*_hook_mwheelup)(t_vec2i, t_maction, void *, t_mlx *);
 }					t_scrollbox;
 
 t_hbranch	*add_scrollbox(t_hbranch *parent_branch);
+void		destroy_scrollbox(t_hbranch *scrollbox);
 int			precompute_scrollbox(t_hbranch *hbranch);
 void		render_scrollbox(t_hbranch *hbranch, t_scrollbox *scrollbox);
 void		render_clear_scrollbox(t_hbranch *hbranch, t_scrollbox *scrollbox);

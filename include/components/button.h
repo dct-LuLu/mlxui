@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/26 21:51:51 by jaubry--          #+#    #+#             */
-/*   Updated: 2026/01/09 16:57:41 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/02/10 10:22:00 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,13 @@ typedef struct s_button
 	bool				hover;
 	void				*arg;
 	void				(*action)(t_hbranch *hbranch, void *arg);
+	void				(*_hook_click)(t_vec2i, t_maction, void*, t_mlx*);
+	void				(*_hook_hover)(void*, t_mlx*);
 }						t_button;
 
 t_hbranch	*add_button(t_hbranch *parent_branch,
 				t_radius radius, t_border border);
+void		destroy_button(t_hbranch *button);
 void		render_button_overlay(t_hbranch *hbranch);
 void		hook_click_button(t_vec2i pos, t_maction action,
 				t_hbranch *hbranch, t_mlx *mlx_data);

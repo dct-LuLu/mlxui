@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/06 08:27:52 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/12/23 22:41:39 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/02/10 10:17:10 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,9 +141,9 @@ t_hbranch	*add_select(t_hbranch *parent_branch, char label[SELECT_LABEL_LEN])
 	new->render = (void (*)(t_hbranch *, void *))render_select;
 	new->select.button.box.size = vec2i(200, 36);
 	new->select.button.action = switch_select_expand;
+	new->select._hook_focus = (void (*)(t_vec2i, t_maction, void *, t_mlx *))hook_click_outside_select;
 	if (add_func_button_hook(new->head->mlx_data, MLCLICK,
-		(void (*)(t_vec2i, t_maction, void *, t_mlx *))
-		hook_click_outside_select, new) != 0)
+		new->select._hook_focus, new) != 0)
 		return (nul_error(pack_err(MLXW_ID, MLXW_E_EVENTH), FL, LN, FC));
 	if (!create_select(new, label))
 		return (NULL);

@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/26 21:54:23 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/12/23 21:55:13 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/02/10 10:46:43 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ static inline void	create_button(t_hbranch *new,
 	new->box.color = new->head->style.card;
 	new->box.radius = radius;
 	new->box.border = border;
+	new->button._hook_click = (void (*)(t_vec2i, t_maction, void *, t_mlx *))hook_click_button;
+	new->button._hook_hover = (void (*)(void *, t_mlx *))hook_hover_button;
 }
 
 t_hbranch	*add_button(t_hbranch *parent_branch,
@@ -33,11 +35,10 @@ t_hbranch	*add_button(t_hbranch *parent_branch,
 	new->render = (void (*)(t_hbranch *, void *))render_box;
 	create_button(new, radius, border);
 	if (add_func_button_hook(new->head->mlx_data, MLCLICK,
-		(void (*)(t_vec2i, t_maction, void *, t_mlx *))hook_click_button,
-		new) != 0)
+		new->button._hook_click, new) != 0)
 		return (nul_error(pack_err(MLXW_ID, MLXW_E_EVENTH), FL, LN, FC));
 	if (add_func_move_hook(new->head->mlx_data,
-		(void (*)(void *, t_mlx *))hook_hover_button, new) != 0)
+		new->button._hook_hover, new) != 0)
 		return (nul_error(pack_err(MLXW_ID, MLXW_E_EVENTH), FL, LN, FC));
 	return (new);
 }

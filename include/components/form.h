@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/13 17:18:05 by jaubry--          #+#    #+#             */
-/*   Updated: 2026/01/09 17:14:47 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/02/10 12:57:34 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,15 +81,18 @@ typedef struct s_form
 	char				edit_form_buf[FORM_BUF_SIZE];
 	t_textbox			*morpheme;
 	bool				(*is_valid_input)(char c);
+	void				(*_btov)(void *value, const char buffer[FORM_BUF_SIZE]);
+	void				(*_vtob)(char buffer[FORM_BUF_SIZE], const void *value);
 	void				(*format_buf)(char buffer[FORM_BUF_SIZE]);
-	void				(*_btov)(void *value, const char buffer[FORM_BUF_SIZE],
-			t_form_type type);
-	void				(*_vtob)(char buffer[FORM_BUF_SIZE], const void *value,
-			t_form_type type);
+	void				(*_hook_focus)(t_vec2i, t_maction, void *, t_mlx *);
+	void				(*_hook_enter)(void *, t_mlx *);
+	void				(*_hook_backspace)(void *, t_mlx *);
+	void				(*_hook_typing)(void *, t_mlx *);
 }						t_form;
 
 t_hbranch	*add_form(t_hbranch *parent_branch, void *value,
 				t_form_type type, const char *morpheme);
+void		destroy_form(t_hbranch *form);
 int			precompute_form(t_hbranch *hbranch);
 
 bool		is_form_typing_key(const int keycode);
@@ -97,12 +100,15 @@ void		switch_focus_form(t_hbranch *hbranch, bool inside);
 void		hook_focus_form(t_vec2i pos, t_maction action,
 				t_hbranch *hbranch, t_mlx *mlx_data);
 
-bool		form_is_valid_input(char c);
-void		form_format_buf(char buffer[FORM_BUF_SIZE]);
-void		form_btov(void *value, const char buffer[FORM_BUF_SIZE],
-				t_form_type type);
-void		form_vtob(char buffer[FORM_BUF_SIZE], const void *value,
-				t_form_type type);
+bool		form_is_valid_input_int(char c);
+void		form_format_buf_int(char buffer[FORM_BUF_SIZE]);
+void		form_btov_int(void *value, const char buffer[FORM_BUF_SIZE]);
+void		form_vtob_int(char buffer[FORM_BUF_SIZE], const void *value);
+
+bool		form_is_valid_input_float(char c);
+void		form_format_buf_float(char buffer[FORM_BUF_SIZE]);
+void		form_btov_float(void *value, const char buffer[FORM_BUF_SIZE]);
+void		form_vtob_float(char buffer[FORM_BUF_SIZE], const void *value);
 
 void		form_suffix_pos_x(size_t field_offset, t_hbranch *this,
 				size_t render_i, size_t render_num);

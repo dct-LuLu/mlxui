@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 18:25:41 by jaubry--          #+#    #+#             */
-/*   Updated: 2026/01/09 16:59:56 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/02/10 09:46:22 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ static inline void	create_checkbox(t_hbranch *new, bool *checked)
 	else
 		new->checkbox.box.color = new->head->style.input;
 	new->checkbox.box.border.size = (int)(!(checked && *checked));
+	new->checkbox._hook_click = (void (*)(t_vec2i, t_maction, void *, t_mlx *))hook_checkbox;
 }
 
 t_hbranch	*add_checkbox(t_hbranch *parent_branch, bool *checked)
@@ -39,7 +40,7 @@ t_hbranch	*add_checkbox(t_hbranch *parent_branch, bool *checked)
 	new->render = (void (*)(t_hbranch *, void *))render_checkbox;
 	create_checkbox(new, checked);
 	if (add_func_button_hook(new->head->mlx_data, MLCLICK,
-		(void (*)(t_vec2i, t_maction, void *, t_mlx *))hook_checkbox, new) != 0)
+			new->checkbox._hook_click, new) != 0)
 		return (nul_error(pack_err(MLXW_ID, MLXW_E_EVENTH), FL, LN, FC));
 	return (new);
 }

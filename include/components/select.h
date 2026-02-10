@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 03:07:04 by jaubry--          #+#    #+#             */
-/*   Updated: 2026/01/09 17:14:01 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/02/10 10:24:02 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,11 +69,13 @@ typedef struct s_select
 	t_vector			*options;
 	t_vector			*actions;
 	bool				nullable;
+	void				(*_hook_focus)(t_vec2i, t_maction, void *, t_mlx *);
 }						t_select;
 
 typedef void	(*t_option_action)(t_hbranch *hbranch, void *arg);
 
 t_hbranch	*add_select(t_hbranch *parent_branch, char label[SELECT_LABEL_LEN]);
+void		destroy_select(t_hbranch *select);
 void		render_select(t_hbranch *hbranch, t_select *select);
 void		render_select_overlay(t_hbranch *hbranch, t_select *select);
 int			add_select_option(t_hbranch *select,

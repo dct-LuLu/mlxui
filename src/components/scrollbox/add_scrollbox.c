@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/21 20:27:28 by jaubry--          #+#    #+#             */
-/*   Updated: 2026/02/09 15:14:00 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/02/10 10:07:30 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,11 @@ static inline t_hbranch	*create_scrollbar(t_hbranch *new)
 
 static inline t_hbranch	*create_scrollbox(t_hbranch *new)
 {
+	new->scrollbox._hook_mwheeldown = (void (*)(t_vec2i, t_maction, void *, t_mlx *))hook_scrolldown_scrollbox;
+	new->scrollbox._hook_mwheelup = (void (*)(t_vec2i, t_maction, void *, t_mlx *))hook_scrollup_scrollbox;
 	new->scrollbox._current_pos = 0;
 	new->scrollbox.sensitivity = DEFAULT_SENSITIVITY;
-	new->scrollbox.inside = add_branch(new);
+	new->scrollbox.inside = add_box(new, (t_radius){0}, (t_border){0});
 	if (!new->scrollbox.inside)
 		return (nul_error(pack_err(MLXUI_ID, MLXUI_E_ABR), FL, LN, FC));
 	new->scrollbox.inside->anchor = LT;
@@ -74,12 +76,10 @@ t_hbranch	*add_scrollbox(t_hbranch *parent_branch)
 		return (nul_error(pack_err(MLXUI_ID, MLXUI_E_FSCOMP), FL, LN, FC));
 	}
 	if (add_func_button_hook(new->head->mlx_data, MWHEELUP,
-		(void (*)(t_vec2i, t_maction, void *, t_mlx *))
-		hook_scrollup_scrollbox, new) != 0)
+		new->scrollbox._hook_mwheelup, new) != 0)
 		return (nul_error(pack_err(MLXW_ID, MLXW_E_EVENTH), FL, LN, FC));
 	if (add_func_button_hook(new->head->mlx_data, MWHEELDOWN,
-		(void (*)(t_vec2i, t_maction, void *, t_mlx *))
-		hook_scrolldown_scrollbox, new) != 0)
+		new->scrollbox._hook_mwheeldown, new) != 0)
 		return (nul_error(pack_err(MLXW_ID, MLXW_E_EVENTH), FL, LN, FC));
 	return (new);
 }

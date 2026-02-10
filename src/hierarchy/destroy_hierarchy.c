@@ -6,75 +6,135 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 13:56:06 by jaubry--          #+#    #+#             */
-/*   Updated: 2026/02/09 14:43:54 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/02/10 11:19:02 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mlxui.h"
 
-void	destroy_comp(t_hbranch *hbranch)
+static inline void	free_component_data(t_hbranch *hbranch)
 {
-	if (hbranch->type == IMAGE)
-		free(hbranch->image.img_data.addr);
+	if (hbranch->type == BUTTON)
+		destroy_button(hbranch);
+	else if (hbranch->type == CHECKBOX)
+		destroy_checkbox(hbranch);
+	else if (hbranch->type == FORM)
+		destroy_form(hbranch);
+	else if (hbranch->type == IMAGE)
+		destroy_image(hbranch);
 	else if ((hbranch->type == SCROLLBOX) && hbranch->parent
 			&& (hbranch->parent->type != SCROLLBOX))
-		free(hbranch->scrollbox._scroll_buffer.addr);
+		destroy_scrollbox(hbranch);
+	else if (hbranch->type == SELECT)
+		destroy_select(hbranch);
+	printf("destroy comp_data\n");
 }
 
-void	destroy_hbranch(t_hbranch *hbranch)
+static inline void    free_node_shallow(t_hbranch *hbranch)
 {
-	size_t	i;
-	size_t	*refs_idx;
+    size_t      i;
+    size_t      *child_idx;
 
-	i = 0;
-	destroy_comp(hbranch);
-	if (!hbranch->childs || !hbranch->childs->data)
-		return ;
-	refs_idx = hbranch->childs->data;
-	while (i < hbranch->childs->num_elements)
-	{
-		remove_vector_elem(&hbranch->head->refs, refs_idx[i]);
-		i++;
-	}
-	free_vector(hbranch->childs);
-	free(hbranch->childs);
+    free_component_data(hbranch);
+    if (!hbranch->childs || !hbranch->childs->data)
+        return ;
+    i = 0;
+    while (i < hbranch->childs->num_elements)
+    {
+        child_idx = (size_t *)get_vector_value(hbranch->childs, i);
+        release_slot(hbranch->head, *child_idx);
+        i++;
+    }
+    free_vector(hbranch->childs);
+    free(hbranch->childs);
 }
 
-void	remove_from_parent(t_hbranch *parent, t_hbranch *hbranch)
+static inline void    unlink_from_parent(t_hbranch *hbranch)
 {
-	size_t	i;
-	size_t	*refs_idx;
+    size_t      i;
+    size_t      *child_idx;
+    t_hbranch   *candidate;
+
+    i = 0;
+    while (i < hbranch->parent->childs->num_elements)
+    {
+        candidate = get_hbranch_child_idx(hbranch->parent, i);
+        if (candidate == hbranch)
+        {
+            child_idx = (size_t *)get_vector_value(hbranch->parent->childs, i);
+            release_slot(hbranch->parent->head, *child_idx);
+            remove_vector_elem(hbranch->parent->childs, i);
+            return ;
+        }
+        i++;
+    }
+}
+
+static inline void	free_node_recursive(t_hbranch *hbranch)
+{
+	size_t		i;
+	t_hbranch	*child;
 
 	i = 0;
-	refs_idx = parent->childs->data;
-	while (i < parent->childs->num_elements)
+	while (hbranch->childs && hbranch->childs->data
+			&& (i < hbranch->childs->num_elements))
 	{
-		if (hbranch == get_hbranch_child_idx(parent, i))
+		child = get_hbranch_child_idx(hbranch, i);
+		if (child)
 		{
-			remove_vector_elem(&hbranch->head->refs, refs_idx[i]);
-			remove_vector_elem(parent->childs, i);
-			return ;
+			free_node_recursive(child);
+			free(child);
 		}
 		i++;
 	}
+	free_node_shallow(hbranch);
 }
 
-void	destroy_hierarchy(t_hbranch *hbranch)
+void delete_node_childs(t_hbranch *parent)
 {
-	size_t	i;
+    size_t      i;
+    t_hbranch   *child;
 
-	i = 0;
-	while (hbranch->childs && hbranch->childs->data && (i < hbranch->childs->num_elements))
-	{
-		destroy_hierarchy(get_hbranch_child_idx(hbranch, i));
-		i++;
-	}
-	destroy_hbranch(hbranch);
+    if (!parent || !parent->childs || !parent->childs->data)
+        return ;
+    i = 0;
+    while (i < parent->childs->num_elements)
+    {
+        child = get_hbranch_child_idx(parent, i);
+        if (child)
+        {
+            free_node_recursive(child);
+            free(child);
+        }
+        i++;
+    }
+    free_vector(parent->childs);
+    vector_init(parent->childs, sizeof(size_t));
 }
 
-void	destroy_node(t_hbranch *hbranch)
+void	delete_node(t_hbranch *hbranch)
 {
-	destroy_hierarchy(hbranch);
+	if (!hbranch)
+		return ;
+	free_node_recursive(hbranch);
 	if (hbranch->parent)
-		remove_from_parent(hbranch->parent, hbranch);
+		unlink_from_parent(hbranch);
+	free(hbranch);
+}
+
+void    free_htree(t_htree *htree)
+{
+    size_t      i;
+    t_hbranch   *node;
+
+    i = 0;
+    while (i < htree->refs.num_elements)
+    {
+        node = ref_at(htree, i);
+        if (node)
+            free(node);
+        i++;
+    }
+    free_vector(&htree->refs);
+    free_vector(&htree->free_slots);
 }

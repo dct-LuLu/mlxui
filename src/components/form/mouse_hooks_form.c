@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/25 17:27:33 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/12/23 22:14:29 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/02/10 12:40:25 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,19 +32,19 @@ static inline void	form_out_focus_changes(t_hbranch *hbranch)
 	ft_bzero(hbranch->form.edit_form_buf, FORM_BUF_SIZE);
 	ft_strlcpy(hbranch->form.edit_form_buf,
 		hbranch->form.last_form_buf, FORM_BUF_SIZE);
-	strf(hbranch->form.edit_form_buf, FORM_BUF_SIZE, "%d",
-		ft_atoi(hbranch->form.edit_form_buf));
+	hbranch->form.format_buf(hbranch->form.form_text->content);
 	ft_bzero(hbranch->form.form_text->content, FORM_BUF_SIZE);
 	ft_strlcpy(hbranch->form.form_text->content,
 		hbranch->form.last_form_buf, FORM_BUF_SIZE);
-	strf(hbranch->form.form_text->content, FORM_BUF_SIZE,
-		"%d", ft_atoi(hbranch->form.form_text->content));
-	form_format_buf(hbranch->form.form_text->content);
+	hbranch->form.format_buf(hbranch->form.form_text->content);
 	hbranch->form.box.border.color = hbranch->head->style.border;
 }
 
 void	switch_focus_form(t_hbranch *hbranch, bool inside)
 {
+	printf("focus: %d\n", inside);
+	if (inside == hbranch->form.focused)
+		return ;
 	hbranch->form.focused = inside;
 	if (hbranch->form.focused)
 		form_in_focus_changes(hbranch);
