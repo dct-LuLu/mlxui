@@ -6,14 +6,13 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/22 01:34:13 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/12/28 19:18:11 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/02/10 17:54:07 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "hierarchy_tree.h"
 
 void	precompute_scrollbar(t_hbranch *hbranch);
-void	precompute_hbranch(t_hbranch *hbranch);
 
 static inline void	update_scrollbar(t_hbranch *hbranch)
 {

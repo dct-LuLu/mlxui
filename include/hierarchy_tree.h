@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 16:09:49 by jaubry--          #+#    #+#             */
-/*   Updated: 2026/02/10 06:15:02 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/02/10 17:53:21 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ t_htree		init_htree(t_mlx *mlx_data, t_style style);
 void		free_htree(t_htree *htree);
 
 t_hbranch	*add_branch(t_hbranch *parent_branch);
+int			precompute_hbranch(t_hbranch *hbranch);
 void		delete_node(t_hbranch *node);
 void		delete_node_childs(t_hbranch *hbranch);
 
