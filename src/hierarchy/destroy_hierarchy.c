@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 13:56:06 by jaubry--          #+#    #+#             */
-/*   Updated: 2026/02/10 11:19:02 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/02/11 23:05:07 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ static inline void	free_component_data(t_hbranch *hbranch)
 		destroy_scrollbox(hbranch);
 	else if (hbranch->type == SELECT)
 		destroy_select(hbranch);
-	printf("destroy comp_data\n");
 }
 
 static inline void    free_node_shallow(t_hbranch *hbranch)
@@ -84,6 +83,7 @@ static inline void	free_node_recursive(t_hbranch *hbranch)
 		{
 			free_node_recursive(child);
 			free(child);
+			child = NULL;
 		}
 		i++;
 	}
@@ -102,10 +102,7 @@ void delete_node_childs(t_hbranch *parent)
     {
         child = get_hbranch_child_idx(parent, i);
         if (child)
-        {
             free_node_recursive(child);
-            free(child);
-        }
         i++;
     }
     free_vector(parent->childs);
