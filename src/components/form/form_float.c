@@ -23,8 +23,6 @@ void	form_btov_float(void *value, const char buffer[FORM_BUF_SIZE])
 
 	float_value = (float *)value;
 	*float_value = ft_atod(buffer);
-	printf("form_btov_float:{value:'%f', float_value:'%f', buffer:'%s'}\n",
-		*(float *)value, *float_value, buffer);
 }
 
 void	form_vtob_float(char buffer[FORM_BUF_SIZE], const void *value)

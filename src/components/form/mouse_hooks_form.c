@@ -42,7 +42,6 @@ static inline void	form_out_focus_changes(t_hbranch *hbranch)
 
 void	switch_focus_form(t_hbranch *hbranch, bool inside)
 {
-	printf("focus: %d\n", inside);
 	if (inside == hbranch->form.focused)
 		return ;
 	hbranch->form.focused = inside;
