@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 16:09:49 by jaubry--          #+#    #+#             */
-/*   Updated: 2026/02/10 17:53:21 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/02/13 00:33:17 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ typedef struct s_style
 	t_rgba_int	destructive;
 	t_rgba_int	border;
 	t_rgba_int	input;
+	t_rgba_int	highlight;
 }				t_style;
 
 typedef struct s_hbranch

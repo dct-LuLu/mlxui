@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 19:21:55 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/12/03 19:44:46 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/02/13 00:32:55 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	render_button_overlay(t_hbranch *hbranch)
 
 	save_color = hbranch->box.color;
 	save_border_size = hbranch->box.border.size;
-	hbranch->box.color = hbranch->head->style.input;
+	hbranch->box.color = hbranch->head->style.highlight;
 	hbranch->box.border.size = 0;
 	render_box(hbranch, &hbranch->box);
 	hbranch->box.color = save_color;

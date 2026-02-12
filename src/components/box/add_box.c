@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 18:17:12 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/11/27 03:09:27 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/02/13 00:12:00 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ static inline void	create_box(t_hbranch *new, t_radius radius, t_border border)
 	new->box.color = new->head->style.card;
 	new->box.radius = radius;
 	new->box.border = border;
+	new->box.border.color = new->head->style.border;
 }
 
 t_hbranch	*add_box(t_hbranch *parent_branch, t_radius radius, t_border border)
