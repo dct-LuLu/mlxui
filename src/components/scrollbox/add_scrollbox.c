@@ -6,16 +6,16 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/21 20:27:28 by jaubry--          #+#    #+#             */
-/*   Updated: 2026/02/10 10:07:30 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/02/13 01:07:02 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "hierarchy_tree.h"
 #include "operations.h"
 
-#define SCROLLBAR_WIDTH 8
-#define SCROLLBAR_OPACITY 225
-#define DEFAULT_SENSITIVITY 5
+#define SCROLLBAR_WIDTH 7
+#define SCROLLBAR_OPACITY 220
+#define DEFAULT_SENSITIVITY 10
 
 void	hook_scrollup_scrollbox(t_vec2i pos, t_maction action,
 			t_hbranch *hbranch, t_mlx *mlx_data);
@@ -27,13 +27,13 @@ static inline t_hbranch	*create_scrollbar(t_hbranch *new)
 	t_hbranch	*scrollbar;
 
 	scrollbar = add_box(new,
-			(t_radius){.style = FULL_PX, .full = 5},
+			(t_radius){.style = FULL_PX, .full = 4},
 			(t_border){0});
 	if (!scrollbar)
 		return (nul_error(pack_err(MLXUI_ID, MLXUI_E_COMP), FL, LN, FC));
 	scrollbar->anchor = RT;
 	scrollbar->size.x = SCROLLBAR_WIDTH;
-	scrollbar->box.color = new->head->style.card;
+	scrollbar->box.color = new->head->style.border;
 	scrollbar->box.color.a = SCROLLBAR_OPACITY;
 	new->scrollbox.scrollbar = scrollbar;
 	return (scrollbar);
