@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/13 17:18:05 by jaubry--          #+#    #+#             */
-/*   Updated: 2026/02/10 12:57:34 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/02/14 11:55:50 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,24 @@ typedef struct s_form
 	void				(*_hook_enter)(void *, t_mlx *);
 	void				(*_hook_backspace)(void *, t_mlx *);
 	void				(*_hook_typing)(void *, t_mlx *);
+	union
+	{
+		struct
+		{
+			void		(*action)(t_hbranch *hbranch, void *arg);
+			void		*arg;
+		};
+		struct
+		{
+			void		(*action2)(t_hbranch *hbranch, void *arg1, void *arg2);
+			void		*args2[2];
+		};
+		struct
+		{
+			void		(*action3)(t_hbranch *hbranch, void *arg1, void *arg2, void *arg3);
+			void		*args3[3];
+		};
+	};
 }						t_form;
 
 t_hbranch	*add_form(t_hbranch *parent_branch, void *value,
