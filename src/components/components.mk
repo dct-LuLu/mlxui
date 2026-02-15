@@ -6,7 +6,7 @@
 #    By: jaubry-- <jaubry--@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/03 19:11:39 by jaubry--          #+#    #+#              #
-#    Updated: 2025/12/21 22:19:10 by jaubry--         ###   ########.fr        #
+#    Updated: 2026/02/15 06:03:05 by jaubry--         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,8 @@ MKS		= box \
 		  button_group \
 		  select \
 		  image \
-		  scrollbox
+		  scrollbox \
+		  slider
 
 include $(foreach n,$(MKS),$(COMPONENTS_DIR)/$(n)/$(n).mk)
 

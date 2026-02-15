@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 13:33:28 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/12/23 21:34:51 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/02/15 06:02:31 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include "select.h"
 # include "image.h"
 # include "scrollbox.h"
+# include "slider.h"
 
 typedef struct s_hbranch	t_hbranch;
 typedef struct s_htree		t_htree;
