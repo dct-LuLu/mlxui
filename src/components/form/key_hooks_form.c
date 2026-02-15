@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/25 20:59:30 by jaubry--          #+#    #+#             */
-/*   Updated: 2026/02/14 13:25:52 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/02/15 00:57:05 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	hook_form_enter(t_hbranch *hbranch, t_mlx *mlx_data)
 	ft_strlcpy(hbranch->form.form_text->content,
 		hbranch->form.edit_form_buf, FORM_BUF_SIZE);
 	if (hbranch->form.action3)
-		hbranch->form.action3(hbranch, hbranch->button.args3[0], hbranch->button.args3[1], hbranch->button.args3[2]);
+		hbranch->form.action3(hbranch, hbranch->form.args3[0], hbranch->form.args3[1], hbranch->form.args3[2]);
 }
 
 void	hook_form_backspace(t_hbranch *hbranch, t_mlx *mlx_data)
