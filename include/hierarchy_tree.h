@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 16:09:49 by jaubry--          #+#    #+#             */
-/*   Updated: 2026/02/15 06:02:50 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/02/15 10:31:01 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ typedef struct s_hbranch
 		t_image			image;
 		t_scrollbox		scrollbox;
 		t_slider		slider;
+		t_colorpicker	colorpicker;
 	};
 	t_vector			*childs;
 	t_hbranch			*parent;
@@ -124,7 +125,7 @@ size_t		alloc_slot(t_htree *htree);
 
 t_hbranch   *ref_at(t_htree *htree, size_t idx);
 t_hbranch   *get_hbranch_child_idx(t_hbranch *parent, size_t idx);
-ssize_t	get_hbranch_index(t_vector *v, t_hbranch *hbranch);
+ssize_t		get_hbranch_index(t_vector *v, t_hbranch *hbranch);
 /*
 t_hbranch   *get_hbranch_ref_idx(t_htree *htree, size_t idx);
 t_hbranch   *get_hbranch_child_idx(t_hbranch *parent, size_t idx);

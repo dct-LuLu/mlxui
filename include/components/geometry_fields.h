@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 19:57:51 by jaubry--          #+#    #+#             */
-/*   Updated: 2026/02/15 00:54:00 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/02/15 08:47:11 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,9 @@ typedef enum e_component_type
 	SELECT,
 	IMAGE,
 	SCROLLBOX,
-	SLIDER
+	SLIDER,
+	COLORPICKER,
+	COLORPICKER_POPUP
 }	t_component_type;
 
 typedef enum e_anchor

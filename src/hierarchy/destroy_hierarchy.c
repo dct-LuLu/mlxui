@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 13:56:06 by jaubry--          #+#    #+#             */
-/*   Updated: 2026/02/15 06:03:37 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/02/15 08:37:50 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ static inline void	free_component_data(t_hbranch *hbranch)
 		destroy_select(hbranch);
 	else if (hbranch->type == SLIDER)
 		destroy_slider(hbranch);
+	else if (hbranch->type == COLORPICKER)
+		destroy_colorpicker(hbranch);
 }
 
 static inline void    free_node_shallow(t_hbranch *hbranch)

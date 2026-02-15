@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 19:30:31 by jaubry--          #+#    #+#             */
-/*   Updated: 2026/02/15 06:04:01 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/02/15 10:17:59 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ static inline void	render_component(t_hbranch *cur)
 		cur->render(cur, &cur->scrollbox);
 	else if (cur->type == SLIDER)
 		cur->render(cur, &cur->slider);
+	else if (cur->type == COLORPICKER)
+		cur->render(cur, &cur->colorpicker);
 }
 
 static inline void	render_hbranch(t_hbranch *hbranch)
@@ -65,6 +67,8 @@ static inline void	render_hbranch_overlay(t_hbranch *hbranch)
 			render_button_overlay(hbranch);
 		else if (hbranch->type == BUTTON_GROUP)
 			render_button_group_overlay(hbranch);
+		else if (hbranch->type == COLORPICKER_POPUP)
+			render_colorpicker_popup(hbranch, &hbranch->parent->colorpicker);
 	}
 	i = 0;
 	while (hbranch->rendered && hbranch->childs
