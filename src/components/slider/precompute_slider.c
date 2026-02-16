@@ -6,31 +6,11 @@
 /*   By: jaubry-- <jaubry--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/15 05:53:31 by jaubry--          #+#    #+#             */
-/*   Updated: 2026/02/15 07:59:22 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/02/16 10:07:03 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "hierarchy_tree.h"
-
-/*
-void	compute_knob_position(t_hbranch *hbranch)
-{
-	float	range;
-	float	ratio;
-	int		offset;
-
-	hbranch->slider._knob_pos = vec2i(hbranch->slider._bar_start.x, hbranch->slider._mid.y);
-	if (!hbranch->slider.value)
-		return ;
-	range = hbranch->slider.stop - hbranch->slider.start;
-	if (fabsf(range) < 0.0001f)
-		ratio = 0.0f;
-	else
-		ratio = (*hbranch->slider.value - hbranch->slider.start) / range;
-	offset = (int)(ratio * (float)hbranch->slider._bar_width);
-	hbranch->slider._knob_pos.x = hbranch->slider._bar_start.x + offset;
-}
-*/
 
 void	compute_knob_position(t_hbranch *hbranch)
 {

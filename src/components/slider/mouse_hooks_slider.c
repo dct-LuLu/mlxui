@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/15 05:54:40 by jaubry--          #+#    #+#             */
-/*   Updated: 2026/02/15 07:58:23 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/02/16 10:06:38 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,29 +40,6 @@ static inline float	snap_to_step(t_slider *slider, float value)
 	return (normalized);
 }
 
-/*
-static inline void	update_value_from_pos(t_hbranch *hbranch, int mouse_x)
-{
-	float	range;
-	float	ratio;
-	float	raw_value;
-
-	if (!hbranch->slider.value)
-		return ;
-	range = hbranch->slider.stop - hbranch->slider.start;
-	ratio = (float)(mouse_x - hbranch->slider._bar_start.x)
-		/ (float)hbranch->slider._bar_width;
-	if (ratio < 0.0f)
-		ratio = 0.0f;
-	if (ratio > 1.0f)
-		ratio = 1.0f;
-	raw_value = hbranch->slider.start + (ratio * range);
-	*hbranch->slider.value = snap_to_step(&hbranch->slider, raw_value);
-	printf("slider value: %g\n", *hbranch->slider.value);
-	compute_knob_position(hbranch);
-}
-*/
-
 static inline void	update_value_from_pos(t_hbranch *hbranch, int mouse_x)
 {
 	float	ratio;
@@ -81,7 +58,8 @@ static inline void	update_value_from_pos(t_hbranch *hbranch, int mouse_x)
 	else
 		raw_value = ratio_to_value_log(&hbranch->slider, ratio);
 	*hbranch->slider.value = snap_to_step(&hbranch->slider, raw_value);
-	printf("slider value: %g\n", *hbranch->slider.value);
+	if (DEBUG)
+		printf("slider value: %g\n", *hbranch->slider.value);
 	compute_knob_position(hbranch);
 }
 

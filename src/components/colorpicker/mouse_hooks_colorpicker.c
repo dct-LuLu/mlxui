@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/15 08:31:00 by jaubry--          #+#    #+#             */
-/*   Updated: 2026/02/15 10:47:47 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/02/16 10:05:54 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,6 @@ void	hook_hover_colorpicker(t_hbranch *hbranch, t_mlx *mlx_data)
 
 	if (!hbranch->colorpicker._dragging)
 		return ;
-	printf("%d %d\n", mlx_data->mouse_input.pos.x, mlx_data->mouse_input.pos.y);
-	printf("%d %d\n", realpos.x, realpos.y);
 	realpos = get_absolute_pos(hbranch, mlx_data->mouse_input.pos);
 	update_color_from_pos(hbranch, realpos);
 }
