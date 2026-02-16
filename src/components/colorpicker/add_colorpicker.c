@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/15 08:33:44 by jaubry--          #+#    #+#             */
-/*   Updated: 2026/02/15 10:10:29 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/02/16 20:51:53 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,15 @@ static inline t_hbranch	*add_colorpicker_popup(t_hbranch *new)
 	}
 	popup->type = COLORPICKER_POPUP;
 	popup->visible = false;
-	popup->anchor = BOTTOM;
+	popup->anchor = RIGHT;
 	popup->render = (void (*)(t_hbranch *, void *))render_colorpicker_popup;
 	new->colorpicker.popup = popup;
 	return (popup);
 }
 
-static inline void	create_colorpicker(t_hbranch *new, t_rgb *value)
+static inline void	create_colorpicker(t_hbranch *new, t_rgb rgb)
 {
-	new->colorpicker.value = value;
+	new->colorpicker.rgb = rgb;
 	new->colorpicker.popup_open = false;
 	new->colorpicker._dragging = false;
 	new->colorpicker._hook_click = (void (*)(t_vec2i, t_maction, void *,
@@ -52,7 +52,7 @@ static inline void	create_colorpicker_box(t_hbranch *new)
 	new->colorpicker.box.border.color = new->head->style.border;
 }
 
-t_hbranch	*add_colorpicker(t_hbranch *parent_branch, t_rgb *value)
+t_hbranch	*add_colorpicker(t_hbranch *parent_branch, t_rgb rgb)
 {
 	t_hbranch	*new;
 
@@ -63,7 +63,7 @@ t_hbranch	*add_colorpicker(t_hbranch *parent_branch, t_rgb *value)
 	new->precompute = precompute_colorpicker;
 	new->render = (void (*)(t_hbranch *, void *))render_colorpicker_preview;
 	create_colorpicker_box(new);
-	create_colorpicker(new, value);
+	create_colorpicker(new, rgb);
 	if (!add_colorpicker_popup(new))
 		return (nul_error(pack_err(MLXUI_ID, MLXUI_E_ABR), FL, LN, FC));
 	if (add_func_button_hook(new->head->mlx_data, MLCLICK,

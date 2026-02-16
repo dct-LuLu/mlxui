@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/15 08:31:00 by jaubry--          #+#    #+#             */
-/*   Updated: 2026/02/15 10:34:52 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/02/16 20:20:59 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,9 @@
 
 void	render_colorpicker_preview(t_hbranch *hbranch, t_colorpicker *colorpicker)
 {
-	t_rgb_int	col;
+	const t_rgb_int	col = rgb_ftoi(colorpicker->rgb);
 
-	if (colorpicker->value)
-	{
-		col = rgb_ftoi(*colorpicker->value);
-		hbranch->colorpicker.box.color = rgba_int(col.r, col.g, col.b, 255);
-	}
-	else
-		hbranch->colorpicker.box.color = (t_rgba_int){.rgba = WHITE};
+	hbranch->colorpicker.box.color = rgba_int(col.r, col.g, col.b, 255);
 	render_box(hbranch, &hbranch->colorpicker.box);
 }
 

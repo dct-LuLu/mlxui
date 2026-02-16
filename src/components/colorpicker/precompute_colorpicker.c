@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/15 08:31:00 by jaubry--          #+#    #+#             */
-/*   Updated: 2026/02/15 10:43:54 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/02/16 20:52:44 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,7 @@ void	compute_knob_position(t_hbranch *hbranch)
 	float	angle;
 	float	radius;
 
-	if (!hbranch->colorpicker.value)
-		return ;
-	rgb_to_hsv(*hbranch->colorpicker.value, &h, &s, &v);
+	rgb_to_hsv(hbranch->colorpicker.rgb, &h, &s, &v);
 	angle = h * 2.0f * M_PI;
 	radius = s * (float)CPICKER_CIRCLE_RADIUS;
 	hbranch->colorpicker._knob_pos.x = hbranch->colorpicker._circle_center.x
@@ -40,7 +38,7 @@ int	precompute_colorpicker(t_hbranch *hbranch)
 	if (popup)
 	{
 		popup->size = vec2i(CPICKER_POPUP_SIZE, CPICKER_POPUP_SIZE);
-		popup->pos = vec2i(hbranch->_mid.x, hbranch->_lt.y);
+		popup->pos = vec2i(hbranch->_lt.x, hbranch->_mid.y);
 		precompute_hbranch(hbranch);
 		hbranch->colorpicker._circle_center = popup->_mid;
 		compute_knob_position(hbranch);

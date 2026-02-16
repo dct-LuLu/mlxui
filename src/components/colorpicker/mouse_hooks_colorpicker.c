@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/15 08:31:00 by jaubry--          #+#    #+#             */
-/*   Updated: 2026/02/16 10:05:54 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/02/16 20:21:17 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,6 @@ static inline void	update_color_from_pos(t_hbranch *hbranch, t_vec2i pos)
 	float	angle;
 	float	sat;
 
-	if (!hbranch->colorpicker.value)
-		return ;
 	dx = pos.x - hbranch->colorpicker._circle_center.x;
 	dy = pos.y - hbranch->colorpicker._circle_center.y;
 	dist = sqrtf((float)((dx * dx) + (dy * dy)));
@@ -43,8 +41,11 @@ static inline void	update_color_from_pos(t_hbranch *hbranch, t_vec2i pos)
 	if (angle < 0.0f)
 		angle += 2.0f * M_PI;
 	sat = dist / (float)CPICKER_CIRCLE_RADIUS;
-	*hbranch->colorpicker.value = hsv_to_rgb(angle / (2.0f * M_PI), sat, 1.0f);
+	hbranch->colorpicker.rgb = hsv_to_rgb(angle / (2.0f * M_PI), sat, 1.0f);
 	compute_knob_position(hbranch);
+	if (hbranch->colorpicker.action3)
+		hbranch->colorpicker.action3(hbranch, hbranch->colorpicker.args3[0],
+		hbranch->colorpicker.args3[1], hbranch->colorpicker.args3[2]);
 }
 
 void	hook_click_colorpicker(t_vec2i pos, t_maction action,

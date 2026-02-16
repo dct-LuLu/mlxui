@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/15 08:32:38 by jaubry--          #+#    #+#             */
-/*   Updated: 2026/02/15 10:02:26 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/02/16 21:01:39 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,17 +49,35 @@ typedef struct s_colorpicker
 		};
 		t_box				box;
 	};
-	t_rgb				*value;
+	t_rgb				rgb;
 	bool				popup_open;
 	bool				_dragging;
+	t_vec2i				_circle_center;
+	t_vec2i				_knob_pos;
 	t_hbranch			*popup;
 	void				(*_hook_click)(t_vec2i, t_maction, void *, t_mlx *);
 	void				(*_hook_hover)(void *, t_mlx *);
-	t_vec2i				_circle_center;
-	t_vec2i				_knob_pos;
+	union
+	{
+		struct
+		{
+			void		(*action)(t_hbranch *hbranch, void *arg);
+			void		*arg;
+		};
+		struct
+		{
+			void		(*action2)(t_hbranch *hbranch, void *arg1, void *arg2);
+			void		*args2[2];
+		};
+		struct
+		{
+			void		(*action3)(t_hbranch *hbranch, void *arg1, void *arg2, void *arg3);
+			void		*args3[3];
+		};
+	};
 }	t_colorpicker;
 
-t_hbranch	*add_colorpicker(t_hbranch *parent_branch, t_rgb *value);
+t_hbranch	*add_colorpicker(t_hbranch *parent_branch, t_rgb rgb);
 void		destroy_colorpicker(t_hbranch *colorpicker);
 int			precompute_colorpicker(t_hbranch *hbranch);
 void		render_colorpicker_preview(t_hbranch *hbranch, t_colorpicker *colorpicker);
