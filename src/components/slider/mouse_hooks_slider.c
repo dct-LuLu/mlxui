@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/15 05:54:40 by jaubry--          #+#    #+#             */
-/*   Updated: 2026/02/17 09:55:08 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/02/17 17:47:31 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,6 @@ static inline void	update_value_from_pos(t_hbranch *hbranch, int mouse_x)
 	if (hbranch->slider.ptr)
 		*hbranch->slider.ptr = hbranch->slider.value;
 	compute_slider_knob_position(hbranch);
-	if (hbranch->slider.action3)
-		hbranch->slider.action3(hbranch, hbranch->slider.args3[0],
-				hbranch->slider.args3[1], hbranch->slider.args3[2]);
 }
 
 static inline void	update_slider_value(t_hbranch *hbranch, t_vec2i pos)
@@ -91,7 +88,12 @@ void	hook_drag_slider(t_vec2i pos, t_maction action,
 		update_slider_value(hbranch, realpos);
 	}
 	else if (action == MRELEASE)
+	{
+		if (hbranch->slider._dragging && hbranch->slider.action3)
+			hbranch->slider.action3(hbranch, hbranch->slider.args3[0],
+					hbranch->slider.args3[1], hbranch->slider.args3[2]);
 		hbranch->slider._dragging = false;
+	}
 	if (hbranch->slider._dragging)
 		update_slider_value(hbranch, realpos);
 }
