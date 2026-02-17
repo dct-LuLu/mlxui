@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/15 08:32:38 by jaubry--          #+#    #+#             */
-/*   Updated: 2026/02/16 21:01:39 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/02/17 09:26:11 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void		render_colorpicker_popup(t_hbranch *hbranch, t_colorpicker *colorpicker);
 void		hook_click_colorpicker(t_vec2i pos, t_maction action,
 				t_hbranch *hbranch, t_mlx *mlx_data);
 void		hook_hover_colorpicker(t_hbranch *hbranch, t_mlx *mlx_data);
-void		compute_knob_position(t_hbranch *hbranch);
+void		compute_colorpicker_knob_position(t_hbranch *hbranch);
 t_rgb		hsv_to_rgb(float h, float s, float v);
 void		rgb_to_hsv(t_rgb rgb, float *h, float *s, float *v);
 

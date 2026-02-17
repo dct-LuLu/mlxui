@@ -6,13 +6,13 @@
 /*   By: jaubry-- <jaubry--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/15 08:31:00 by jaubry--          #+#    #+#             */
-/*   Updated: 2026/02/16 20:52:44 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/02/17 09:25:49 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "hierarchy_tree.h"
 
-void	compute_knob_position(t_hbranch *hbranch)
+void	compute_colorpicker_knob_position(t_hbranch *hbranch)
 {
 	float	h;
 	float	s;
@@ -41,7 +41,7 @@ int	precompute_colorpicker(t_hbranch *hbranch)
 		popup->pos = vec2i(hbranch->_lt.x, hbranch->_mid.y);
 		precompute_hbranch(hbranch);
 		hbranch->colorpicker._circle_center = popup->_mid;
-		compute_knob_position(hbranch);
+		compute_colorpicker_knob_position(hbranch);
 	}
 	return (0);
 }

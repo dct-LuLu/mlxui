@@ -6,25 +6,23 @@
 /*   By: jaubry-- <jaubry--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/15 05:53:31 by jaubry--          #+#    #+#             */
-/*   Updated: 2026/02/16 10:07:03 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/02/17 09:24:47 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "hierarchy_tree.h"
 
-void	compute_knob_position(t_hbranch *hbranch)
+void	compute_slider_knob_position(t_hbranch *hbranch)
 {
 	float	ratio;
 	int		offset;
 
 	hbranch->slider._knob_pos = vec2i(hbranch->slider._bar_start.x,
 			hbranch->_mid.y);
-	if (!hbranch->slider.value)
-		return ;
 	if (hbranch->slider.linear_step)
-		ratio = value_to_ratio_linear(&hbranch->slider, *hbranch->slider.value);
+		ratio = value_to_ratio_linear(&hbranch->slider, hbranch->slider.value);
 	else
-		ratio = value_to_ratio_log(&hbranch->slider, *hbranch->slider.value);
+		ratio = value_to_ratio_log(&hbranch->slider, hbranch->slider.value);
 	offset = (int)(ratio * (float)hbranch->slider._bar_width);
 	hbranch->slider._knob_pos.x = hbranch->slider._bar_start.x + offset;
 }
@@ -50,6 +48,6 @@ int	precompute_slider(t_hbranch *hbranch)
 			- 2 - SLIDER_TEXT_OFFSET, hbranch->_mid.y);
 	end_text->pos = vec2i(hbranch->slider._bar_end.x
 			+ SLIDER_TEXT_OFFSET, hbranch->_mid.y);
-	compute_knob_position(hbranch);
+	compute_slider_knob_position(hbranch);
 	return (0);
 }

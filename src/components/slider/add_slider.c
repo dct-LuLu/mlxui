@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/15 05:53:18 by jaubry--          #+#    #+#             */
-/*   Updated: 2026/02/15 08:03:11 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/02/17 09:35:13 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,13 +64,17 @@ static inline float	compute_default_step(float start, float stop)
 	return (0.001f);
 }
 
-static inline void	create_slider(t_hbranch *new, float *value,
+static inline void	create_slider(t_hbranch *new, float *ptr,
 		float start, float stop)
 {
 	new->slider.start = start;
 	new->slider.stop = stop;
 	new->slider.step = compute_default_step(start, stop);
-	new->slider.value = value;
+	new->slider.ptr = ptr;
+	if (ptr)
+		new->slider.value = *ptr;
+	else
+		new->slider.value = start;
 	new->slider.linear_step = true;
 	new->slider._dragging = false;
 	new->slider._hook_drag = (void (*)(t_vec2i, t_maction, void *,
@@ -78,7 +82,7 @@ static inline void	create_slider(t_hbranch *new, float *value,
 	new->slider._hook_hover = (void (*)(void *, t_mlx *))hook_hover_slider;
 }
 
-t_hbranch	*add_slider(t_hbranch *parent_branch, float *value,
+t_hbranch	*add_slider(t_hbranch *parent_branch, float *ptr,
 		float start, float stop)
 {
 	t_hbranch	*new;
@@ -89,7 +93,7 @@ t_hbranch	*add_slider(t_hbranch *parent_branch, float *value,
 	new->type = SLIDER;
 	new->precompute = precompute_slider;
 	new->render = (void (*)(t_hbranch *, void *))render_slider;
-	create_slider(new, value, start, stop);
+	create_slider(new, ptr, start, stop);
 	if (!add_slider_start_text(new) || !add_slider_end_text(new))
 		return (nul_error(pack_err(MLXUI_ID, MLXUI_E_ABR), FL, LN, FC));
 	if (add_func_button_hook(new->head->mlx_data, MLCLICK,
