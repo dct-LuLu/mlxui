@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/15 08:32:38 by jaubry--          #+#    #+#             */
-/*   Updated: 2026/02/18 09:19:53 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/02/18 10:11:55 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ typedef struct s_colorpicker
 {
 	union
 	{
-		struct __attribute__((packed))
+		struct
 		{
 			t_anchor		anchor;
 			struct

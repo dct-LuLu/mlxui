@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 03:07:04 by jaubry--          #+#    #+#             */
-/*   Updated: 2026/02/18 09:22:34 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/02/18 10:11:25 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ typedef struct s_select
 {
 	union
 	{
-		struct __attribute__((packed))
+		struct
 		{
 			t_anchor	anchor;
 			struct

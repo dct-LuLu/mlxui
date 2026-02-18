@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 12:11:25 by jaubry--          #+#    #+#             */
-/*   Updated: 2026/02/18 09:19:18 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/02/18 10:12:00 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ typedef struct s_checkbox
 {
 	union
 	{
-		struct __attribute__((packed))
+		struct
 		{
 			t_anchor	anchor;
 			struct

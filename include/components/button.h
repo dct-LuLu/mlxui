@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/26 21:51:51 by jaubry--          #+#    #+#             */
-/*   Updated: 2026/02/18 09:18:15 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/02/18 10:12:14 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ typedef struct s_button
 {
 	union
 	{
-		struct __attribute__((packed))
+		struct
 		{
 			t_anchor	anchor;
 			struct

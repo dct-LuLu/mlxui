@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 12:10:07 by jaubry--          #+#    #+#             */
-/*   Updated: 2026/01/09 17:12:55 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/02/18 10:09:00 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ typedef enum e_text_vert_align
 
 typedef struct s_textbox
 {
-	struct __attribute__((packed))
+	struct
 	{
 		t_anchor			anchor;
 		struct

@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/21 19:12:53 by jaubry--          #+#    #+#             */
-/*   Updated: 2026/02/18 09:22:00 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/02/18 10:11:32 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 typedef struct s_scrollbox
 {
-	struct __attribute__((packed))
+	struct
 	{
 		t_anchor	anchor;
 		struct

@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/12 15:33:04 by jaubry--          #+#    #+#             */
-/*   Updated: 2026/02/10 10:23:31 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/02/18 10:11:38 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 typedef struct s_image
 {
-	struct __attribute__((packed))
+	struct
 	{
 		t_anchor	anchor;
 		struct

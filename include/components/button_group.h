@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/27 19:32:46 by jaubry--          #+#    #+#             */
-/*   Updated: 2026/01/09 16:58:13 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/02/18 10:12:06 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ typedef enum e_group_type
 
 typedef struct s_button_group
 {
-	struct __attribute__((packed))
+	struct
 	{
 		t_anchor	anchor;
 		struct

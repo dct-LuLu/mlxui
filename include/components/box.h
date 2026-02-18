@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 18:34:58 by jaubry--          #+#    #+#             */
-/*   Updated: 2026/01/09 16:56:20 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/02/18 10:12:19 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ typedef struct s_corner
 
 typedef struct s_box
 {
-	struct __attribute__((packed))
+	struct
 	{
 		t_anchor	anchor;
 		struct
