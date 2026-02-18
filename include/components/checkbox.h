@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 12:11:25 by jaubry--          #+#    #+#             */
-/*   Updated: 2026/02/10 09:47:22 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/02/18 09:19:18 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,9 @@ typedef struct s_checkbox
 			t_hbranch	*_in_scrollbox;
 		};
 		t_box			box;
-		void			(*_hook_click)(t_vec2i, t_maction, void*, t_mlx*);
+		//void			(*_hook_click)(t_vec2i, t_maction, void*, t_mlx*); WTF??
 	};
+	ssize_t				_event_click_idx;
 	bool				*checked;
 }						t_checkbox;
 

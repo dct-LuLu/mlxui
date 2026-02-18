@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/15 04:57:53 by jaubry--          #+#    #+#             */
-/*   Updated: 2026/02/17 09:25:07 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/02/18 09:23:14 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ typedef struct s_slider
 	t_vec2i			_bar_start;
 	t_vec2i			_bar_end;
 	t_vec2i			_knob_pos;
+	ssize_t			_event_click_idx;
+	ssize_t			_event_move_idx;
 	float			start;
 	float			stop;
 	float			step;
@@ -60,8 +62,6 @@ typedef struct s_slider
 	float			*ptr;
 	t_hbranch		*start_text;
 	t_hbranch		*end_text;
-	void			(*_hook_drag)(t_vec2i, t_maction, void *, t_mlx *);
-	void			(*_hook_hover)(void *, t_mlx *);
 	union
 	{
 		struct

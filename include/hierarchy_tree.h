@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 16:09:49 by jaubry--          #+#    #+#             */
-/*   Updated: 2026/02/15 10:31:01 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/02/18 09:23:54 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ typedef struct s_hbranch
 		t_slider		slider;
 		t_colorpicker	colorpicker;
 	};
-	t_vector			*childs;
+	t_vector			*childs;// to move on top
 	t_hbranch			*parent;
 	t_htree				*head;
 }						t_hbranch;

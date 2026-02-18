@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/15 05:53:18 by jaubry--          #+#    #+#             */
-/*   Updated: 2026/02/17 09:35:13 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/02/18 09:51:14 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,6 @@ static inline void	create_slider(t_hbranch *new, float *ptr,
 		new->slider.value = start;
 	new->slider.linear_step = true;
 	new->slider._dragging = false;
-	new->slider._hook_drag = (void (*)(t_vec2i, t_maction, void *,
-			t_mlx *))hook_drag_slider;
-	new->slider._hook_hover = (void (*)(void *, t_mlx *))hook_hover_slider;
 }
 
 t_hbranch	*add_slider(t_hbranch *parent_branch, float *ptr,
@@ -96,11 +93,13 @@ t_hbranch	*add_slider(t_hbranch *parent_branch, float *ptr,
 	create_slider(new, ptr, start, stop);
 	if (!add_slider_start_text(new) || !add_slider_end_text(new))
 		return (nul_error(pack_err(MLXUI_ID, MLXUI_E_ABR), FL, LN, FC));
-	if (add_func_button_hook(new->head->mlx_data, MLCLICK,
-			new->slider._hook_drag, new) != 0)
+	new->slider._event_click_idx = add_func_button_hook(new->head->mlx_data, MLCLICK,
+		(void (*)(t_vec2i, t_maction, void *, t_mlx *))hook_drag_slider, new);
+	if (new->slider._event_click_idx < 0)
 		return (nul_error(pack_err(MLXW_ID, MLXW_E_EVENTH), FL, LN, FC));
-	if (add_func_move_hook(new->head->mlx_data,
-			new->slider._hook_hover, new) != 0)
+	new->slider._event_move_idx = add_func_move_hook(new->head->mlx_data,
+		(void (*)(void *, t_mlx *))hook_hover_slider, new);
+	if (new->slider._event_move_idx < 0)
 		return (nul_error(pack_err(MLXW_ID, MLXW_E_EVENTH), FL, LN, FC));
 	return (new);
 }

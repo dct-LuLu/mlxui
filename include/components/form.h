@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/13 17:18:05 by jaubry--          #+#    #+#             */
-/*   Updated: 2026/02/14 11:55:50 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/02/18 09:20:47 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,10 @@ typedef struct s_form
 	};
 	bool				focused;
 	t_form_type			form_type;
+	ssize_t				_event_click_idx;
+	ssize_t				_event_enter_idx;
+	ssize_t				_event_backspace_idx;
+	ssize_t				_event_typing_idx;
 	void				*value;
 	t_textbox			*form_text;
 	char				last_form_buf[FORM_BUF_SIZE];
@@ -84,10 +88,6 @@ typedef struct s_form
 	void				(*_btov)(void *value, const char buffer[FORM_BUF_SIZE]);
 	void				(*_vtob)(char buffer[FORM_BUF_SIZE], const void *value);
 	void				(*format_buf)(char buffer[FORM_BUF_SIZE]);
-	void				(*_hook_focus)(t_vec2i, t_maction, void *, t_mlx *);
-	void				(*_hook_enter)(void *, t_mlx *);
-	void				(*_hook_backspace)(void *, t_mlx *);
-	void				(*_hook_typing)(void *, t_mlx *);
 	union
 	{
 		struct

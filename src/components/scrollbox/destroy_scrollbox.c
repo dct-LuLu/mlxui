@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 10:03:41 by jaubry--          #+#    #+#             */
-/*   Updated: 2026/02/10 10:47:35 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/02/18 09:43:57 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@
 */
 void	destroy_scrollbox(t_hbranch *scrollbox)
 {
-	remove_button_hook_by_func(scrollbox->head->mlx_data,
-		scrollbox->scrollbox._hook_mwheelup);
-	remove_button_hook_by_func(scrollbox->head->mlx_data,
-		scrollbox->scrollbox._hook_mwheeldown);
+	remove_button_hook(scrollbox->head->mlx_data,
+		scrollbox->scrollbox._event_mwheelup_idx);
+	remove_button_hook(scrollbox->head->mlx_data,
+		scrollbox->scrollbox._event_mwheeldown_idx);
 	free(scrollbox->scrollbox._scroll_buffer.addr);
 }

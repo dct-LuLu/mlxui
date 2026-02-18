@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 03:07:04 by jaubry--          #+#    #+#             */
-/*   Updated: 2026/02/10 10:24:02 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/02/18 09:22:34 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,16 +60,16 @@ typedef struct s_select
 		};
 		t_button		button;
 	};
-	t_textbox			*selected;
 	bool				expanded;
 	size_t				option_index;
+	bool				nullable;
+	ssize_t				_event_click_idx;
+	t_textbox			*selected;
 	t_hbranch			*label_box;
 	t_hbranch			*expand;
 	t_hbranch			*margin;
 	t_vector			*options;
 	t_vector			*actions;
-	bool				nullable;
-	void				(*_hook_focus)(t_vec2i, t_maction, void *, t_mlx *);
 }						t_select;
 
 typedef void	(*t_option_action)(t_hbranch *hbranch, void *arg);

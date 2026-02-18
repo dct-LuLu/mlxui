@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 09:06:20 by jaubry--          #+#    #+#             */
-/*   Updated: 2026/02/10 10:22:22 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/02/18 09:32:00 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,6 @@
 */
 void	destroy_checkbox(t_hbranch *checkbox)
 {
-	remove_button_hook_by_func(checkbox->head->mlx_data,
-		checkbox->checkbox._hook_click);
+	remove_button_hook(checkbox->head->mlx_data,
+			checkbox->checkbox._event_click_idx);
 }

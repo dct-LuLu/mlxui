@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/15 08:32:38 by jaubry--          #+#    #+#             */
-/*   Updated: 2026/02/17 09:26:11 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/02/18 09:19:53 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,9 @@ typedef struct s_colorpicker
 	bool				_dragging;
 	t_vec2i				_circle_center;
 	t_vec2i				_knob_pos;
+	ssize_t				_event_click_idx;
+	ssize_t				_event_move_idx;
 	t_hbranch			*popup;
-	void				(*_hook_click)(t_vec2i, t_maction, void *, t_mlx *);
-	void				(*_hook_hover)(void *, t_mlx *);
 	union
 	{
 		struct
