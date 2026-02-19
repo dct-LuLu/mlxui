@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/26 21:54:23 by jaubry--          #+#    #+#             */
-/*   Updated: 2026/02/18 09:52:48 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/02/19 16:01:56 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,14 @@ t_hbranch	*add_button(t_hbranch *parent_branch,
 	new->precompute = precompute_box;
 	new->render = (void (*)(t_hbranch *, void *))render_box;
 	create_button(new, radius, border);
-	new->button._event_click_idx = add_func_button_hook(new->head->mlx_data, MLCLICK,
-			(void (*)(t_vec2i, t_maction, void *, t_mlx *))hook_click_button, new);
+	new->button._event_click_idx = add_func_button_hook(new->head->mlx_data,
+			MLCLICK,
+			(t_button_action *)hook_click_button,
+			new);
 	if (new->button._event_click_idx < 0)
 		return (nul_error(pack_err(MLXW_ID, MLXW_E_EVENTH), FL, LN, FC));
 	new->button._event_move_idx = add_func_move_hook(new->head->mlx_data,
-			(void (*)(void *, t_mlx *))hook_hover_button, new);
+			(t_move_action *)hook_hover_button, new);
 	if (new->button._event_move_idx < 0)
 		return (nul_error(pack_err(MLXW_ID, MLXW_E_EVENTH), FL, LN, FC));
 	return (new);

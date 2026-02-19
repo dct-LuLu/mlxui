@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/21 21:45:37 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/12/23 22:19:09 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/02/19 16:39:44 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	render_scrollbox(t_hbranch *hbranch, t_scrollbox *scrollbox)
 	if (hbranch->size.y >= scrollbox->inside->size.y)
 		scrollbox->_scroll_buffer.height = scrollbox->inside->size.y;
 	else
-	scrollbox->_scroll_buffer.height = hbranch->size.y;
+		scrollbox->_scroll_buffer.height = hbranch->size.y;
 	ft_mlx_img_aput(hbranch->img, hbranch->_lt, &scrollbox->_scroll_buffer);
 	scrollbox->_scroll_buffer.height = save_height;
 	scrollbox->_scroll_buffer.pixels = save_ptr;

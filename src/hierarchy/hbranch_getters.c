@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 06:17:58 by jaubry--          #+#    #+#             */
-/*   Updated: 2026/02/10 06:18:00 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/02/19 16:33:08 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,18 @@
 /*
 	Return the component associated with idx inside htree->refs
 */
-t_hbranch   *ref_at(t_htree *htree, size_t idx)
+t_hbranch	*ref_at(t_htree *htree, size_t idx)
 {
-    return (*(t_hbranch **)get_vector_value(&htree->refs, idx));
+	return (*(t_hbranch **)get_vector_value(&htree->refs, idx));
 }
 
 /*
-	Reads the index stored in the childs vector, and uses it to get the component in
-	htree->refs
+	Reads the index stored in the childs vector, and uses it to get
+	the component in htree->refs
 */
-t_hbranch   *get_hbranch_child_idx(t_hbranch *parent, size_t idx)
+t_hbranch	*get_hbranch_child_idx(t_hbranch *parent, size_t idx)
 {
-	size_t		ref_idx;
+	size_t	ref_idx;
 
 	ref_idx = *(size_t *)get_vector_value(parent->childs, idx);
 	return (ref_at(parent->head, ref_idx));

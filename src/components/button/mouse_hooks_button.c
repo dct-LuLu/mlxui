@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/27 03:48:37 by jaubry--          #+#    #+#             */
-/*   Updated: 2026/02/19 13:37:43 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/02/19 16:06:15 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ void	hook_click_button(t_vec2i pos, t_maction action,
 			hbranch->parent->button_group.switched_index
 				= get_hbranch_index(hbranch->parent->childs, hbranch);
 		if (hbranch->button.action3)
-			hbranch->button.action3(hbranch, hbranch->button.args3[0], hbranch->button.args3[1], hbranch->button.args3[2]);
+			hbranch->button.action3(hbranch, hbranch->button.args3[0],
+				hbranch->button.args3[1], hbranch->button.args3[2]);
 	}
 }
 

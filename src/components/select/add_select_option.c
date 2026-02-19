@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/06 12:37:12 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/12/23 22:39:43 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/02/19 16:54:17 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	select_option_wrapper(t_hbranch *hbranch, void *arg)
 	else
 	{
 		select->option_index = clicked_index;
-		ft_strlcpy(select->selected->content, 
+		ft_strlcpy(select->selected->content,
 			get_hbranch_child_idx(hbranch, 0)->textbox
 			.content, SELECT_LABEL_LEN);
 		switch_select_expand(hbranch->parent->parent->parent->parent, NULL);
@@ -56,7 +56,8 @@ static inline t_hbranch	*add_button_label(t_hbranch *select,
 			.fg = select->head->style.input}, LEFT_ALIGN, NO_WRAPPING);
 	if (!option_label)
 	{
-		register_complex_err_msg(MLXUI_E_MSG_FSCOMP, "choice entry label", "select");
+		register_complex_err_msg(MLXUI_E_MSG_FSCOMP, "choice entry label",
+			"select");
 		return (nul_error(pack_err(MLXUI_ID, MLXUI_E_FSCOMP), FL, LN, FC));
 	}
 	option_label->anchor = LT;
@@ -77,7 +78,8 @@ static inline t_hbranch	*add_button_option(t_hbranch *select,
 			(t_radius){.style = FULL_PX, .full = 11}, (t_border){});
 	if (!option)
 	{
-		register_complex_err_msg(MLXUI_E_MSG_FSCOMP, "choice entry button", "select");
+		register_complex_err_msg(MLXUI_E_MSG_FSCOMP,
+			"choice entry button", "select");
 		return (nul_error(pack_err(MLXUI_ID, MLXUI_E_FSCOMP), FL, LN, FC));
 	}
 	option->size = vec2i(192, 36);

@@ -6,7 +6,7 @@
 #    By: jaubry-- <jaubry--@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/02/15 05:55:35 by jaubry--          #+#    #+#              #
-#    Updated: 2026/02/15 08:03:29 by jaubry--         ###   ########.fr        #
+#    Updated: 2026/02/19 17:42:34 by jaubry--         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,7 @@ SLIDER_DIR	= $(COMPONENTS_DIR)/slider
 SLIDER_SRCS	= add_slider.c \
 			  render_slider.c \
 			  mouse_hooks_slider.c \
+			  mouse_hooks_slider_utils.c \
 			  destroy_slider.c \
 			  precompute_slider.c \
 			  slider_scale.c

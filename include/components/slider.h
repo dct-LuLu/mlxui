@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/15 04:57:53 by jaubry--          #+#    #+#             */
-/*   Updated: 2026/02/18 10:11:13 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/02/19 16:01:18 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,8 @@ typedef struct s_slider
 		};
 		struct
 		{
-			void		(*action3)(t_hbranch *hbranch, void *arg1, void *arg2, void *arg3);
+			void		(*action3)(t_hbranch *hbranch, void *arg1,
+					void *arg2, void *arg3);
 			void		*args3[3];
 		};
 	};

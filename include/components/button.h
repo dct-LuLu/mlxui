@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/26 21:51:51 by jaubry--          #+#    #+#             */
-/*   Updated: 2026/02/18 10:12:14 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/02/19 16:01:06 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,8 @@ typedef struct s_button
 		};
 		struct
 		{
-			void		(*action3)(t_hbranch *hbranch, void *arg1, void *arg2, void *arg3);
+			void		(*action3)(t_hbranch *hbranch, void *arg1,
+					void *arg2, void *arg3);
 			void		*args3[3];
 		};
 	};

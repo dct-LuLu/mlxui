@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/13 17:18:05 by jaubry--          #+#    #+#             */
-/*   Updated: 2026/02/18 10:11:47 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/02/19 16:01:26 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,8 @@ typedef struct s_form
 		};
 		struct
 		{
-			void		(*action3)(t_hbranch *hbranch, void *arg1, void *arg2, void *arg3);
+			void		(*action3)(t_hbranch *hbranch, void *arg1,
+					void *arg2, void *arg3);
 			void		*args3[3];
 		};
 	};

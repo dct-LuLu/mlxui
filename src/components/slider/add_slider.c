@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/15 05:53:18 by jaubry--          #+#    #+#             */
-/*   Updated: 2026/02/18 09:51:14 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/02/19 17:44:42 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ static inline t_hbranch	*add_slider_start_text(t_hbranch *new)
 	t_hbranch	*textbox;
 
 	textbox = add_textbox(new, (t_text){
-		.font_size = 2,
-		.fg = (t_rgba_int){.rgba = WHITE},
-	}, RIGHT_ALIGN, NO_WRAPPING);
+			.font_size = 2,
+			.fg = (t_rgba_int){.rgba = WHITE},
+		}, RIGHT_ALIGN, NO_WRAPPING);
 	if (!textbox)
 	{
 		register_complex_err_msg(MLXUI_E_MSG_FSCOMP, "start textbox", "slider");
@@ -36,9 +36,9 @@ static inline t_hbranch	*add_slider_end_text(t_hbranch *new)
 	t_hbranch	*textbox;
 
 	textbox = add_textbox(new, (t_text){
-		.font_size = 2,
-		.fg = (t_rgba_int){.rgba = WHITE},
-	}, LEFT_ALIGN, NO_WRAPPING);
+			.font_size = 2,
+			.fg = (t_rgba_int){.rgba = WHITE},
+		}, LEFT_ALIGN, NO_WRAPPING);
 	if (!textbox)
 	{
 		register_complex_err_msg(MLXUI_E_MSG_FSCOMP, "end textbox", "slider");
@@ -93,12 +93,12 @@ t_hbranch	*add_slider(t_hbranch *parent_branch, float *ptr,
 	create_slider(new, ptr, start, stop);
 	if (!add_slider_start_text(new) || !add_slider_end_text(new))
 		return (nul_error(pack_err(MLXUI_ID, MLXUI_E_ABR), FL, LN, FC));
-	new->slider._event_click_idx = add_func_button_hook(new->head->mlx_data, MLCLICK,
-		(void (*)(t_vec2i, t_maction, void *, t_mlx *))hook_drag_slider, new);
+	new->slider._event_click_idx = add_func_button_hook(new->head->mlx_data,
+			MLCLICK, (t_button_action *)hook_drag_slider, new);
 	if (new->slider._event_click_idx < 0)
 		return (nul_error(pack_err(MLXW_ID, MLXW_E_EVENTH), FL, LN, FC));
 	new->slider._event_move_idx = add_func_move_hook(new->head->mlx_data,
-		(void (*)(void *, t_mlx *))hook_hover_slider, new);
+			(t_move_action *)hook_hover_slider, new);
 	if (new->slider._event_move_idx < 0)
 		return (nul_error(pack_err(MLXW_ID, MLXW_E_EVENTH), FL, LN, FC));
 	return (new);

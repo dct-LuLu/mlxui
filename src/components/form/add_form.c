@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/25 02:13:13 by jaubry--          #+#    #+#             */
-/*   Updated: 2026/02/18 09:40:15 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/02/19 16:57:11 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ static inline t_hbranch	*add_form_morpheme(t_hbranch *new, const char *morpheme)
 		}, LEFT_ALIGN, NO_WRAPPING);
 	if (!textbox)
 	{
-		register_complex_err_msg(MLXUI_E_MSG_FSCOMP, "morpheme textbox", "form");
+		register_complex_err_msg(MLXUI_E_MSG_FSCOMP, "morpheme textbox",
+			"form");
 		return (nul_error(pack_err(MLXUI_ID, MLXUI_E_FSCOMP), FL, LN, FC));
 	}
 	new->form.morpheme = &textbox->textbox;
@@ -69,10 +70,6 @@ static inline void	create_form_box(t_hbranch *new)
 	new->form.box.color = new->head->style.input;
 	new->form.box.border.color = new->head->style.border;
 }
-
-void	hook_form_typing(t_hbranch *hbranch, t_mlx *mlx_data);
-void	hook_form_enter(t_hbranch *hbranch, t_mlx *mlx_data);
-void	hook_form_backspace(t_hbranch *hbranch, t_mlx *mlx_data);
 
 static inline t_hbranch	*create_form(t_hbranch *new, void *value,
 						t_form_type type, const char *morpheme)
@@ -101,6 +98,8 @@ static inline t_hbranch	*create_form(t_hbranch *new, void *value,
 	return (new);
 }
 
+t_hbranch	*create_form_hooks(t_hbranch *form);
+
 t_hbranch	*add_form(t_hbranch *parent_branch, void *value,
 				t_form_type type, const char *morpheme)
 {
@@ -114,21 +113,5 @@ t_hbranch	*add_form(t_hbranch *parent_branch, void *value,
 	new->type = FORM;
 	new->precompute = precompute_form;
 	new->render = (void (*)(t_hbranch *, void *))render_box;
-	new->form._event_click_idx = add_func_button_hook(new->head->mlx_data, MLCLICK,
-		(void (*)(t_vec2i, t_maction, void *, t_mlx *))hook_focus_form, new);
-	if (new->form._event_click_idx < 0)
-		return (nul_error(pack_err(MLXW_ID, MLXW_E_EVENTH), FL, LN, FC));
-	new->form._event_enter_idx = add_func_key_hook(new->head->mlx_data, is_enter_key,
-		(void (*)(void *, t_mlx *))hook_form_enter, new);
-	if (new->form._event_enter_idx < 0)
-		return (nul_error(pack_err(MLXW_ID, MLXW_E_EVENTH), FL, LN, FC));
-	new->form._event_backspace_idx = add_func_skey_hook(new->head->mlx_data, XK_BackSpace,
-		(void (*)(void *, t_mlx *))hook_form_backspace, new);
-	if (new->form._event_backspace_idx < 0)
-		return (nul_error(pack_err(MLXW_ID, MLXW_E_EVENTH), FL, LN, FC));
-	new->form._event_typing_idx = add_func_key_hook(new->head->mlx_data, is_form_typing_key,
-		(void (*)(void *, t_mlx *))hook_form_typing, new);
-	if (new->form._event_typing_idx < 0)
-		return (nul_error(pack_err(MLXW_ID, MLXW_E_EVENTH), FL, LN, FC));
-	return (new);
+	return (create_form_hooks(new));
 }

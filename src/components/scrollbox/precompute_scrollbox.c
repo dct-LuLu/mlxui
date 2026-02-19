@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/21 20:46:16 by jaubry--          #+#    #+#             */
-/*   Updated: 2026/02/13 00:58:08 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/02/19 16:39:59 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,8 @@ int	precompute_scrollbox(t_hbranch *hbranch)
 	scroll_buf->width = hbranch->scrollbox.inside->size.x;
 	scroll_buf->channels = 4;
 	scroll_buf->line_len = scroll_buf->width * scroll_buf->channels;
-	scroll_buf->pixels = ft_calloc(scroll_buf->height * scroll_buf->line_len, sizeof(uint8_t));
+	scroll_buf->pixels = ft_calloc(scroll_buf->height
+			* scroll_buf->line_len, sizeof(uint8_t));
 	if (!scroll_buf->pixels)
 		return (1);
 	precompute_scrollbar(hbranch);

@@ -6,7 +6,7 @@
 #    By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/29 18:59:02 by jaubry--          #+#    #+#              #
-#    Updated: 2026/02/10 06:17:30 by jaubry--         ###   ########.fr        #
+#    Updated: 2026/02/19 16:25:49 by jaubry--         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,7 @@ HIERARCHY_DIR	= $(SRCDIR)/hierarchy
 HIERARCHY_SRCS	= init_hierarchy.c \
 				  precompute_hierarchy.c \
 				  render_hierarchy.c \
+				  destroy_component.c \
 				  destroy_hierarchy.c \
 				  hbranch_getters.c \
 				  hbranch_iterators.c \

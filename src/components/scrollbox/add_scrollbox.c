@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/21 20:27:28 by jaubry--          #+#    #+#             */
-/*   Updated: 2026/02/18 09:43:12 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/02/19 16:41:46 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,21 @@ static inline t_hbranch	*create_scrollbox(t_hbranch *new)
 	return (new->scrollbox.inside);
 }
 
+static inline t_hbranch	*create_scrollbox_hooks(t_hbranch *scrollbox)
+{
+	scrollbox->scrollbox._event_mwheelup_idx = add_func_button_hook(
+			scrollbox->head->mlx_data, MWHEELUP,
+			(t_button_action *)hook_scrollup_scrollbox, scrollbox);
+	if (scrollbox->scrollbox._event_mwheelup_idx < 0)
+		return (nul_error(pack_err(MLXW_ID, MLXW_E_EVENTH), FL, LN, FC));
+	scrollbox->scrollbox._event_mwheeldown_idx = add_func_button_hook(
+			scrollbox->head->mlx_data, MWHEELDOWN,
+			(t_button_action *)hook_scrolldown_scrollbox, scrollbox);
+	if (scrollbox->scrollbox._event_mwheeldown_idx < 0)
+		return (nul_error(pack_err(MLXW_ID, MLXW_E_EVENTH), FL, LN, FC));
+	return (scrollbox);
+}
+
 t_hbranch	*add_scrollbox(t_hbranch *parent_branch)
 {
 	t_hbranch	*new;
@@ -73,13 +88,5 @@ t_hbranch	*add_scrollbox(t_hbranch *parent_branch)
 		register_complex_err_msg(MLXUI_E_MSG_FSCOMP, "scrollbar", "scrollbox");
 		return (nul_error(pack_err(MLXUI_ID, MLXUI_E_FSCOMP), FL, LN, FC));
 	}
-	new->scrollbox._event_mwheelup_idx = add_func_button_hook(new->head->mlx_data, MWHEELUP,
-		(void (*)(t_vec2i, t_maction, void *, t_mlx *))hook_scrollup_scrollbox, new);
-	if (new->scrollbox._event_mwheelup_idx < 0)
-		return (nul_error(pack_err(MLXW_ID, MLXW_E_EVENTH), FL, LN, FC));
-	new->scrollbox._event_mwheeldown_idx = add_func_button_hook(new->head->mlx_data, MWHEELDOWN,
-		(void (*)(t_vec2i, t_maction, void *, t_mlx *))hook_scrolldown_scrollbox, new);
-	if (new->scrollbox._event_mwheeldown_idx < 0)
-		return (nul_error(pack_err(MLXW_ID, MLXW_E_EVENTH), FL, LN, FC));
-	return (new);
+	return (create_scrollbox_hooks(new));
 }

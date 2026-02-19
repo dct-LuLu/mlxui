@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 16:09:49 by jaubry--          #+#    #+#             */
-/*   Updated: 2026/02/18 10:14:06 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/02/19 15:59:30 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,8 +102,8 @@ typedef struct s_htree
 	t_mlx		*mlx_data;
 	t_style		style;
 	t_hbranch	*body;
-	t_vector	refs;// t_hbranch* (stable, never shrinks)
-	t_vector	free_slots;	 // size_t (reasable indices)
+	t_vector	refs;
+	t_vector	free_slots;
 }				t_htree;
 
 t_htree		init_htree(t_mlx *mlx_data, t_style style);
@@ -122,8 +122,8 @@ int			precompute_hierarchy(t_htree *htree);
 void		release_slot(t_htree *htree, size_t idx);
 size_t		alloc_slot(t_htree *htree);
 
-t_hbranch   *ref_at(t_htree *htree, size_t idx);
-t_hbranch   *get_hbranch_child_idx(t_hbranch *parent, size_t idx);
+t_hbranch	*ref_at(t_htree *htree, size_t idx);
+t_hbranch	*get_hbranch_child_idx(t_hbranch *parent, size_t idx);
 ssize_t		get_hbranch_index(t_vector *v, t_hbranch *hbranch);
 
 int			get_hbranch_max(size_t field_offset, t_hbranch *hbranch);

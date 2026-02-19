@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/15 07:56:02 by jaubry--          #+#    #+#             */
-/*   Updated: 2026/02/15 07:56:21 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/02/19 17:40:22 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,3 @@ float	ratio_to_value_log(t_slider *slider, float ratio)
 	log_value = log_start + (ratio * (log_stop - log_start));
 	return (expf(log_value));
 }
-

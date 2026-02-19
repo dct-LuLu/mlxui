@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/15 08:31:00 by jaubry--          #+#    #+#             */
-/*   Updated: 2026/02/17 17:50:46 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/02/19 17:02:39 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,28 @@ static inline void	update_color_from_pos(t_hbranch *hbranch, t_vec2i pos)
 	compute_colorpicker_knob_position(hbranch);
 }
 
+static inline void	hook_click_press(t_vec2i pos, t_vec2i realpos,
+						t_hbranch *hbranch)
+{
+	if (is_inside_comp(hbranch, pos))
+	{
+		hbranch->colorpicker.popup->visible = true;
+		hbranch->colorpicker.popup_open
+			= !hbranch->colorpicker.popup_open;
+		if (hbranch->colorpicker.popup_open)
+			compute_colorpicker_knob_position(hbranch);
+	}
+	else if (hbranch->colorpicker.popup_open
+		&& is_inside_circle(hbranch, realpos))
+	{
+		hbranch->colorpicker._dragging = true;
+		update_color_from_pos(hbranch, realpos);
+	}
+	else if (hbranch->colorpicker.popup_open
+		&& !is_inside_circle(hbranch, realpos))
+		hbranch->colorpicker.popup_open = false;
+}
+
 void	hook_click_colorpicker(t_vec2i pos, t_maction action,
 	t_hbranch *hbranch, t_mlx *mlx_data)
 {
@@ -55,30 +77,12 @@ void	hook_click_colorpicker(t_vec2i pos, t_maction action,
 		return ;
 	realpos = get_absolute_pos(hbranch, mlx_data->mouse_input.pos);
 	if (action == MPRESS)
-	{
-		if (is_inside_comp(hbranch, pos))
-		{
-			hbranch->colorpicker.popup->visible = true;
-			hbranch->colorpicker.popup_open
-				= !hbranch->colorpicker.popup_open;
-			if (hbranch->colorpicker.popup_open)
-				compute_colorpicker_knob_position(hbranch);
-		}
-		else if (hbranch->colorpicker.popup_open
-			&& is_inside_circle(hbranch, realpos))
-		{
-			hbranch->colorpicker._dragging = true;
-			update_color_from_pos(hbranch, realpos);
-		}
-		else if (hbranch->colorpicker.popup_open
-			&& !is_inside_circle(hbranch, realpos))
-			hbranch->colorpicker.popup_open = false;
-	}
+		hook_click_press(pos, realpos, hbranch);
 	else if (action == MRELEASE)
 	{
 		if (hbranch->colorpicker._dragging && hbranch->colorpicker.action3)
 			hbranch->colorpicker.action3(hbranch, hbranch->colorpicker.args3[0],
-			hbranch->colorpicker.args3[1], hbranch->colorpicker.args3[2]);
+				hbranch->colorpicker.args3[1], hbranch->colorpicker.args3[2]);
 		hbranch->colorpicker._dragging = false;
 	}
 }

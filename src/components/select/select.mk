@@ -6,7 +6,7 @@
 #    By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/06 09:24:54 by jaubry--          #+#    #+#              #
-#    Updated: 2026/02/10 10:47:04 by jaubry--         ###   ########.fr        #
+#    Updated: 2026/02/19 16:53:33 by jaubry--         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,7 @@ SELECT_DIR	= $(COMPONENTS_DIR)/select
 
 # Source files
 SELECT_SRCS	= add_select.c \
+			  add_select_expand.c \
 			  add_select_option.c \
 			  render_select.c \
 			  mouse_hooks_select.c \

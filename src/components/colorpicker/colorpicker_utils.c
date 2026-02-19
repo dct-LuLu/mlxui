@@ -6,12 +6,11 @@
 /*   By: jaubry-- <jaubry--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/15 08:31:00 by jaubry--          #+#    #+#             */
-/*   Updated: 2026/02/15 09:49:19 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/02/19 16:59:43 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "hierarchy_tree.h"
-
 
 static inline t_rgb	get_rgb_from_sector(int h_sector, float c, float x)
 {
