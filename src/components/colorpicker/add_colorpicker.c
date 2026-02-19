@@ -25,7 +25,7 @@ static inline t_hbranch	*add_colorpicker_popup(t_hbranch *new)
 	popup->type = COLORPICKER_POPUP;
 	popup->visible = false;
 	popup->anchor = RIGHT;
-	popup->render = (void (*)(t_hbranch *, void *))render_colorpicker_popup;
+	popup->render = (t_action *)render_colorpicker_popup;
 	new->colorpicker.popup = popup;
 	return (popup);
 }
@@ -57,7 +57,7 @@ t_hbranch	*add_colorpicker(t_hbranch *parent_branch, t_rgb rgb)
 		return (nul_error(pack_err(MLXUI_ID, MLXUI_E_ABR), FL, LN, FC));
 	new->type = COLORPICKER;
 	new->precompute = precompute_colorpicker;
-	new->render = (void (*)(t_hbranch *, void *))render_colorpicker_preview;
+	new->render = (t_action *)render_colorpicker_preview;
 	create_colorpicker_box(new);
 	create_colorpicker(new, rgb);
 	if (!add_colorpicker_popup(new))

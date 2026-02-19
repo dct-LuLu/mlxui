@@ -38,6 +38,6 @@ t_hbranch	*add_textbox(t_hbranch *parent_branch, t_text text,
 	create_textbox(new, text, horz_align, wrapping);
 	new->type = TEXTBOX;
 	new->precompute = precompute_textbox;
-	new->render = (void (*)(t_hbranch *, void *))render_textbox;
+	new->render = (t_action *)render_textbox;
 	return (new);
 }

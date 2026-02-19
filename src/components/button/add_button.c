@@ -30,7 +30,7 @@ t_hbranch	*add_button(t_hbranch *parent_branch,
 		return (nul_error(pack_err(MLXUI_ID, MLXUI_E_ABR), FL, LN, FC));
 	new->type = BUTTON;
 	new->precompute = precompute_box;
-	new->render = (void (*)(t_hbranch *, void *))render_box;
+	new->render = (t_action *)render_box;
 	create_button(new, radius, border);
 	new->button._event_click_idx = add_func_button_hook(new->head->mlx_data,
 			MLCLICK,

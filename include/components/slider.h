@@ -66,18 +66,17 @@ typedef struct s_slider
 	{
 		struct
 		{
-			void		(*action)(t_hbranch *hbranch, void *arg);
+			t_action	*action;
 			void		*arg;
 		};
 		struct
 		{
-			void		(*action2)(t_hbranch *hbranch, void *arg1, void *arg2);
+			t_action2	*action2;
 			void		*args2[2];
 		};
 		struct
 		{
-			void		(*action3)(t_hbranch *hbranch, void *arg1,
-					void *arg2, void *arg3);
+			t_action3	*action3;
 			void		*args3[3];
 		};
 	};

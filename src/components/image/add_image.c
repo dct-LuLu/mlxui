@@ -38,7 +38,7 @@ t_hbranch	*add_image(t_hbranch *parent_branch, const char *path)
 	if (!new)
 		return (nul_error(pack_err(MLXUI_ID, MLXUI_E_ABR), FL, LN, FC));
 	new->type = IMAGE;
-	new->render = (void (*)(t_hbranch *, void *))render_image;
+	new->render = (t_action *)render_image;
 	if (create_image(new, path) != 0)
 		return (nul_error(pack_err(MLXUI_ID, MLXUI_E_FIMG), FL, LN, FC));
 	return (new);

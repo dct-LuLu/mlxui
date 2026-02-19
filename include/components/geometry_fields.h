@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 19:57:51 by jaubry--          #+#    #+#             */
-/*   Updated: 2026/02/15 08:47:11 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/02/19 20:03:55 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,10 @@
 
 typedef struct s_hbranch	t_hbranch;
 typedef struct s_htree		t_htree;
+
+typedef void				t_action(t_hbranch *, void *);
+typedef void				t_action2(t_hbranch *, void *, void *);
+typedef void				t_action3(t_hbranch *, void *, void *, void *);
 
 typedef enum e_component_type
 {

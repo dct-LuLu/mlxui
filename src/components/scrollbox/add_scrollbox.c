@@ -77,7 +77,7 @@ t_hbranch	*add_scrollbox(t_hbranch *parent_branch)
 		return (nul_error(pack_err(MLXUI_ID, MLXUI_E_ABR), FL, LN, FC));
 	new->type = SCROLLBOX;
 	new->precompute = precompute_scrollbox;
-	new->render = (void (*)(t_hbranch *, void *))render_clear_scrollbox;
+	new->render = (t_action *)render_clear_scrollbox;
 	if (!create_scrollbox(new))
 	{
 		register_complex_err_msg(MLXUI_E_MSG_FSCOMP, "inner box", "scrollbox");

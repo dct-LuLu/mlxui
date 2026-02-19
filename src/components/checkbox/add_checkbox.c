@@ -36,7 +36,7 @@ t_hbranch	*add_checkbox(t_hbranch *parent_branch, bool *checked)
 		return (nul_error(pack_err(MLXUI_ID, MLXUI_E_ABR), FL, LN, FC));
 	new->type = CHECKBOX;
 	new->precompute = precompute_box;
-	new->render = (void (*)(t_hbranch *, void *))render_checkbox;
+	new->render = (t_action *)render_checkbox;
 	create_checkbox(new, checked);
 	new->checkbox._event_click_idx = add_func_button_hook(new->head->mlx_data,
 			MLCLICK,

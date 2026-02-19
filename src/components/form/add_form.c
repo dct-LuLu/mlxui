@@ -112,6 +112,6 @@ t_hbranch	*add_form(t_hbranch *parent_branch, void *value,
 		return (NULL);
 	new->type = FORM;
 	new->precompute = precompute_form;
-	new->render = (void (*)(t_hbranch *, void *))render_box;
+	new->render = (t_action *)render_box;
 	return (create_form_hooks(new));
 }

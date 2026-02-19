@@ -30,6 +30,6 @@ t_hbranch	*add_box(t_hbranch *parent_branch, t_radius radius, t_border border)
 	create_box(new, radius, border);
 	new->type = BOX;
 	new->precompute = precompute_box;
-	new->render = (void (*)(t_hbranch *, void *))render_box;
+	new->render = (t_action *)render_box;
 	return (new);
 }

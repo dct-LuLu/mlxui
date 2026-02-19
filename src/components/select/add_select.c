@@ -62,7 +62,7 @@ t_hbranch	*add_select(t_hbranch *parent_branch,
 		return (nul_error(pack_err(MLXUI_ID, MLXUI_E_FSCOMP), FL, LN, FC));
 	}
 	new->type = SELECT;
-	new->render = (void (*)(t_hbranch *, void *))render_select;
+	new->render = (t_action *)render_select;
 	new->select.button.box.size = vec2i(200, 36);
 	new->select.button.action = switch_select_expand;
 	new->select._event_click_idx = add_func_button_hook(new->head->mlx_data,

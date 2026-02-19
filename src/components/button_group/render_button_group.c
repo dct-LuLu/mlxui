@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 19:04:04 by jaubry--          #+#    #+#             */
-/*   Updated: 2025/12/23 22:02:26 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/02/19 21:29:31 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ void	render_button_group_overlay(t_hbranch *hbranch)
 	t_hbranch	*switched;
 
 	if (hbranch->button_group.group_type == GROUP_DEFAULT)
+		return ;
+	if (hbranch->childs->num_elements <= hbranch->button_group.switched_index)
 		return ;
 	switched = get_hbranch_child_idx(hbranch,
 			hbranch->button_group.switched_index);

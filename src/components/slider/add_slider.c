@@ -89,7 +89,7 @@ t_hbranch	*add_slider(t_hbranch *parent_branch, float *ptr,
 		return (nul_error(pack_err(MLXUI_ID, MLXUI_E_ABR), FL, LN, FC));
 	new->type = SLIDER;
 	new->precompute = precompute_slider;
-	new->render = (void (*)(t_hbranch *, void *))render_slider;
+	new->render = (t_action *)render_slider;
 	create_slider(new, ptr, start, stop);
 	if (!add_slider_start_text(new) || !add_slider_end_text(new))
 		return (nul_error(pack_err(MLXUI_ID, MLXUI_E_ABR), FL, LN, FC));
