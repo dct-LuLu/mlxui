@@ -6,7 +6,7 @@
 /*   By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 13:56:06 by jaubry--          #+#    #+#             */
-/*   Updated: 2026/02/19 16:25:34 by jaubry--         ###   ########.fr       */
+/*   Updated: 2026/02/20 15:53:35 by jaubry--         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,17 +66,9 @@ void	delete_node(t_hbranch *hbranch)
 
 void	free_htree(t_htree *htree)
 {
-	size_t		i;
-	t_hbranch	*node;
-
-	i = 0;
-	while (i < htree->refs.num_elements)
-	{
-		node = ref_at(htree, i);
-		if (node)
-			free(node);
-		i++;
-	}
+	free_ttf(htree->style.font);
+	if (htree && htree->body)
+		delete_node(htree->body);
 	free_vector(&htree->refs);
 	free_vector(&htree->free_slots);
 }
