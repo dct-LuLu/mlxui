@@ -6,7 +6,7 @@
 #    By: jaubry-- <jaubry--@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/11 10:16:04 by jaubry--          #+#    #+#              #
-#    Updated: 2026/02/16 20:04:18 by jaubry--         ###   ########.fr        #
+#    Updated: 2026/09/06 21:45:12 by jaubry--         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -147,12 +147,6 @@ $(MLX):
 	@$(MAKE) -s -C $(MLXDIR) CC="$(MLX_GCC) $(if $(filter 1,$(FAST)),$(OFLAGS))" $(MUTE)
 	$(call mlx-finish-msg)
 
-
-buildmsg:
-ifneq ($(shell [ -f $(NAME) ] && echo exists),exists)
-	$(call lib-build-msg)
-endif
-
 help:
 	@echo "Available targets:"
 	@echo -e "\tall, $(NAME)\t\t: Build the library"
@@ -163,8 +157,6 @@ help:
 	@echo -e "\tfclean\t\t\t\t: Remove object files, libraries"
 	@echo
 	@echo -e "\tprint-%\t\t\t\t: Prints makefile variable content when replacing '%'"
-
-print-% : ; $(info $* is a $(flavor $*) variable set to [$($*)]) @true
 
 clean:
 	@$(MAKE) -s -C $(FONT_RENDIR) clean ROOTDIR=../..
@@ -177,9 +169,3 @@ fclean:
 	@rm -rf $(OBJDIR) $(DEPDIR)
 	$(call rm-lib-msg)
 	@rm -f $(NAME)
-
-
--include $(DEPS)
-
-.PHONY: all clean fclean
-.PHONY: help buildmsg print-%
